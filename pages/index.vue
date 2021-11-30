@@ -1,18 +1,21 @@
 <template>
   <div class="w-100">
-        <div
-          v-for="(song, i) of songs"
-          class="offset-md-0 col-md-12 offset-lg-3 col-lg-6 py-3"
-          :key="song.title + i"
-        >
-          <SongCard
-            :content="song.content"
-            :title="song.title"
-            :author="song.author"
-          />
-        </div>
-
+    <div
+      v-for="(song, i) of songs"
+      :key="song.title + i"
+    >
+      <div
+        class="offset-md-0 col-md-12 offset-lg-3 col-lg-6 py-3"
+      >
+        <SongCard
+          :song="song"
+        />
       </div>
+    </div>
+    <div>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -25,6 +28,8 @@ export default {
     return {
       songs: [
         {
+          _id: 'Thats ID',
+          url: 'https://google.com',
           title: "Štiri pesmi",
           author: "Tara Ferbežar Felgner",
           content: "kaj je to<br>" +
@@ -38,6 +43,8 @@ export default {
             "vznika"
         },
         {
+          _id: 'Thats ID',
+          url: 'https://google.com',
           title: "Tri pesmi",
           author: "Maja Miloševič Čustić",
           content: "Oče je palični mešalnik.<br>" +
@@ -47,6 +54,8 @@ export default {
             "Moj jezik je govorica grudic."
         },
         {
+          _id: 'Thats ID',
+          url: 'https://google.com',
           title: "Štiri pesmi",
           author: "Katarina Juvančič",
           content: "Izrezati žensko.<br>" +
@@ -62,7 +71,7 @@ export default {
   },
   methods: {
     async scrapeWebsite() {
-      
+
     }
   }
 }

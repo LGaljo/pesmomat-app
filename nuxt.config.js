@@ -11,16 +11,17 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ],
-
-    script: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
-        src: '/bootstrap.bundle.min.js',
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
       }
     ],
-
-
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -28,6 +29,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/click-outside.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,8 +42,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    'bootstrap-vue/nuxt'
-
+    'bootstrap-vue/nuxt',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -56,15 +57,24 @@ export default {
     //     })
     //   }
     // },
-    postcss: {
-      plugins: {
-        precss: {},
-        autoprefixer: {}
-      }
-    }
+    // postcss: {
+    //   // Add plugin names as key and arguments as value
+    //   // Install them before as dependencies with npm or yarn
+    //   plugins: {
+    //     // Disable a plugin by passing false as value
+    //     precss: {},
+    //     autoprefixer: {}
+    //   },
+    //   preset: {
+    //     // Change the postcss-preset-env settings
+    //     autoprefixer: {
+    //       // grid: true
+    //     }
+    //   }
+    // }
   },
   axios: {
-    https: true,
-    baseURL: 'http:/localhost:4444'
+    https: false,
+    baseURL: process.env.base_url || 'http://localhost:4400'
   }
 }
