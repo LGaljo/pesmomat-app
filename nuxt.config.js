@@ -43,6 +43,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
+    '@nuxtjs/toast',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -76,5 +77,18 @@ export default {
   axios: {
     https: false,
     baseURL: process.env.base_url || 'http://localhost:4400'
+  },
+  toast: {
+    position: 'top-right',
+    register: [
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
   }
+
 }

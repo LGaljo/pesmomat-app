@@ -3,11 +3,10 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Pesmomat</a>
-<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"-->
-<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--          <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
+        <a class="navbar-brand" href="/" @click="$router.push('/')">Pesmomat</a>
+        <div class="coin-amount">
+          {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>
+        </div>
       </div>
     </nav>
 
@@ -15,9 +14,39 @@
 </template>
 
 <script>
-export default {}
+import {mapState} from 'vuex'
+
+export default {
+  data() {
+    return {
+      amount: 1
+    }
+  },
+  computed: mapState([
+    'coins'
+  ]),
+  async created() {
+    await this.$store.dispatch('coins/set')
+    setInterval(async () => {
+      await this.$store.dispatch('coins/set')
+    }, 10000)
+  },
+  methods: {
+    async updateCoins() {
+
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-
+.coin-amount-icon {
+  vertical-align: bottom;
+  font-size: 28px !important;
+  color: goldenrod;
+}
+.coin-amount {
+  font-weight: 600;
+  font-size: 18px !important;
+}
 </style>

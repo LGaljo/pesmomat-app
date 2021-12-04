@@ -20,7 +20,6 @@ import navbar from "../components/navbar";
 export default {
   components: {navbar},
 }
-
 </script>
 
 <style lang="scss" scoped>

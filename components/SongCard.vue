@@ -24,7 +24,7 @@
     <QRModal
       v-if="showQR"
       @close="showQR = false"
-      :url="song.url"
+      :url="song.url || 'http://vrabecanarhist.eu/'"
     ></QRModal>
   </div>
 </template>
@@ -48,6 +48,27 @@ export default {
   methods: {
     async printAction() {
       await this.$axios.post(`/raspberrypi/print?songId=${this.song._id}`)
+      .then(async (res) => {
+        console.log(res)
+        switch (res.data.message) {
+          case 'Insufficient funds':
+            this.$toast.error('Nezadostno število žetonov', { duration: 2000 })
+            break;
+          case 'Song does not exist':
+            this.$toast.error('Pesem ne obstaja', { duration: 2000 })
+            break;
+          case 'Printing':
+            this.$toast.success('Uspešno dodano v čakalno vrsto za tiskanje', { duration: 2000 })
+            break;
+          default:
+            this.$toast.error('Napaka pri tiskanju', { duration: 2000 })
+            break;
+        }
+        await this.$store.dispatch('coins/set')
+      })
+      .catch(res => {
+        console.log(res)
+      })
     },
   }
 }
