@@ -3,7 +3,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/" @click="$router.push('/')">Pesmomat</a>
+        <nuxt-link class="navbar-brand" href="/" to="/">Pesmomat</nuxt-link>
+        <nuxt-link class="nav-item nav-link link" to="/add">Dodaj pesem</nuxt-link>
         <div class="coin-amount">
           {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>
         </div>
@@ -45,5 +46,13 @@ export default {
 .coin-amount {
   font-weight: 600;
   font-size: 18px !important;
+}
+.link {
+  color: #c7c7c7;
+  margin-right: auto;
+  margin-left: 12px;
+}
+.link:hover {
+  color: #808080;
 }
 </style>
