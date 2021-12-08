@@ -18,7 +18,6 @@ export const actions = {
   async set({ commit }) {
     await this.$axios.$get('/tokens')
       .then(res => {
-        console.log(res)
         commit('set', res.amount)
       })
       .catch(res => {

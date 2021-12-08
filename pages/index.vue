@@ -32,8 +32,7 @@ export default {
 
   },
   async created() {
-    console.log('get songs')
-    await this.$axios.$get('/songs')
+    this.$axios.$get('/songs')
       .then(res => {
         console.log(res)
         if (res.length) {

@@ -32,9 +32,6 @@ export default {
     }, 10000)
   },
   methods: {
-    async updateCoins() {
-
-    }
   }
 }
 </script>
