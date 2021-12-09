@@ -92,7 +92,6 @@ export default {
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
-          console.log(res);
           this.$toast.success('Pesem uspešno dodana', { duration: 2000 });
           this.$refs.form.title = '';
           this.$refs.form.author = '';

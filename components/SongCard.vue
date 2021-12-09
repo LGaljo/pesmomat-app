@@ -60,7 +60,6 @@ export default {
     async printAction() {
       await this.$axios.post(`/raspberrypi/print?songId=${this.song._id}`)
         .then(async (res) => {
-          console.log(res)
           switch (res.data.message) {
             case 'Insufficient funds':
               this.$toast.error('Nezadostno število žetonov', {duration: 2000})

@@ -34,7 +34,6 @@ export default {
   async created() {
     this.$axios.$get('/songs')
       .then(res => {
-        console.log(res)
         if (res.length) {
           this.songs.push(...res);
         }
