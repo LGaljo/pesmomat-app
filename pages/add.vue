@@ -88,12 +88,16 @@ export default {
       this.song.title = this.$refs.form.title.value;
       this.song.author = this.$refs.form.author.value;
       this.song.content = this.$refs.form.content.value.replaceAll('\n', '<br>');
-      this.song.url = this.$refs.form.title.url;
+      this.song.url = this.$refs.form.url.value;
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
           console.log(res);
           this.$toast.success('Pesem uspešno dodana', { duration: 2000 });
+          this.$refs.form.title = '';
+          this.$refs.form.author = '';
+          this.$refs.form.content = '';
+          this.$refs.form.url = '';
         })
         .catch(rej => {
           console.error(rej);
