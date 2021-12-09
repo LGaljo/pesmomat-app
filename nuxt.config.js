@@ -4,6 +4,10 @@ export default {
     port: 3000
   },
 
+  env: {
+    apiUrl: process.env.apiUrl || 'http://localhost:4400'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Pesmomat',
@@ -53,47 +57,15 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    // extend(config, ctx) {
-    //   if (ctx.isDev && ctx.isClient) {
-    //     config.module.rules.push({
-    //       enforce: 'pre',
-    //       test: /\.(js|vue)$/,
-    //       loader: 'eslint-loader',
-    //       exclude: /(node_modules)/
-    //     })
-    //   }
-    // },
-    // postcss: {
-    //   // Add plugin names as key and arguments as value
-    //   // Install them before as dependencies with npm or yarn
-    //   plugins: {
-    //     // Disable a plugin by passing false as value
-    //     precss: {},
-    //     autoprefixer: {}
-    //   },
-    //   preset: {
-    //     // Change the postcss-preset-env settings
-    //     autoprefixer: {
-    //       // grid: true
-    //     }
-    //   }
-    // }
   },
+
   axios: {
     https: false,
     baseURL: process.env.base_url || 'http://localhost:4400'
   },
+
   toast: {
     position: 'top-right',
-    register: [
-      {
-        name: 'my-error',
-        message: 'Oops...Something went wrong',
-        options: {
-          type: 'error'
-        }
-      }
-    ]
   }
 
 }

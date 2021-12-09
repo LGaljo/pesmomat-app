@@ -26,7 +26,7 @@
           record_voice_over
         </span>
         <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer">
-          <source :src="`http://localhost:4400/songs/play/${song._id}`" type="audio/mpeg">
+          <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
           Your browser does not support the audio tag.
         </audio>
       </div>
@@ -54,6 +54,11 @@ export default {
     return {
       showQR: false,
       playing: false,
+    }
+  },
+  computed: {
+    apiUrl() {
+      return process.env.apiUrl
     }
   },
   methods: {
