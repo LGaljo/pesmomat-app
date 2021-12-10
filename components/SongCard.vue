@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     apiUrl() {
-      return process.env.apiUrl
+      return this.$route.query.apiUrl || process.env.apiUrl
     }
   },
   methods: {
