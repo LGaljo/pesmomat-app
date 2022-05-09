@@ -3,6 +3,11 @@
 ## Build Setup
 
 ```bash
+# Clone repository
+$ git clone https://github.com/LGaljo/pesmomat-api
+```
+
+```bash
 # install dependencies
 $ npm install
 
@@ -22,4 +27,13 @@ $ npm run generate
 # Run 
 $ npm run start
 ```
-http://localhost:3000/?apiUrl=http%3A%2F%2Flocalhost%3A4400
+Page is accessible at url:  
+http://localhost:3000/?apiUrl=http%3A%2F%2Flocalhost%3A4400  
+The query parameter defines location of backend service
+
+## Use PM2 to run at startup
+```bash
+# Have pm2 installed
+pm2 start npm --name=pesmomat-app -- run start
+pm2 save
+```
