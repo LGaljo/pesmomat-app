@@ -17,4 +17,9 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Run
+```bash
+# Run 
+$ npm run start
+```
+http://localhost:3000/?apiUrl=http%3A%2F%2Flocalhost%3A4400
