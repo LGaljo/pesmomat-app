@@ -5,8 +5,7 @@ export default {
   },
 
   env: {
-    apiUrl: process.env.apiUrl || 'http://localhost:4400'
-    // apiUrl: process.env.apiUrl || 'http://192.168.34.217:4400'
+    base_url: process.env.base_url || 'http://localhost:4400'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -39,7 +38,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/click-outside.js',
+    '~/plugins/click-outside.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

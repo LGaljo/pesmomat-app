@@ -28,8 +28,7 @@ $ npm run generate
 $ npm run start
 ```
 Page is accessible at url:  
-http://localhost:3000/?apiUrl=http%3A%2F%2Flocalhost%3A4400  
-The query parameter defines location of backend service
+http://localhost:3000
 
 ## Use PM2 to run at startup
 ```bash

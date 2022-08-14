@@ -14,3 +14,21 @@
 @import '../../node_modules/bootstrap/scss/modal';
 
 @import '../../node_modules/bootstrap/scss/utilities';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fake-button:hover {
+  background: #dcdee1;
+  cursor: pointer;
+}
+
+.fake-button-card:hover {
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.nav-link {
+  color: #808080 !important;
+}

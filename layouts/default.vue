@@ -19,12 +19,6 @@ import navbar from "../components/navbar";
 
 export default {
   components: {navbar},
-  created() {
-    if (this.$route.query.apiUrl) {
-      console.log(this.$route.query.apiUrl)
-      this.$axios.setBaseURL(this.$route.query.apiUrl)
-    }
-  },
 }
 </script>
 

@@ -1,34 +1,36 @@
 <template>
-  <div>
+  <div v-if="song">
     <div class="card">
       <div class="card-body text-center">
         <h5 class="title">{{ song.title }}</h5>
-        <small class="author">{{ song.author }}</small>
+        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
         <p class="card-text mt-3 pb-3" v-html="song.content"></p>
 
-        <span
-          class="material-icons icon-button"
-          @click.stop.prevent="printAction"
-        >
-          print
-        </span>
-        <span
-          class="material-icons icon-button px-3"
-          @click="showQR = true"
-        >
-          qr_code_2
-        </span>
-        <span
-          class="material-icons icon-button"
-          @click="play"
-        >
-          record_voice_over
-        </span>
-        <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer">
-          <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
+        <div v-if="!hideActions">
+          <span
+            class="material-icons icon-button"
+            @click.stop.prevent="printAction"
+          >
+            print
+          </span>
+            <span
+              class="material-icons icon-button px-3"
+              @click="showQR = true"
+            >
+            qr_code_2
+          </span>
+            <span
+              class="material-icons icon-button"
+              @click="play"
+            >
+            record_voice_over
+          </span>
+            <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload="none">
+              <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio>
+        </div>
       </div>
     </div>
     <QRModal
@@ -49,6 +51,10 @@ export default {
   },
   props: {
     song: Object,
+    hideActions: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -58,7 +64,7 @@ export default {
   },
   computed: {
     apiUrl() {
-      return this.$route.query.apiUrl || process.env.apiUrl
+      return process.env.apiUrl
     }
   },
   methods: {

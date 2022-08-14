@@ -12,9 +12,6 @@
         />
       </div>
     </div>
-    <div>
-    </div>
-
   </div>
 </template>
 
@@ -41,7 +38,8 @@ export default {
       .catch(res => {
         this.$toast.error('Napaka pri pridobivanju pesmi', { duration: 10000 });
       })
-  }}
+  }
+}
 </script>
 
 <style lang="scss" scoped>
