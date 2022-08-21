@@ -1,20 +1,24 @@
 <template>
-  <b-col
+  <div
     @click="openSong()"
+    style="height: calc(100vh - 56px); max-height: calc(100vh - 56px);"
+    class="d-flex flex-row align-items-center justify-content-center"
   >
     <transition name="fade">
       <song-card
         v-if="show && songs"
         :song="song"
         :hide-actions="true"
+        :limit="30"
       />
     </transition>
-  </b-col>
+  </div>
 </template>
 
 <script>
 export default {
   name: "frontpage",
+  layout: 'minimal',
   data() {
     return {
       index: 0,
@@ -36,7 +40,7 @@ export default {
       setTimeout(() => {
         this.show = true;
       }, 1000)
-    }, 5000)
+    }, 3000)
   },
   methods: {
     async getSongs() {
@@ -51,9 +55,8 @@ export default {
         })
     },
     openSong() {
-      console.log('open song')
       this.$router.push(`/song/${this.song?._id}`)
-    }
+    },
   },
 }
 </script>

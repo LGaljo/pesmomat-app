@@ -5,7 +5,7 @@
         <h5 class="title">{{ song.title }}</h5>
         <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
-        <p class="card-text mt-3 pb-3" v-html="song.content"></p>
+        <p class="card-text mt-3 pb-3" v-html="createExcerpt(song.content)"></p>
 
         <div v-if="!hideActions">
           <span
@@ -54,6 +54,9 @@ export default {
     hideActions: {
       type: Boolean,
       default: false,
+    },
+    limit: {
+      type: Number,
     }
   },
   data() {
@@ -99,6 +102,12 @@ export default {
         await this.$refs.audioPlayer.play();
       }
       this.playing = !this.playing;
+    },
+    createExcerpt() {
+      if (!!this.limit && this.song?.content.split('<br>').length > this.limit) {
+        return this.song?.content.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      }
+      return this.song?.content
     }
   }
 }
