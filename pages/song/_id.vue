@@ -2,7 +2,7 @@
 <b-container>
   <b-row>
     <b-col cols="12">
-      <song-card v-if="song" :song="song" />
+      <song-card v-if="song" :song="song" class="no-border" />
     </b-col>
   </b-row>
 </b-container>
@@ -11,6 +11,7 @@
 <script>
 export default {
   name: "song_page",
+  layout: 'default',
   data() {
     return {
       song: null

@@ -19,7 +19,7 @@ export const getters = {
 
 export const actions = {
   async fetch({ commit }, filters) {
-    console.log('lang: ', filters)
+    // console.log('lang: ', filters)
     this.$axios.$get(`/categories`, {
       params: {
         filters

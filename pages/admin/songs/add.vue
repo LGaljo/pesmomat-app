@@ -9,6 +9,7 @@ import AddEditSong from "@/components/AddEditSong";
 
 export default {
   name: "add.vue",
+  layout: 'default',
   components: {AddEditSong},
 }
 </script>

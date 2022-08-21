@@ -10,6 +10,7 @@
         :song="song"
         :hide-actions="true"
         :limit="30"
+        class="no-border"
       />
     </transition>
   </div>
@@ -67,5 +68,8 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.no-border {
+  border: none;
 }
 </style>

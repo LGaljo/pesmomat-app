@@ -5,7 +5,8 @@ export default {
   },
 
   env: {
-    base_url: process.env.base_url || 'http://localhost:4400'
+    base_url: process.env.base_url || 'http://localhost:4400',
+    BROWSE_TIMEOUT: 3 * 60 * 1000,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

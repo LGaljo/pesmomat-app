@@ -2,21 +2,32 @@
   <div>
     <navbar/>
 
-    <b-container>
-      <b-row class="pt-3">
+    <div class="container">
+      <div class="row pt-3">
         <Nuxt/>
-      </b-row>
-    </b-container>
+      </div>
+    </div>
+
 
     <div class="bottom-padding">
     </div>
+
   </div>
 </template>
 <script>
 import navbar from "../components/navbar";
+import timeout from "@/mixins/timeout";
 
 export default {
   components: {navbar},
+  mixins: [
+    timeout
+  ],
+  watch: {
+    $route(_to, _from) {
+      this.onReroute();
+    },
+  },
 }
 </script>
 

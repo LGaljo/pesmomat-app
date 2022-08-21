@@ -8,6 +8,7 @@
 
 <script>
 import navbar from "../components/navbar";
+import timeout from "@/mixins/timeout";
 
 export default {
   components: {navbar},
