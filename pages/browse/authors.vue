@@ -1,20 +1,22 @@
 <template>
   <b-container>
     <b-row>
-      <b-col offset-md="3" md="6" cols="12" class="my-3">
+      <b-col offset-md="2" md="8" cols="12" class="my-3">
         <div v-if="period && $route.query.period">
           <h1 class="text-center">Pesniki obdobja {{ period.name }}</h1>
 
           <div style="height: 100px"></div>
 
-          <div v-for="letter of alphabet" v-if="getAuthorsForLetter(letter).length" class="mb-3 offset-2">
-            <div class="text-uppercase letter py-2">{{ letter }}</div>
-            <div v-for="author of getAuthorsForLetter(letter)" v-if="author" class="author">
-              <div @click="openAuthor(author)" class="py-2 hover-underline"><b>{{ author.lastName }}</b> {{ author.firstName }}</div>
+          <template v-if="authors.length">
+            <div v-for="letter of alphabet" v-if="getAuthorsForLetter(letter).length" class="mb-3 offset-2">
+              <div class="text-uppercase letter py-2">{{ letter }}</div>
+              <div v-for="author of getAuthorsForLetter(letter)" v-if="author" class="author">
+                <div @click="openAuthor(author)" class="py-2 hover-underline"><b>{{ author.lastName }}</b> {{ author.firstName }}</div>
+              </div>
             </div>
-          </div>
+          </template>
+          <div v-else>Ni avtorjev za prikaz</div>
         </div>
-        <div v-else>Ni podatkov za prikaz</div>
       </b-col>
     </b-row>
   </b-container>
@@ -77,7 +79,10 @@ export default {
     async openAuthor(author) {
       await this.$router.push({
         path: `/browse/songs`,
-        query: { author: author._id }
+        query: {
+          author: author._id,
+          period: this.period._id
+        }
       })
     }
   }

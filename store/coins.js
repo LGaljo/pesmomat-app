@@ -25,6 +25,15 @@ export const actions = {
         commit('set', -1)
       })
   },
+  async reduce({ commit }) {
+    await this.$axios.$post('/tokens?value=-1')
+      .then(res => {
+        commit('set', res.amount)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
   unset({ commit }) {
     commit('unset')
   },

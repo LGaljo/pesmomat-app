@@ -22,14 +22,16 @@
           </span>
             <span
               class="material-icons icon-button"
+              :class="{ active: playing }"
               @click="play"
             >
             record_voice_over
           </span>
-            <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload="none">
-              <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
-              Your browser does not support the audio tag.
-            </audio>
+          {{ isPlaying }}
+          <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
+            <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
         </div>
       </div>
     </div>
@@ -67,8 +69,8 @@ export default {
   },
   computed: {
     apiUrl() {
-      return process.env.apiUrl
-    }
+      return process.env.API_URL
+    },
   },
   methods: {
     async printAction() {
@@ -133,5 +135,9 @@ export default {
 
 .icon-button {
   font-size: 48px;
+}
+
+.active {
+  color: goldenrod;
 }
 </style>

@@ -5,9 +5,9 @@
       <div class="container-fluid">
 
         <nuxt-link class="navbar-brand" href="/" :to="`/`">Pesmomat</nuxt-link>
-        <nuxt-link class="nav-item nav-link link" :to="`/browse/categories`">Išči</nuxt-link>
+        <nuxt-link class="nav-item nav-link link" :class="{ 'mr-auto': !isAdmin }" :to="`/browse/categories`">Išči</nuxt-link>
 
-        <div class="no-link mr-auto">
+        <div v-if="isAdmin" class="no-link mr-auto">
           <b-nav-item-dropdown class="nav-item nav-link p-0" text="Admin">
             <nuxt-link class="nav-item nav-link link2" :to="`/admin/songs/add`">Dodaj pesem</nuxt-link>
             <nuxt-link class="nav-item nav-link link2" :to="`/admin/songs`">Pesmi</nuxt-link>
@@ -27,8 +27,10 @@
 
 <script>
 import {mapState} from 'vuex'
+import admin from "@/mixins/admin";
 
 export default {
+  mixins: [ admin ],
   data() {
     return {
       amount: 1

@@ -17,6 +17,10 @@
         <div v-else>Ni podatkov za prikaz</div>
       </b-col>
     </b-row>
+    <b-modal v-model="showModal" hide-footer title="Nezadostno število žetonov">
+      <p>Za ogled, predvajanje in tiskanje pesmi je potrebno vstaviti kovanec.</p>
+      <b-button class="mt-2" variant="warning" block @click="showModal = false">Toggle Me</b-button>
+    </b-modal>
   </b-container>
 </template>
 
@@ -29,6 +33,7 @@ export default {
     return {
       author: null,
       songs: [],
+      showModal: false,
       alphabet: [
         'a',
         'b',
@@ -60,12 +65,17 @@ export default {
   },
   async mounted() {
     this.author = await this.$axios.$get(`/author/${this.$route?.query?.author}`)
-    this.songs = await this.$axios.$get(`/songs?author=${this.$route?.query?.author}`)
+    this.songs = await this.$axios.$get(`/songs`, {
+      params: {
+        author: this.$route?.query?.author,
+        period: this.$route?.query?.period
+      }
+    })
   },
   computed: {
-    // ...mapGetters({
-    //   authors: 'authors/get',
-    // })
+    ...mapGetters({
+      coins: 'coins/get',
+    })
   },
   methods: {
     getSongsForLetter(letter) {
@@ -74,7 +84,12 @@ export default {
       }
     },
     async openSong(song) {
-      await this.$router.push(`/song/${song?._id}`)
+      if (this.coins > 0) {
+        await this.$store.dispatch('coins/reduce');
+        await this.$router.push(`/song/${song?._id}`)
+      } else {
+        this.showModal = true;
+      }
     }
   }
 }

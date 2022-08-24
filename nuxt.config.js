@@ -1,19 +1,22 @@
+const CONFIG = require(`./config/${process.env.NODE_ENV}.js`)
+
 export default {
   server: {
-    host: '0.0.0.0',
-    port: 3000
+    host: CONFIG.APP_URL,
+    port: CONFIG.APP_PORT
   },
-
+  ssr: false,
   env: {
-    base_url: process.env.base_url || 'http://localhost:4400',
-    BROWSE_TIMEOUT: 3 * 60 * 1000,
+    API_URL: CONFIG.API_URL,
+    BROWSE_TIMEOUT: Number(CONFIG.BROWSE_TIMEOUT),
+    ADMIN: Boolean(CONFIG.ADMIN) || false,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Pesmomat',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'sl'
     },
     meta: [
       { charset: 'utf-8' },
@@ -49,6 +52,12 @@ export default {
   buildModules: [
   ],
 
+  router: {
+    middleware: [
+      'auth'
+    ]
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
@@ -63,7 +72,7 @@ export default {
   axios: {
     https: false,
     // baseURL: process.env.base_url || 'http://192.168.34.217:4400'
-    baseURL: process.env.base_url || 'http://localhost:4400'
+    baseURL: CONFIG.API_URL || 'http://localhost:4400'
   },
 
   toast: {
