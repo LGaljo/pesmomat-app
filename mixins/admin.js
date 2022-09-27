@@ -4,7 +4,7 @@ export default {
       return process.env.ADMIN;
     },
     env() {
-      return process.env.NODE_ENV;
+      return process.env.ENV;
     },
   }
 }

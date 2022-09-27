@@ -6,15 +6,12 @@ export default {
     }
   },
   created() {
-    console.log('timeout created')
     this.onReroute();
   },
   methods: {
     onReroute() {
-      console.log('set timeout')
       clearTimeout(this.timeout)
       this.timeout = setTimeout(async () => {
-        console.log('reroute to beginning')
         await this.$router.push('/frontpage')
       }, this.length);
     }

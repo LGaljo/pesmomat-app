@@ -37,6 +37,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "browse",
+  layout: 'timeout',
   data() {
     return {
       chosen: {

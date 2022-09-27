@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'full-app': onRaspberry }">
     <navbar/>
 
     <b-container>
@@ -17,11 +17,24 @@ import navbar from "../components/navbar";
 
 export default {
   components: {navbar},
+  computed: {
+    onRaspberry() {
+      return process.env.NODE_ENV === 'raspberry'
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .bottom-padding {
   padding-top: 120px;
+}
+
+.full-app {
+  font-size: larger;
+
+  h5 {
+    font-size: xx-large;
+  }
 }
 </style>

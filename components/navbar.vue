@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav">
       <div class="container-fluid">
 
         <nuxt-link class="navbar-brand" href="/" :to="`/`">Pesmomat</nuxt-link>

@@ -22,6 +22,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "browse_categories",
+  layout: 'timeout',
   data() {
     return {
       alphabet: [

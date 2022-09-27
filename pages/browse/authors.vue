@@ -27,6 +27,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "browse_authors",
+  layout: 'timeout',
   data() {
     return {
       period: null,

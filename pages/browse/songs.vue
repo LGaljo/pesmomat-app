@@ -29,6 +29,7 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "browse_songs",
+  layout: 'timeout',
   data() {
     return {
       author: null,

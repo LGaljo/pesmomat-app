@@ -20,7 +20,6 @@
 import {mapGetters} from "vuex";
 
 export default {
-  name: "frontpage",
   layout: 'minimal',
   data() {
     return {
@@ -43,7 +42,7 @@ export default {
       setTimeout(() => {
         this.show = true;
       }, 1000)
-    }, 3000)
+    }, Number(process.env.SLIDESHOW_INTERVAL))
   },
   computed: {
     ...mapGetters({

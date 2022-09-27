@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'full-app': onRaspberry }">
     <navbar/>
     <Nuxt />
   </div>
@@ -8,13 +8,24 @@
 
 <script>
 import navbar from "../components/navbar";
-import timeout from "@/mixins/timeout";
 
 export default {
   components: {navbar},
+  computed: {
+    onRaspberry() {
+      return process.env.ENV === 'raspberry'
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+//.full-app {
+//  font-size: larger;
+//}
+//
+//.full-app h5 {
+//  font-size: xx-large;
+//}
 
 </style>

@@ -1,15 +1,22 @@
-const CONFIG = require(`./config/${process.env.NODE_ENV}.js`)
+const CONFIG = require(`./config/${process.env.ENV}.js`)
 
 export default {
   server: {
     host: CONFIG.APP_URL,
     port: CONFIG.APP_PORT
   },
+
   ssr: false,
+
+  loading: false,
+
   env: {
     API_URL: CONFIG.API_URL,
+    API_TOKEN: CONFIG.API_TOKEN,
     BROWSE_TIMEOUT: Number(CONFIG.BROWSE_TIMEOUT),
-    ADMIN: Boolean(CONFIG.ADMIN) || false,
+    ADMIN: Boolean(CONFIG.ADMIN),
+    ENV: CONFIG.ENV,
+    SLIDESHOW_INTERVAL: Number(CONFIG.SLIDESHOW_INTERVAL) || 10000
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -28,13 +35,13 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800'
+          '@/assets/Oblik Font.otf'
       },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
       }
-    ],
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

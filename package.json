@@ -4,8 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "dev:dev": "npx cross-env ENV=development nuxt",
+    "dev:rpi": "npx cross-env ENV=raspberry nuxt",
+    "dev:prod": "npx cross-env ENV=production nuxt",
+    "build:dev": "npx cross-env ENV=development nuxt build",
+    "build:rpi": "npx cross-env ENV=raspberry nuxt build",
+    "build:prod": "npx cross-env ENV=production nuxt build",
+    "start:dev": "npx cross-env ENV=development nuxt start",
+    "start:rpi": "npx cross-env ENV=raspberry nuxt start",
+    "start:prod": "npx cross-env ENV=production nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
@@ -15,16 +22,19 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "2.21.2",
     "core-js": "^3.8.3",
+    "cross-env": "^7.0.3",
     "nuxt": "^2.15.8",
     "qrcode.vue": "^1.7.0",
-    "v-click-outside": "^3.1.2",
-    "vue": "^2.7.8",
-    "vue-server-renderer": "^2.7.8",
-    "vue-template-compiler": "^2.7.8"
+    "v-click-outside": "^3.1.2"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
     "sass": "^1.44.0",
     "sass-loader": "^10.1.1"
+  },
+  "overrides": {
+    "vue": "^2.7.10",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10"
   }
 }
