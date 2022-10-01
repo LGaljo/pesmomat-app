@@ -5,7 +5,7 @@
         <div v-if="author && $route.query.author">
           <h1 class="text-center">Pesmi {{ author.lastName }} {{ author.firstName }}</h1>
 
-          <div style="height: 100px"></div>
+          <div style="height: 50px"></div>
 
           <div v-for="letter of alphabet" v-if="getSongsForLetter(letter).length" class="mb-3 offset-2">
             <div class="text-uppercase letter py-2">{{ letter }}</div>

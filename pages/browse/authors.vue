@@ -5,7 +5,7 @@
         <div v-if="period && $route.query.period">
           <h1 class="text-center">Pesniki obdobja {{ period.name }}</h1>
 
-          <div style="height: 100px"></div>
+          <div style="height: 50px"></div>
 
           <template v-if="authors.length">
             <div v-for="letter of alphabet" v-if="getAuthorsForLetter(letter).length" class="mb-3 offset-2">

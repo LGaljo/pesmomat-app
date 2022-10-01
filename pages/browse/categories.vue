@@ -4,7 +4,7 @@
       <b-col offset-md="3" md="6" cols="12" class="my-3">
         <h1 class="text-center">Obdobja</h1>
 
-        <div style="height: 100px"></div>
+        <div style="height: 50px"></div>
 
         <div v-for="letter of alphabet" v-if="getPeriodsForLetter(letter).length" class="mb-3 offset-2">
           <span class="text-uppercase letter">{{ letter }}</span>
