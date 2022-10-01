@@ -1,13 +1,12 @@
 <template>
   <div :class="{ 'full-app': onRaspberry }">
-    <navbar/>
+    <navbar class="fixed-top"/>
 
-    <div class="container">
-      <div class="row pt-3">
+    <b-container style="padding-top: 56px">
+      <b-row class="pt-3">
         <Nuxt/>
-      </div>
-    </div>
-
+      </b-row>
+    </b-container>
 
     <div class="bottom-padding">
     </div>

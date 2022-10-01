@@ -19,7 +19,7 @@
     </b-row>
     <b-modal v-model="showModal" hide-footer title="Nezadostno število žetonov">
       <p>Za ogled, predvajanje in tiskanje pesmi je potrebno vstaviti kovanec.</p>
-      <b-button class="mt-2" variant="warning" block @click="showModal = false">Toggle Me</b-button>
+      <b-button class="mt-2" variant="warning" block @click="showModal = false">Razumem</b-button>
     </b-modal>
   </b-container>
 </template>

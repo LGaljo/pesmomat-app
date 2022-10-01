@@ -48,6 +48,8 @@ export default {
   methods: {
     async remove(song) {
       console.log('Remove song ' + song.title)
+      await this.$axios.$delete(`/songs/${song._id}`)
+      await this.getSongs();
     },
     async setFavourite(song) {
       await this.$axios.$post(`/songs/favourite/${song._id}`)

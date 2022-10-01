@@ -1,8 +1,8 @@
 <template>
   <div :class="{ 'full-app': onRaspberry }">
-    <navbar/>
+    <navbar class="fixed-top"/>
 
-    <b-container>
+    <b-container style="padding-top: 56px">
       <b-row class="pt-3">
         <Nuxt/>
       </b-row>

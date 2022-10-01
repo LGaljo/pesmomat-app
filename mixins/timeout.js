@@ -12,7 +12,7 @@ export default {
     onReroute() {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(async () => {
-        await this.$router.push('/frontpage')
+        await this.$router.push('/')
       }, this.length);
     }
   }
