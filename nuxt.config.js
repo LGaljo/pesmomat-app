@@ -16,7 +16,8 @@ export default {
     BROWSE_TIMEOUT: Number(CONFIG.BROWSE_TIMEOUT),
     ADMIN: Boolean(CONFIG.ADMIN),
     ENV: CONFIG.ENV,
-    SLIDESHOW_INTERVAL: Number(CONFIG.SLIDESHOW_INTERVAL) || 10000
+    SLIDESHOW_INTERVAL: Number(CONFIG.SLIDESHOW_INTERVAL) || 10000,
+    COIN_INTERVAL: Number(CONFIG.COIN_INTERVAL) || 10000,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

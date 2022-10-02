@@ -7,4 +7,5 @@ module.exports = {
   ADMIN: false,
   API_TOKEN: 'none',
   SLIDESHOW_INTERVAL: 1000 * 30, // 30 sekund
+  COIN_INTERVAL: 2500,
 }

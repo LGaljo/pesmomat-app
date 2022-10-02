@@ -10,7 +10,7 @@
           <div v-for="letter of alphabet" v-if="getSongsForLetter(letter).length" class="mb-3 offset-2">
             <div class="text-uppercase letter py-2">{{ letter }}</div>
             <div v-for="song of getSongsForLetter(letter)" v-if="author" class="author">
-              <div @click="openSong(song)" class="py-2 hover-underline">{{ song.title }}</div>
+              <div @click="openSongRequest(song)" class="py-2 hover-underline">{{ song.title }}</div>
             </div>
           </div>
         </div>
@@ -20,6 +20,13 @@
     <b-modal v-model="showModal" hide-footer title="Nezadostno število žetonov">
       <p>Za ogled, predvajanje in tiskanje pesmi je potrebno vstaviti kovanec.</p>
       <b-button class="mt-2" variant="warning" block @click="showModal = false">Razumem</b-button>
+    </b-modal>
+    <b-modal v-model="showModalUse" hide-footer title="Nakup">
+      <p>Ogled pesmi bo porabil kovanec.</p>
+      <div class="mt-2 d-flex justify-content-between">
+        <b-button class="mr-2" variant="warning" block @click="showModalUse = false">Prekliči</b-button>
+        <b-button class="ml-2 mt-0" variant="primary" block @click="openSong">Razumem</b-button>
+      </div>
     </b-modal>
   </b-container>
 </template>
@@ -34,7 +41,9 @@ export default {
     return {
       author: null,
       songs: [],
+      songId: null,
       showModal: false,
+      showModalUse: false,
       alphabet: [
         'a',
         'b',
@@ -81,16 +90,21 @@ export default {
   methods: {
     getSongsForLetter(letter) {
       if (this.songs) {
-        return this.songs?.filter(a => a.title.toLowerCase().startsWith(letter));
+        return this.songs?.filter(a => a.title.toLowerCase().startsWith(letter))
       }
     },
-    async openSong(song) {
+    async openSongRequest(song) {
+      this.songId = song._id
       if (this.coins > 0) {
-        await this.$store.dispatch('coins/reduce');
-        await this.$router.push(`/song/${song?._id}`)
+        this.showModalUse = true
       } else {
         this.showModal = true;
       }
+    },
+    async openSong() {
+      this.showModalUse = false
+      await this.$store.dispatch('coins/reduce')
+      await this.$router.push(`/song/${this.songId}`)
     }
   }
 }

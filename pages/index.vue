@@ -1,32 +1,46 @@
 <template>
-  <div
-    @click="openSong()"
-    style="height: calc(100vh - 56px); max-height: calc(100vh - 56px);"
-    class="d-flex flex-row align-items-center justify-content-center"
-  >
-    <transition name="fade">
-      <song-card
-        v-if="show && songs"
-        :song="song"
-        :hide-actions="true"
-        :limit="30"
-        class="no-border"
-      />
-    </transition>
+  <div>
+    <div
+      @click="openSongRequest"
+      style="height: calc(100vh - 56px); max-height: calc(100vh - 56px);"
+      class="d-flex flex-row align-items-center justify-content-center"
+    >
+      <transition name="fade">
+        <song-card
+          v-if="show && songs"
+          :song="song"
+          :hide-actions="true"
+          :limit="25"
+          class="no-border"
+        />
+      </transition>
+    </div>
+
+    <b-modal v-model="showModalUse" hide-footer title="Nakup">
+      <p>Ogled pesmi bo porabil kovanec.</p>
+      <div class="mt-2 d-flex justify-content-between">
+        <b-button class="mr-2" variant="warning" block @click="showModalUse = false">Prekliči</b-button>
+        <b-button class="ml-2 mt-0" variant="primary" block @click="openSong">Razumem</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import SongCard from "../components/SongCard";
 
 export default {
   layout: 'minimal',
+  components: { SongCard },
   data() {
     return {
       index: 0,
       song: null,
       songs: [],
-      show: true
+      show: true,
+      showModalUse: false,
+      songId: null,
     }
   },
   async created() {
@@ -61,14 +75,19 @@ export default {
           this.$toast.error('Napaka pri pridobivanju pesmi', {duration: 10000});
         })
     },
-    async openSong() {
+    async openSongRequest() {
+      this.songId = this.song._id
       if (this.coins > 0) {
-        await this.$store.dispatch('coins/reduce');
-        await this.$router.push(`/song/${this.song?._id}`)
+        this.showModalUse = true
       } else {
-        this.$toast.info('Za ogled, tiskanje in poslušanje pesmi prosim vstavite kovanec.', { duration: 2500 })
+        this.showModal = true;
       }
     },
+    async openSong() {
+      this.showModalUse = false
+      await this.$store.dispatch('coins/reduce')
+      await this.$router.push(`/song/${this.songId}`)
+    }
   },
 }
 </script>

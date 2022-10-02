@@ -43,7 +43,7 @@ export default {
     await this.$store.dispatch('coins/set')
     setInterval(async () => {
       await this.$store.dispatch('coins/set')
-    }, 10000)
+    }, Number(process.env.COIN_INTERVAL))
   },
   methods: {
   }

@@ -9,19 +9,20 @@
 
         <div v-if="!hideActions">
           <span
-            class="material-icons icon-button"
+            class="material-icons icon-button px-2"
             @click.stop.prevent="printAction"
           >
             print
           </span>
             <span
-              class="material-icons icon-button px-3"
+              v-if="song.url"
+              class="material-icons icon-button px-2"
               @click="showQR = true"
             >
             qr_code_2
           </span>
             <span
-              class="material-icons icon-button"
+              class="material-icons icon-button px-2"
               :class="{ active: playing }"
               @click="play"
             >
@@ -36,7 +37,7 @@
       </div>
     </div>
     <QRModal
-      v-if="showQR"
+      v-if="showQR && song.url"
       @close="showQR = false"
       :url="song.url || 'http://vrabecanarhist.eu/'"
     ></QRModal>
@@ -45,11 +46,13 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue'
+import QRModal from "./QRModal";
 
 export default {
   name: "SongCard",
   components: {
     QrcodeVue,
+    QRModal
   },
   props: {
     song: Object,
