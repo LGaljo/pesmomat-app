@@ -1,0 +1,51 @@
+{
+  "title": "Songmatic",
+  "actions": {
+    "search": "Search",
+    "back": "Back",
+    "understand": "I understand",
+    "cancel": "Cancel"
+  },
+  "authors": {
+    "title": "Poets of period {0}"
+  },
+  "periods": {
+    "title": "Periods"
+  },
+  "songs": {
+    "title": "Poems by {0} {1}"
+  },
+  "navbar": {
+    "admin": {
+      "add": "Add poem",
+      "songs": "Poems",
+      "authors": "Authors",
+      "categories": "Period"
+    }
+  },
+  "modals": {
+    "insufficient": {
+      "title": "Insufficient amount of tokens available",
+      "body": "To view, play and print poem please insert a coin."
+    },
+    "purchase": {
+      "title": "Purchase",
+      "body": "A view of this poem will use a coin inserted."
+    }
+  },
+  "dateTimeFormats": {
+    "dayMonth": {
+      "day": "numeric",
+      "month": "short"
+    },
+    "dayMonthYear": {
+      "day": "numeric",
+      "month": "short",
+      "year": "numeric"
+    },
+    "time": {
+      "hour": "numeric",
+      "minute": "numeric"
+    }
+  }
+}

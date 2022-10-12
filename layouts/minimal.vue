@@ -11,6 +11,7 @@
 import navbar from "../components/navbar";
 
 export default {
+  name: 'minimal',
   components: {navbar},
   computed: {
     onRaspberry() {

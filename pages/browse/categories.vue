@@ -2,7 +2,7 @@
   <b-container>
     <b-row>
       <b-col offset-md="3" md="6" cols="12" class="my-3">
-        <h1 class="text-center">Obdobja</h1>
+        <h1 class="text-center">{{ $t('periods.title') }}</h1>
 
         <div style="height: 50px"></div>
 
@@ -65,7 +65,7 @@ export default {
   methods: {
     async openPeriod(period) {
       await this.$router.push({
-        path: `/browse/authors`,
+        path: this.localePath(`/browse/authors`),
         query: { period: period._id }
       })
     },

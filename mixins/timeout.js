@@ -8,11 +8,14 @@ export default {
   created() {
     this.onReroute();
   },
+  beforeDestroy() {
+    clearTimeout(this.timeout)
+  },
   methods: {
     onReroute() {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(async () => {
-        await this.$router.push('/')
+        await this.$router.push(this.localePath('/'))
       }, this.length);
     }
   }

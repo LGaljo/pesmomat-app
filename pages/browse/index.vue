@@ -99,7 +99,7 @@ export default {
     },
     async openAuthor(author) {
       this.chosen.author = author
-      await this.$router.push(`/browse/author/${author._id}`)
+      await this.$router.push(this.localePath(`/browse/author/${author._id}`))
     }
   }
 }

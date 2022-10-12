@@ -9,9 +9,12 @@
 </template>
 
 <script>
+import songCard from "../../components/SongCard";
+
 export default {
   name: "song_page",
-  layout: 'default',
+  layout: 'timeout',
+  components: { songCard },
   data() {
     return {
       song: null

@@ -16,11 +16,15 @@
       </transition>
     </div>
 
-    <b-modal v-model="showModalUse" hide-footer title="Nakup">
-      <p>Ogled pesmi bo porabil kovanec.</p>
+    <b-modal v-model="showModal" hide-footer :title="$t('modals.insufficient.title')">
+      <p>{{ $t('modals.insufficient.body')}}</p>
+      <b-button class="mt-2" variant="warning" block @click="showModal = false">{{ $t('actions.understand') }}</b-button>
+    </b-modal>
+    <b-modal v-model="showModalUse" hide-footer :title="$t('modals.purchase.title')">
+      <p>{{ $t('modals.purchase.body')}}</p>
       <div class="mt-2 d-flex justify-content-between">
-        <b-button class="mr-2" variant="warning" block @click="showModalUse = false">Prekliči</b-button>
-        <b-button class="ml-2 mt-0" variant="primary" block @click="openSong">Razumem</b-button>
+        <b-button class="mr-2" variant="warning" block @click="showModalUse = false">{{ $t('actions.cancel') }}</b-button>
+        <b-button class="ml-2 mt-0" variant="primary" block @click="openSong">{{ $t('actions.understand') }}</b-button>
       </div>
     </b-modal>
   </div>
@@ -31,6 +35,7 @@ import {mapGetters} from "vuex";
 import SongCard from "../components/SongCard";
 
 export default {
+  name: 'index',
   layout: 'minimal',
   components: { SongCard },
   data() {
@@ -39,6 +44,7 @@ export default {
       song: null,
       songs: [],
       show: true,
+      showModal: false,
       showModalUse: false,
       songId: null,
     }
@@ -86,7 +92,7 @@ export default {
     async openSong() {
       this.showModalUse = false
       await this.$store.dispatch('coins/reduce')
-      await this.$router.push(`/song/${this.songId}`)
+      await this.$router.push(this.localePath(`/song/${this.songId}`))
     }
   },
 }

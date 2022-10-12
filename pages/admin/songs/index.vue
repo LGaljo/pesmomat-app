@@ -56,7 +56,7 @@ export default {
       await this.getSongs();
     },
     async openSong(song) {
-      await this.$router.push(`/admin/songs/${song._id}`)
+      await this.$router.push(this.localePath(`/admin/songs/${song._id}`))
     },
     async getSongs() {
       this.$axios.$get('/songs')

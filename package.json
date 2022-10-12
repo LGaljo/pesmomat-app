@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev:watch": "nodemon --watch config --exec \"npx cross-env ENV=development nuxt\"",
     "dev:dev": "npx cross-env ENV=development nuxt",
     "dev:rpi": "npx cross-env ENV=raspberry nuxt",
     "dev:prod": "npx cross-env ENV=production nuxt",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
+    "@nuxtjs/i18n": "^7.3.0",
     "@nuxtjs/toast": "^3.3.1",
     "acorn": "^6.4.2",
     "bootstrap": "^4.6.0",

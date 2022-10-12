@@ -12,7 +12,7 @@
     </div>
 
     <div class="back-button">
-      <b-button variant="primary" class="btn-lg btn-dark" @click="$router.back()">Nazaj</b-button>
+      <b-button variant="primary" class="btn-lg btn-dark" @click="$router.back()">{{ $t('actions.back') }}</b-button>
     </div>
   </div>
 </template>

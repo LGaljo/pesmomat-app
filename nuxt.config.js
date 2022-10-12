@@ -1,4 +1,5 @@
 const CONFIG = require(`./config/${process.env.ENV}.js`)
+const locale = require('./config/locale')
 
 export default {
   server: {
@@ -71,10 +72,26 @@ export default {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     '@nuxtjs/toast',
+    '@nuxtjs/i18n'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  i18n: {
+    defaultLocale: 'sl',
+    parsePages: false,
+    // langDir: 'locales/',
+    // lazy: true,
+    locales: ['sl', 'en'],
+    vueI18n: {
+      fallbackLocale: 'en',
+      messages: {
+        sl: require('./locales/sl.json'),
+        en: require('./locales/en.json')
+      }
+    }
   },
 
   axios: {

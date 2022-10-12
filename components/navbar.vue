@@ -4,19 +4,25 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav">
       <div class="container-fluid">
 
-        <nuxt-link class="navbar-brand" href="/" :to="`/`">Pesmomat</nuxt-link>
-        <nuxt-link class="nav-item nav-link link" :class="{ 'mr-auto': !isAdmin }" :to="`/browse/categories`">Išči</nuxt-link>
+        <nuxt-link class="navbar-brand" href="/" :to="localePath(`/`)">{{ $t('title') }}</nuxt-link>
+        <nuxt-link class="nav-item nav-link link" :class="{ 'mr-auto': !isAdmin }" :to="localePath(`/browse/categories`)">{{ $t('actions.search') }}</nuxt-link>
 
         <div v-if="isAdmin" class="no-link mr-auto">
           <b-nav-item-dropdown class="nav-item nav-link p-0" text="Admin">
-            <nuxt-link class="nav-item nav-link link2" :to="`/admin/songs/add`">Dodaj pesem</nuxt-link>
-            <nuxt-link class="nav-item nav-link link2" :to="`/admin/songs`">Pesmi</nuxt-link>
-            <nuxt-link class="nav-item nav-link link2" :to="`/admin/authors`">Avtorji</nuxt-link>
-            <nuxt-link class="nav-item nav-link link2" :to="`/admin/categories`">Obdobja</nuxt-link>
+            <nuxt-link class="nav-item nav-link link2" :to="localePath(`/admin/songs/add`)">{{ $t('navbar.admin.add') }}</nuxt-link>
+            <nuxt-link class="nav-item nav-link link2" :to="localePath(`/admin/songs`)">{{ $t('navbar.admin.songs') }}</nuxt-link>
+            <nuxt-link class="nav-item nav-link link2" :to="localePath(`/admin/authors`)">{{ $t('navbar.admin.authors') }}</nuxt-link>
+            <nuxt-link class="nav-item nav-link link2" :to="localePath(`/admin/categories`)">{{ $t('navbar.admin.categories') }}</nuxt-link>
           </b-nav-item-dropdown>
         </div>
 
-        <div class="coin-amount">
+        <nuxt-link
+          class="mx-2 py-0 my-0"
+          v-for="locale in availableLocales"
+          :key="locale"
+          :to="switchLocalePath(locale)"><img height="50" :src="lang[locale]" alt="flag"></nuxt-link>
+
+        <div class="ml-4 coin-amount">
           {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>
         </div>
       </div>
@@ -33,12 +39,19 @@ export default {
   mixins: [ admin ],
   data() {
     return {
-      amount: 1
+      amount: 1,
+      lang: {
+        sl: 'flag-slovenia_1f1f8-1f1ee.png',
+        en: 'flag-united-kingdom_1f1ec-1f1e7.png'
+      }
     }
   },
-  computed: mapState([
-    'coins'
-  ]),
+  computed: {
+    ...mapState(['coins']),
+    availableLocales () {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
+  },
   async created() {
     await this.$store.dispatch('coins/set')
     setInterval(async () => {

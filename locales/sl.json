@@ -1,0 +1,51 @@
+{
+  "title": "Pesmomat",
+  "actions": {
+    "search": "Išči",
+    "back": "Nazaj",
+    "understand": "Razumem",
+    "cancel": "Prekliči"
+  },
+  "authors": {
+    "title": "Pesniki obdobja {0}"
+  },
+  "periods": {
+    "title": "Obdobja"
+  },
+  "songs": {
+    "title": "Pesmi {0} {1}"
+  },
+  "navbar": {
+    "admin": {
+      "add": "Dodaj pesem",
+      "songs": "Pesmi",
+      "authors": "Avtorji",
+      "categories": "Obdobja"
+    }
+  },
+  "modals": {
+    "insufficient": {
+      "title": "Nezadostno število žetonov",
+      "body": "Za ogled, predvajanje in tiskanje pesmi je potrebno vstaviti kovanec."
+    },
+    "purchase": {
+      "title": "Nakup",
+      "body": "Ogled pesmi bo porabil kovanec."
+    }
+  },
+  "dateTimeFormats": {
+    "dayMonth": {
+      "day": "numeric",
+      "month": "short"
+    },
+    "dayMonthYear": {
+      "day": "numeric",
+      "month": "short",
+      "year": "numeric"
+    },
+    "time": {
+      "hour": "numeric",
+      "minute": "numeric"
+    }
+  }
+}

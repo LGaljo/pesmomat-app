@@ -3,7 +3,7 @@
     <b-row>
       <b-col offset-md="2" md="8" cols="12" class="my-3">
         <div v-if="period && $route.query.period">
-          <h1 class="text-center">Pesniki obdobja {{ period.name }}</h1>
+          <h1 class="text-center">{{ $t('authors.title', [period.name]) }}</h1>
 
           <div style="height: 50px"></div>
 
@@ -79,7 +79,7 @@ export default {
     },
     async openAuthor(author) {
       await this.$router.push({
-        path: `/browse/songs`,
+        path: this.localePath(`/browse/songs`),
         query: {
           author: author._id,
           period: this.period._id
