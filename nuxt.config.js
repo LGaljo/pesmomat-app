@@ -39,10 +39,6 @@ export default {
         href:
           '@/assets/Oblik Font.otf'
       },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
-      }
     ]
   },
 

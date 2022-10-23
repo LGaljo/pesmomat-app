@@ -41,8 +41,8 @@ export default {
     return {
       amount: 1,
       lang: {
-        sl: 'flag-slovenia_1f1f8-1f1ee.png',
-        en: 'flag-united-kingdom_1f1ec-1f1e7.png'
+        sl: '/flag-slovenia_1f1f8-1f1ee.png',
+        en: '/flag-united-kingdom_1f1ec-1f1e7.png'
       }
     }
   },

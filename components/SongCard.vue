@@ -28,7 +28,6 @@
             >
             record_voice_over
           </span>
-          {{ isPlaying }}
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
             <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
             Your browser does not support the audio tag.
