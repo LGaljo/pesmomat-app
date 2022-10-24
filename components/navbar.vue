@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       amount: 1,
+      interval: null,
       lang: {
         sl: '/flag-slovenia_1f1f8-1f1ee.png',
         en: '/flag-united-kingdom_1f1ec-1f1e7.png'
@@ -54,9 +55,14 @@ export default {
   },
   async created() {
     await this.$store.dispatch('coins/set')
-    setInterval(async () => {
+    this.interval = setInterval(async () => {
       await this.$store.dispatch('coins/set')
     }, Number(process.env.COIN_INTERVAL))
+  },
+  beforeDestroy() {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
   },
   methods: {
   }

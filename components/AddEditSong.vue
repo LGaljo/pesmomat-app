@@ -55,13 +55,28 @@
       </div>
     </div>
 
+    <b-button
+      v-if="id"
+      type="submit"
+      @click.prevet.stop="play"
+      class="btn-primary"
+      :class="{ active: playing }"
+    >
+      Predvajaj pesem
+    </b-button>
+
+    <audio :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
+      <source :src="`${apiUrl}/songs/play/${id}`" type="audio/mpeg">
+      Your browser does not support the audio tag.
+    </audio>
+
     <b-button v-if="!id" type="submit" @click.prevet.stop="onCreate" class="btn-primary">Dodaj</b-button>
     <b-button v-else type="submit" @click.prevet.stop="onUpdate" class="btn-primary">Posodobi</b-button>
   </form>
 </template>
 
 <script>
-import SongCard from "@/components/SongCard";
+import SongCard from "./SongCard";
 
 export default {
   name: "AddEditSong",
@@ -75,6 +90,7 @@ export default {
   data() {
     return {
       song: {
+        _id: null,
         title: null,
         author: null,
         authorId: null,
@@ -82,6 +98,7 @@ export default {
         content: null,
         url: null
       },
+      playing: false,
       options: {
         authors: [
           {value: null, text: 'Prosim izberi avtorja'},
@@ -91,6 +108,11 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    apiUrl() {
+      return process.env.API_URL
+    },
   },
   async created() {
     if (this.id) {
@@ -113,6 +135,15 @@ export default {
     }))
   },
   methods: {
+    async play() {
+      if (this.playing) {
+        await this.$refs.audioPlayer.pause();
+        this.$refs.audioPlayer.currentTime = 0;
+      } else {
+        await this.$refs.audioPlayer.play();
+      }
+      this.playing = !this.playing;
+    },
     async onCreate() {
       this.$refs.form.classList.add('was-validated');
 
@@ -182,5 +213,7 @@ export default {
 </script>
 
 <style scoped>
-
+.active {
+  color: goldenrod;
+}
 </style>

@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import AddEditSong from "@/components/AddEditSong";
+
+import AddEditSong from "../../../components/AddEditSong";
 
 export default {
   name: "edit_song",

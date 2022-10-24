@@ -81,6 +81,7 @@ export default {
     async removeCat(category) {
       await this.$store.dispatch('categories/remove', category._id);
       await this.$store.dispatch('categories/fetch');
+      this.$toast.success('Obdobje izbrisano', { duration: 3000 })
     },
     updateCat(category) {
       this.categoryNew = category?.name;
