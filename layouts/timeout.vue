@@ -26,7 +26,7 @@ export default {
     timeout
   ],
   watch: {
-    $route(_to, _from) {
+    '$route.path'(_to, _from) {
       this.onReroute();
     },
   },

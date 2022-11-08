@@ -7,13 +7,16 @@
     "cancel": "Cancel"
   },
   "authors": {
-    "title": "Poets of period {0}"
+    "title": "Poets of period {0}",
+    "none": "No authors to show"
   },
   "periods": {
-    "title": "Periods"
+    "title": "Periods",
+    "none": "No periods to show"
   },
   "songs": {
-    "title": "Poems by {0} {1}"
+    "title": "Poems by {0} {1}",
+    "none": "No poems to show"
   },
   "navbar": {
     "admin": {
@@ -47,5 +50,11 @@
       "hour": "numeric",
       "minute": "numeric"
     }
+  },
+  "errors": {
+    "insufficient": "Insufficient funds",
+    "nonexistent": "Poem does not exist",
+    "sent": "Successfully added the poem to print queue",
+    "print": "Error printing poem"
   }
 }

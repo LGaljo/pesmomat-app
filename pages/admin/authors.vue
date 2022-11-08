@@ -34,7 +34,7 @@
           <tr>
             <th scope="col">Ime</th>
             <th scope="col">Priimek</th>
-            <th scope="col">Obdobje</th>
+            <th scope="col">Zvrst</th>
             <th scope="col" class="text-right">Dejanja</th>
           </tr>
           </thead>
@@ -69,7 +69,7 @@ export default {
       authorId: null,
       authorCategoryId: null,
       categories: [
-        {value: null, text: 'Prosim izberi obdobje'},
+        {value: null, text: 'Prosim izberi zvrst'},
       ],
     }
   },

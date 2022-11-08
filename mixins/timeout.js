@@ -13,6 +13,7 @@ export default {
   },
   methods: {
     onReroute() {
+      console.log('reroute')
       // clearTimeout(this.timeout)
       // this.timeout = setTimeout(async () => {
       //   await this.$router.push(this.localePath('/'))

@@ -38,12 +38,12 @@
       </div>
     </div>
 
-    <!-- Obdobje -->
+    <!-- Zvrst -->
     <div class="form-group">
-      <label for="category">Obdobje</label>
+      <label for="category">Zvrst</label>
       <b-form-select v-model="song.categoryId" class="form-control" id="category" :options="options.categories"></b-form-select>
       <div class="invalid-feedback">
-        Prosim vnesi obdobje.
+        Prosim vnesi Zvrst.
       </div>
     </div>
 
@@ -104,7 +104,7 @@ export default {
           {value: null, text: 'Prosim izberi avtorja'},
         ],
         categories: [
-          {value: null, text: 'Prosim izberi obdobje'},
+          {value: null, text: 'Prosim izberi zvrst'},
         ]
       }
     }

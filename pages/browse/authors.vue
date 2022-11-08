@@ -15,7 +15,7 @@
               </div>
             </div>
           </template>
-          <div v-else>Ni avtorjev za prikaz</div>
+          <div v-else>{{ $t('authors.none') }}</div>
         </div>
       </b-col>
     </b-row>

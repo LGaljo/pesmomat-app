@@ -2,30 +2,25 @@
   <div v-if="song">
     <div class="card">
       <div class="card-body text-center">
-        <h5 class="title">{{ song.title }}</h5>
-        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
-
-        <p class="card-text mt-3 pb-3" v-html="createExcerpt(song.content)"></p>
-
-        <div v-if="!hideActions">
+        <div v-if="!hideActions" class="mb-4">
           <span
             class="material-icons icon-button px-2"
             @click.stop.prevent="printAction"
           >
             print
           </span>
-            <span
-              v-if="song.url"
-              class="material-icons icon-button px-2"
-              @click="showQR = true"
-            >
+          <span
+            v-if="song.url"
+            class="material-icons icon-button px-2"
+            @click="showQR = true"
+          >
             qr_code_2
           </span>
-            <span
-              class="material-icons icon-button px-2"
-              :class="{ active: playing }"
-              @click="play"
-            >
+          <span
+            class="material-icons icon-button px-2"
+            :class="{ active: playing }"
+            @click="play"
+          >
             record_voice_over
           </span>
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
@@ -33,10 +28,14 @@
             Your browser does not support the audio tag.
           </audio>
         </div>
+        <h5 class="title">{{ song.title }}</h5>
+        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
+
+        <p class="card-text mt-3 pb-3" v-html="createExcerpt(song.content)"></p>
       </div>
     </div>
     <QRModal
-      v-if="showQR && song.url"
+      v-if="showQR"
       @close="showQR = false"
       :url="song.url || 'http://vrabecanarhist.eu/'"
     ></QRModal>
@@ -80,16 +79,16 @@ export default {
         .then(async (res) => {
           switch (res.data.message) {
             case 'Insufficient funds':
-              this.$toast.error('Nezadostno število žetonov', {duration: 2000})
+              this.$toast.error(this.$t('errors.insufficient'), {duration: 2000})
               break;
             case 'Song does not exist':
-              this.$toast.error('Pesem ne obstaja', {duration: 2000})
+              this.$toast.error(this.$t('errors.nonexistent'), {duration: 2000})
               break;
             case 'Printing':
-              this.$toast.success('Uspešno dodano v čakalno vrsto za tiskanje', {duration: 2000})
+              this.$toast.success(this.$t('errors.sent'), {duration: 2000})
               break;
             default:
-              this.$toast.error('Napaka pri tiskanju', {duration: 2000})
+              this.$toast.error(this.$t('errors.print'), {duration: 2000})
               break;
           }
           await this.$store.dispatch('coins/set')

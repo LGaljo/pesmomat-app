@@ -14,7 +14,7 @@
             </div>
           </div>
         </div>
-        <div v-else>Ni podatkov za prikaz</div>
+        <div v-else>{{ $t('songs.none') }}</div>
       </b-col>
     </b-row>
     <b-modal v-model="showModal" hide-footer :title="$t('modals.insufficient.title')">

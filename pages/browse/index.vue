@@ -5,7 +5,7 @@
 
         <!-- Periods list -->
         <div v-if="!chosen.period">
-          <h1>Obdobja</h1>
+          <h1>{{ $t('periods.title') }}</h1>
 
           <div v-for="letter of alphabet" v-if="getPeriodsForLetter(letter).length" class="mb-3">
             <span class="text-uppercase letter">{{ letter }}</span>
@@ -17,7 +17,7 @@
 
         <!-- Authors of some period -->
         <div v-else-if="chosen.period && authors" class="mt-3">
-          <h1>Pesniki obdobja {{ chosen.period.name }}</h1>
+          <h1>Pesniki zvrsti {{ chosen.period.name }}</h1>
 
           <div v-for="letter of alphabet" v-if="getAuthorsForLetter(letter).length" class="mb-3">
             <span class="text-uppercase letter">{{ letter }}</span>

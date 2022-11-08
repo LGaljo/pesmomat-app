@@ -2,16 +2,16 @@
   <b-container>
     <b-row>
       <b-col offset-md="3" md="6" cols="12" class="my-3">
-        <h1>Obdobja</h1>
+        <h1>Zvrsti</h1>
 
         <!-- ADD NEW -->
         <div class="mt-3">
           <span class="d-block">
             <b>{{ categoryId ? 'Uredi' : 'Dodaj' }}</b>
-            <span v-if="categoryId" class="text-muted"> (Počisti polje za dodajanje novega obdobja)</span>
+            <span v-if="categoryId" class="text-muted"> (Počisti polje za dodajanje nove zvrsti)</span>
           </span>
           <b-input-group class="my-3">
-            <input type="text" class="form-control" placeholder="Dodaj obdobje" v-model="categoryNew"
+            <input type="text" class="form-control" placeholder="Dodaj zvrst" v-model="categoryNew"
                    aria-describedby="basic-addon2" @keydown.enter.prevent="addUpdateCategory">
             <div class="input-group-append cursor-pointer" @click="addUpdateCategory">
             <span class="input-group-text fake-button" id="basic-addon2">
@@ -42,8 +42,8 @@
             </td>
           </tr>
         </table>
-        <div v-if="!categories.length" class="text-center my-4">Ni obdobij</div>
-        <div class="text-muted">Brisano obdobje ne sme vsebovati pesmi.</div>
+        <div v-if="!categories.length" class="text-center my-4">Ni zvrsti</div>
+        <div class="text-muted">Brisana zvrst ne sme vsebovati pesmi.</div>
 
       </b-col>
     </b-row>
@@ -81,7 +81,7 @@ export default {
     async removeCat(category) {
       await this.$store.dispatch('categories/remove', category._id);
       await this.$store.dispatch('categories/fetch');
-      this.$toast.success('Obdobje izbrisano', { duration: 3000 })
+      this.$toast.success('Zvrst izbrisana', { duration: 3000 })
     },
     updateCat(category) {
       this.categoryNew = category?.name;
@@ -95,24 +95,24 @@ export default {
       if (this.categoryId) {
         this.$axios.$post(`/categories/${this.categoryId}`, {name: this.categoryNew})
           .then(async res => {
-            this.$toast.success(`Obdobje "${this.categoryNew}" uspešno posodobljeno`, {duration: 3000});
+            this.$toast.success(`Zvrst "${this.categoryNew}" uspešno posodobljena`, {duration: 3000});
             this.categoryNew = null;
             await this.$store.dispatch('categories/fetch');
           })
           .catch(res => {
             console.error(res)
-            this.$toast.error('Napaka pri posodabljanju obdobja', {duration: 3000});
+            this.$toast.error('Napaka pri posodabljanju zvrsti', {duration: 3000});
           })
       } else {
         this.$axios.$post(`/categories`, {name: this.categoryNew})
           .then(async res => {
-            this.$toast.success(`Obdobje "${this.categoryNew}" uspešno dodano`, {duration: 3000});
+            this.$toast.success(`Zvrst "${this.categoryNew}" uspešno dodana`, {duration: 3000});
             this.categoryNew = null;
             await this.$store.dispatch('categories/fetch');
           })
           .catch(res => {
             console.error(res)
-            this.$toast.error('Napaka pri dodajanje obdobja', {duration: 3000});
+            this.$toast.error('Napaka pri dodajanje zvrsti', {duration: 3000});
           })
       }
     }

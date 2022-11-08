@@ -7,20 +7,23 @@
     "cancel": "Prekliči"
   },
   "authors": {
-    "title": "Pesniki obdobja {0}"
+    "title": "Pesniki zvrsti {0}",
+    "none": "Ni avtorjev za prikaz"
   },
   "periods": {
-    "title": "Obdobja"
+    "title": "Zvrsti",
+    "none": "Ni zvrsti za prikaz"
   },
   "songs": {
-    "title": "Pesmi {0} {1}"
+    "title": "Pesmi {0} {1}",
+    "none": "Ni avtorjev za prikaz"
   },
   "navbar": {
     "admin": {
       "add": "Dodaj pesem",
       "songs": "Pesmi",
       "authors": "Avtorji",
-      "categories": "Obdobja"
+      "categories": "Zvrsti"
     }
   },
   "modals": {
@@ -47,5 +50,11 @@
       "hour": "numeric",
       "minute": "numeric"
     }
+  },
+  "errors": {
+    "insufficient": "Nezadostno število žetonov",
+    "nonexistent": "Pesem ne obstaja",
+    "sent": "Uspešno dodano v čakalno vrsto za tiskanje",
+    "print": "Napaka pri tiskanju"
   }
 }

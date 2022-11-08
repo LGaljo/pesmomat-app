@@ -15,16 +15,22 @@
           </thead>
 
           <tr v-for="song of songs" class="fake-button">
-            <td @click="openSong(song)">{{ song.title }}</td>
-            <td @click="openSong(song)" class="text-muted">{{ song.author.lastName }} {{ song.author.firstName }}</td>
+            <td @click="openSong(song)">
+              <nuxt-link :to="localePath(`/admin/songs/${song._id}`)">
+                {{ song.title }}
+              </nuxt-link>
+            </td>
+            <td @click="openSong(song)" class="text-muted">
+              {{ song.author.lastName }} {{ song.author.firstName }}
+            </td>
             <td class="text-right">
               <b @click="remove(song)" class="text-danger cursor-pointer mr-2">Izbriši</b>
               <span
                 @click="setFavourite(song)"
                 :class="['material-icons', { 'favourite': song.favourite }]"
               >
-                star
-              </span>
+              star
+            </span>
             </td>
           </tr>
         </table>
