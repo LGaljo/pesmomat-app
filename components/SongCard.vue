@@ -31,7 +31,7 @@
         <h5 class="title">{{ song.title }}</h5>
         <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
-        <p class="card-text mt-3 pb-3" v-html="createExcerpt(song.content)"></p>
+        <p class="card-text mt-3 pb-3" v-html="createExcerpt()"></p>
       </div>
     </div>
     <QRModal
@@ -107,10 +107,12 @@ export default {
       this.playing = !this.playing;
     },
     createExcerpt() {
-      if (!!this.limit && this.song?.content.split('<br>').length > this.limit) {
-        return this.song?.content.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      const locale = this.$i18n.locale;
+      const content = this.song?.contents?.find(c => c.language === locale)?.content
+      if (!!this.limit && content?.split('<br>').length > this.limit) {
+        return content?.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
       }
-      return this.song?.content
+      return content
     }
   }
 }

@@ -18,6 +18,14 @@
     "title": "Pesmi {0} {1}",
     "none": "Ni avtorjev za prikaz"
   },
+  "languages": {
+    "sl": "Slovenščina",
+    "de": "Nemščina",
+    "en": "Angleščina",
+    "hr": "Hrvaščina",
+    "hu": "Madžarščina",
+    "it": "Italijanščina"
+  },
   "navbar": {
     "admin": {
       "add": "Dodaj pesem",
