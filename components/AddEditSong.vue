@@ -1,5 +1,5 @@
 <template>
-  <form class="w-100" ref="form" novalidate @submit.prevent="">
+  <b-form class="w-100" ref="form" novalidate @submit.prevent="">
     <div class="form-group">
       <label for="title">Naslov pesmi</label>
       <input
@@ -47,32 +47,75 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="content">Pesem</label>
-      <textarea v-model="song.content" class="form-control" id="content" rows="15" required></textarea>
-      <div class="invalid-feedback">
-        Prosim vnesi besedilo pesmi.
+    <div>
+      <div>
+        <b-btn @click.stop.prevent="addLang">Dodaj različico</b-btn>
       </div>
+      <b-card
+        v-if="song.contents.length"
+        v-for="obj in song.contents"
+        :key="obj.language + counter"
+        class="my-2"
+      >
+        <!-- Jezik -->
+        <div class="form-group">
+          <label for="category">Jezik</label>
+          <b-form-select v-model="obj.language" class="form-control" id="language" :options="options.languages"></b-form-select>
+          <div class="invalid-feedback">
+            Prosim izberi jezik.
+          </div>
+        </div>
+
+        <!-- Vsebina -->
+        <div class="form-group">
+          <label for="content">Pesem</label>
+          <textarea v-model="obj.content" class="form-control" id="content" rows="15" required></textarea>
+          <div class="invalid-feedback">
+            Prosim vnesi besedilo pesmi.
+          </div>
+        </div>
+      </b-card>
     </div>
 
     <b-button
       v-if="id"
       type="submit"
       @click.prevet.stop="play"
-      class="btn-primary"
+      class="mt-2"
       :class="{ active: playing }"
     >
       Predvajaj pesem
     </b-button>
 
-    <audio :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
+    <audio v-if="id" :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
       <source :src="`${apiUrl}/songs/play/${id}`" type="audio/mpeg">
       Your browser does not support the audio tag.
     </audio>
 
-    <b-button v-if="!id" type="submit" @click.prevet.stop="onCreate" class="btn-primary">Dodaj</b-button>
-    <b-button v-else type="submit" @click.prevet.stop="onUpdate" class="btn-primary">Posodobi</b-button>
-  </form>
+    <div class="mt-2">
+      <b-button
+        v-if="!id"
+        type="submit"
+        @click.prevet.stop="onCreate"
+      >
+        <div class="d-flex align-items-center">
+          <div>Dodaj pesem</div>
+          <i class="ml-1 material-icons">save</i>
+        </div>
+      </b-button>
+      <b-button
+        v-else
+        type="submit"
+        @click.prevet.stop="onUpdate"
+        class="btn-primary"
+      >
+        <div class="d-flex align-items-center">
+          <div>Posodobi pesem</div>
+          <i class="ml-1 material-icons">save</i>
+        </div>
+      </b-button>
+    </div>
+  </b-form>
 </template>
 
 <script>
@@ -89,6 +132,7 @@ export default {
   },
   data() {
     return {
+      counter: 0,
       song: {
         _id: null,
         title: null,
@@ -96,6 +140,8 @@ export default {
         authorId: null,
         categoryId: null,
         content: null,
+        contents: [],
+        language: null,
         url: null
       },
       playing: false,
@@ -105,7 +151,10 @@ export default {
         ],
         categories: [
           {value: null, text: 'Prosim izberi zvrst'},
-        ]
+        ],
+        languages: [
+          {value: null, text: 'Prosim izberi jezik'},
+        ],
       }
     }
   },
@@ -117,7 +166,20 @@ export default {
   async created() {
     if (this.id) {
       this.song = await this.$axios.$get(`/songs/${this.id}`)
-      this.song.content = this.song?.content?.replaceAll('<br>', '\n')
+      if (!this.song?.contents) {
+        this.song.contents = [];
+      }
+      if (!this.song.contents && this.song?.content) {
+        this.song.contents.push({
+          language: this.song.language === 'slovenščina' ? 'sl' : null,
+          content: this.song.content?.replaceAll('<br>', '\n'),
+        });
+      } else {
+        this.song.contents = this.song?.contents.map(c => ({
+          content: c?.content?.replaceAll('<br>', '\n'),
+          language: c?.language,
+        }));
+      }
       this.song.authorId = this.song?.author?._id || null
       this.song.categoryId = this.song?.category?._id || null
     }
@@ -133,8 +195,19 @@ export default {
         text: `${c.name}`
       }
     }))
+    const languages = await this.$axios.$get('/songs/languages');
+    this.options.languages.push(...(Object.keys(languages).map(k => {
+      return {
+        value: languages[k].code,
+        text: languages[k].code
+      }
+    })))
   },
   methods: {
+    addLang() {
+      this.counter++;
+      this.song.contents.push({language: null, content: null})
+    },
     async play() {
       if (this.playing) {
         await this.$refs.audioPlayer.pause();
@@ -148,31 +221,28 @@ export default {
       this.$refs.form.classList.add('was-validated');
 
       if (
-        !this.$refs.form.title.checkValidity() ||
+        !this.song.title ||
         !this.song.authorId ||
         !this.song.categoryId ||
-        !this.$refs.form.content.checkValidity() ||
-        !this.$refs.form.url.checkValidity()
+        !this.song.contents
       ) {
         this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
         return;
       }
 
-      this.song.title = this.$refs.form.title.value;
-      this.song.author = this.$refs.form.author.value;
-      this.song.category = this.$refs.form.category.value;
-      this.song.content = this.$refs.form.content.value.replaceAll('\n', '<br>');
-      this.song.url = this.$refs.form.url.value;
+      // this.song.title = this.$refs.form.title.value;
+      // this.song.author = this.$refs.form.author.value;
+      // this.song.category = this.$refs.form.category.value;
+      this.song.contents = this.song.contents.map(c => ({
+        content: c.content.replaceAll('\n', '<br>'),
+        language: c.language,
+      }));
+      // this.song.url = this.$refs.form.url.value;
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
           this.$toast.success('Pesem uspešno dodana', { duration: 2000 });
-          this.song.title = '';
-          this.song.authorId = null;
-          this.song.categoryId = null;
-          this.song.content = '';
-          this.song.url = '';
-          this.$refs.form.classList.remove('was-validated');
+          this.resetForm();
         })
         .catch(rej => {
           console.error(rej);
@@ -183,23 +253,31 @@ export default {
       this.$refs.form.classList.add('was-validated');
 
       if (
-        !this.$refs.form.title.checkValidity() ||
+        !this.song.title ||
         !this.song.authorId ||
         !this.song.categoryId ||
-        !this.$refs.form.content.checkValidity() ||
-        !this.$refs.form.url.checkValidity()
+        !this.song.contents
       ) {
         this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
         return;
       }
 
-      this.song.content = this.song.content.replaceAll('\n', '<br>');
+      delete this.song.content;
+      this.song.contents = this.song.contents.map(c => ({
+        content: c.content?.replaceAll('\n', '<br>'),
+        language: c.language,
+      }));
 
       await this.$axios.$put(`/songs/${this.id}`, this.song)
         .then(res => {
           this.$toast.success('Pesem uspešno posodobljena', { duration: 2000 });
           this.song = res
-          this.song.content = this.song.content.replaceAll('<br>', '\n')
+          // this.song.content = this.song.content.replaceAll('<br>', '\n')
+          this.song.contents = this.song?.contents.map(c => ({
+            content: c?.content?.replaceAll('<br>', '\n'),
+            language: c?.language,
+          }));
+
           this.song.authorId = this.song?.author?._id
           this.song.categoryId = this.song?.category?._id
         })
@@ -207,6 +285,14 @@ export default {
           console.error(rej);
           this.$toast.error('Napaka pri posodabljanju pesmi', { duration: 2000 });
         });
+    },
+    resetForm() {
+      this.song.title = '';
+      this.song.authorId = null;
+      this.song.categoryId = null;
+      this.song.content = '';
+      this.song.url = '';
+      this.$refs.form.classList.remove('was-validated');
     }
   }
 }
