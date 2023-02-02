@@ -31,7 +31,7 @@
         <h5 class="title">{{ song.title }}</h5>
         <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
-        <p class="card-text mt-3 pb-3" v-html="createExcerpt(song.content)"></p>
+        <p class="card-text mt-3 pb-3" v-html="createExcerpt()"></p>
       </div>
     </div>
     <QRModal

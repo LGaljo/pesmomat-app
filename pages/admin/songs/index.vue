@@ -20,7 +20,7 @@
                 {{ song.title }}
               </nuxt-link>
             </td>
-            <td @click="openSong(song)" class="text-muted">
+            <td @click="openSong(song)" v-if="song.author" class="text-muted">
               {{ song.author.lastName }} {{ song.author.firstName }}
             </td>
             <td class="text-right">
