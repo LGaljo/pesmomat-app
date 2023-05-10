@@ -20,7 +20,9 @@
           class="mx-2 py-0 my-0"
           v-for="locale in availableLocales"
           :key="locale"
-          :to="switchLocalePath(locale)"><img height="50" :src="lang[locale]" alt="flag"></nuxt-link>
+          :to="switchLocalePath(locale)">
+          <img height="50" :src="flags[locale]" alt="flag">
+        </nuxt-link>
 
         <div class="ml-4 coin-amount">
           {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>
@@ -33,18 +35,15 @@
 
 <script>
 import {mapState} from 'vuex'
-import admin from "@/mixins/admin";
+import admin from "../mixins/admin";
+import flags from "../mixins/flags";
 
 export default {
-  mixins: [ admin ],
+  mixins: [ admin, flags ],
   data() {
     return {
       amount: 1,
       interval: null,
-      lang: {
-        sl: '/flag-slovenia_1f1f8-1f1ee.png',
-        en: '/flag-united-kingdom_1f1ec-1f1e7.png'
-      }
     }
   },
   computed: {

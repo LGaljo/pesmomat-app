@@ -7,7 +7,7 @@
     >
       <transition name="fade">
         <song-card
-          v-if="show && songs"
+          v-if="show && songs && song"
           :song="song"
           :hide-actions="true"
           :limit="25"
@@ -49,11 +49,12 @@ export default {
       songId: null,
     }
   },
-  async created() {
+  async mounted() {
     await this.getSongs();
     this.song = this.songs[this.index]
     this.index++;
     this.show = true;
+    console.log(this.song)
 
     setInterval(async () => {
       this.song = this.songs[this.index]
@@ -71,10 +72,10 @@ export default {
   },
   methods: {
     async getSongs() {
-      await this.$axios.$get('/songs?favourite=true')
+      await this.$axios.$get('/songs?favourite=true', { params: { limit: 200 }})
         .then(res => {
-          if (res.length) {
-            this.songs = res;
+          if (!!res?.items) {
+            this.songs = res.items;
           }
         })
         .catch(res => {

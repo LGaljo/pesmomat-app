@@ -1,5 +1,23 @@
 <template>
   <div v-if="song">
+    <div v-if="isAdmin && !hideActions" class="mb-2">
+      <nuxt-link :to="`/admin/songs/${song._id}`">
+        <b-btn>
+          {{ $t('actions.edit') }}
+        </b-btn>
+      </nuxt-link>
+    </div>
+    <div v-if="!hideActions && song.contents.length > 1">
+      <div>{{ $t('songs.read_lang') }}</div>
+      <div class="d-flex flex-row">
+        <template v-for="content in song.contents">
+          <div class="fake-button mr-2">
+            <b-img v-bind="{ height: 48 }" @click="changeLang(content.language)" :src="flags[content.language]" >
+            </b-img>
+          </div>
+        </template>
+      </div>
+    </div>
     <div class="card">
       <div class="card-body text-center">
         <div v-if="!hideActions" class="mb-4">
@@ -31,9 +49,10 @@
         <h5 class="title">{{ song.title }}</h5>
         <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
-        <p class="card-text mt-3 pb-3" v-html="createExcerpt()"></p>
+        <p class="card-text mt-3 pb-3" v-html="currentContent"></p>
       </div>
     </div>
+
     <QRModal
       v-if="showQR"
       @close="showQR = false"
@@ -45,9 +64,12 @@
 <script>
 import QrcodeVue from 'qrcode.vue'
 import QRModal from "./QRModal";
+import admin from "../mixins/admin";
+import flags from "../mixins/flags";
 
 export default {
   name: "SongCard",
+  mixins: [admin, flags],
   components: {
     QrcodeVue,
     QRModal
@@ -66,6 +88,8 @@ export default {
     return {
       showQR: false,
       playing: false,
+      currentLang: null,
+      currentContent: ''
     }
   },
   computed: {
@@ -73,7 +97,15 @@ export default {
       return process.env.API_URL
     },
   },
+  mounted() {
+    this.currentLang = this.$i18n.locale;
+    this.createExcerpt()
+  },
   methods: {
+    changeLang(locale) {
+      this.currentLang = locale
+      this.createExcerpt()
+    },
     async printAction() {
       await this.$axios.post(`/raspberrypi/print?songId=${this.song._id}`)
         .then(async (res) => {
@@ -107,12 +139,16 @@ export default {
       this.playing = !this.playing;
     },
     createExcerpt() {
-      const locale = this.$i18n.locale;
-      const content = this.song?.contents?.find(c => c.language === locale)?.content
-      if (!!this.limit && content?.split('<br>').length > this.limit) {
-        return content?.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      if (!this.song?.contents?.length) {
+        this.currentContent = this.song?.content
+        console.log(this.currentContent)
+        return
       }
-      return content
+      let content = this.song?.contents?.find(c => c.language === this.currentLang)?.content
+      if (!!this.limit && content?.split('<br>').length > this.limit) {
+        content = content?.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      }
+      this.currentContent = content
     }
   }
 }

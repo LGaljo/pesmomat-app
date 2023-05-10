@@ -4,7 +4,8 @@
     "search": "Išči",
     "back": "Nazaj",
     "understand": "Razumem",
-    "cancel": "Prekliči"
+    "cancel": "Prekliči",
+    "edit": "Uredi"
   },
   "authors": {
     "title": "Pesniki zvrsti {0}",
@@ -16,15 +17,18 @@
   },
   "songs": {
     "title": "Pesmi {0} {1}",
-    "none": "Ni avtorjev za prikaz"
+    "none": "Ni avtorjev za prikaz",
+    "read_lang": "Beri v drugih jezikih:"
   },
   "languages": {
-    "sl": "Slovenščina",
     "de": "Nemščina",
     "en": "Angleščina",
+    "es": "Španščina",
+    "fr": "Francoščina",
     "hr": "Hrvaščina",
     "hu": "Madžarščina",
-    "it": "Italijanščina"
+    "it": "Italijanščina",
+    "sl": "Slovenščina"
   },
   "navbar": {
     "admin": {

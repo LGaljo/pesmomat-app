@@ -4,7 +4,8 @@
     "search": "Search",
     "back": "Back",
     "understand": "I understand",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "edit": "Edit"
   },
   "authors": {
     "title": "Poets of period {0}",
@@ -16,7 +17,18 @@
   },
   "songs": {
     "title": "Poems by {0} {1}",
-    "none": "No poems to show"
+    "none": "No poems to show",
+    "read_lang": "Read in other languages:"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "hr": "Croatian",
+    "hu": "Hungarian",
+    "it": "Italian",
+    "sl": "Slovene"
   },
   "navbar": {
     "admin": {
