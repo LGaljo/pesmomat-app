@@ -38,6 +38,8 @@
   "overrides": {
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
+    "vue-template-compiler": "^2.7.10",
+    "glob-parent": "6.0.2",
+    "nth-check": "2.1.1"
   }
 }
