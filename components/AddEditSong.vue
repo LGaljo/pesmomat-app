@@ -32,7 +32,8 @@
     <!-- Avtor -->
     <div class="form-group">
       <label for="author">Avtor</label>
-      <b-form-select v-model="song.authorId" class="form-control" id="author" :options="options.authors"></b-form-select>
+      <b-form-select v-model="song.authorId" class="form-control" id="author"
+                     :options="options.authors"></b-form-select>
       <div class="invalid-feedback">
         Prosim vnesi avtorja.
       </div>
@@ -40,14 +41,17 @@
         id="urlHelp"
         class="form-text text-muted"
       >
-        Avtor ne obstaja? <nuxt-link to="/admin/authors">Dodaj ga</nuxt-link>.
+        Avtor ne obstaja?
+        <nuxt-link to="/admin/authors">Dodaj ga</nuxt-link>
+        .
       </small>
     </div>
 
     <!-- Zvrst -->
     <div class="form-group">
       <label for="category">Zvrst</label>
-      <b-form-select v-model="song.categoryId" class="form-control" id="category" :options="options.categories"></b-form-select>
+      <b-form-select v-model="song.categoryId" class="form-control" id="category"
+                     :options="options.categories"></b-form-select>
       <div class="invalid-feedback">
         Prosim vnesi Zvrst.
       </div>
@@ -55,39 +59,41 @@
         id="urlHelp"
         class="form-text text-muted"
       >
-        Zvrst ne obstaja? <nuxt-link to="/admin/categories">Dodaj jo</nuxt-link>.
+        Zvrst ne obstaja?
+        <nuxt-link to="/admin/categories">Dodaj jo</nuxt-link>
+        .
       </small>
     </div>
 
-    <div>
-      <div>
-        <b-btn @click.stop.prevent="addLang">Dodaj različico</b-btn>
-      </div>
-      <b-card
-        v-if="song.contents.length"
-        v-for="obj in song.contents"
-        :key="obj.language + counter"
-        class="my-2"
-      >
-        <!-- Jezik -->
-        <div class="form-group">
-          <label for="category">Jezik</label>
-          <b-form-select v-model="obj.language" class="form-control" id="language" :options="options.languages"></b-form-select>
-          <div class="invalid-feedback">
-            Prosim izberi jezik.
-          </div>
-        </div>
+    <b-card
+      v-if="song.contents.length"
+      class="mt-3 mb-2"
+    >
+      <ul class="nav nav-tabs">
+        <template v-for="lang in options.languages">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{'active': activeVersion === lang.value }"
+              aria-current="page"
+              @click="setActive(lang.value)"
+            >
+              {{ lang.text }}
+              <template v-if="hasContent(lang.value) === 2">🟢</template>
+              <template v-if="hasContent(lang.value) === 1">🟡</template>
+            </a>
+          </li>
+        </template>
+      </ul>
 
-        <!-- Vsebina -->
-        <div class="form-group">
-          <label for="content">Pesem</label>
-          <textarea v-model="obj.content" class="form-control" id="content" rows="15" required></textarea>
-          <div class="invalid-feedback">
-            Prosim vnesi besedilo pesmi.
-          </div>
+      <!-- Vsebina -->
+      <div :key="counter" class="form-group mt-1">
+        <textarea v-model="activeContent" class="form-control" id="content" rows="15" required @blur="updateField"/>
+        <div class="invalid-feedback">
+          Prosim vnesi besedilo pesmi.
         </div>
-      </b-card>
-    </div>
+      </div>
+    </b-card>
 
     <b-button
       v-if="id"
@@ -156,6 +162,8 @@ export default {
         language: null,
         url: null
       },
+      activeVersion: 'sl-SI',
+      activeContent: '',
       playing: false,
       options: {
         authors: [
@@ -176,24 +184,25 @@ export default {
     },
   },
   async created() {
+    const languages = await this.$axios.$get('/songs/languages');
+    this.options.languages = Object.keys(languages).map(k => {
+      return {
+        value: languages[k].code,
+        text: languages[k].code
+      }
+    })
     if (this.id) {
       this.song = await this.$axios.$get(`/songs/${this.id}`)
-      if (!this.song?.contents) {
-        this.song.contents = [];
-      }
-      if (!this.song.contents && this.song?.content) {
-        this.song.contents.push({
-          language: this.song.language === 'slovenščina' ? 'sl' : null,
-          content: this.song.content?.replaceAll('<br>', '\n'),
-        });
-      } else {
-        this.song.contents = this.song?.contents.map(c => ({
-          content: c?.content?.replaceAll('<br>', '\n'),
-          language: c?.language,
-        }));
-      }
+      this.song.contents = this.song?.contents.map(c => ({
+        content: c?.content?.replaceAll('<br>', '\n'),
+        lang: c?.lang,
+      }));
       this.song.authorId = this.song?.author?._id || null
       this.song.categoryId = this.song?.category?._id || null
+      // TODO: Not always SL
+      // this.activeVersion = this.song.language
+      this.activeContent = this.song.contents.find((c) => c.lang === this.activeVersion)?.content
+      console.log(this.activeContent)
     }
     this.options.authors.push(...(await this.$axios.$get('/author')).map(a => {
       return {
@@ -207,13 +216,6 @@ export default {
         text: `${c.name}`
       }
     }))
-    const languages = await this.$axios.$get('/songs/languages');
-    this.options.languages.push(...(Object.keys(languages).map(k => {
-      return {
-        value: languages[k].code,
-        text: languages[k].code
-      }
-    })))
   },
   methods: {
     addLang() {
@@ -238,7 +240,7 @@ export default {
         !this.song.categoryId ||
         !this.song.contents
       ) {
-        this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
+        this.$toast.error('Napaka v vnosnih poljih', {duration: 2000});
         return;
       }
 
@@ -253,12 +255,12 @@ export default {
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
-          this.$toast.success('Pesem uspešno dodana', { duration: 2000 });
+          this.$toast.success('Pesem uspešno dodana', {duration: 2000});
           this.resetForm();
         })
         .catch(rej => {
           console.error(rej);
-          this.$toast.error('Napaka pri dodajanju pesmi', { duration: 2000 });
+          this.$toast.error('Napaka pri dodajanju pesmi', {duration: 2000});
         });
     },
     async onUpdate() {
@@ -270,7 +272,7 @@ export default {
         !this.song.categoryId ||
         !this.song.contents
       ) {
-        this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
+        this.$toast.error('Napaka v vnosnih poljih', {duration: 2000});
         return;
       }
 
@@ -282,7 +284,7 @@ export default {
 
       await this.$axios.$put(`/songs/${this.id}`, this.song)
         .then(res => {
-          this.$toast.success('Pesem uspešno posodobljena', { duration: 2000 });
+          this.$toast.success('Pesem uspešno posodobljena', {duration: 2000});
           this.song = res
           // this.song.content = this.song.content.replaceAll('<br>', '\n')
           this.song.contents = this.song?.contents.map(c => ({
@@ -295,7 +297,7 @@ export default {
         })
         .catch(rej => {
           console.error(rej);
-          this.$toast.error('Napaka pri posodabljanju pesmi', { duration: 2000 });
+          this.$toast.error('Napaka pri posodabljanju pesmi', {duration: 2000});
         });
     },
     resetForm() {
@@ -305,6 +307,49 @@ export default {
       this.song.content = '';
       this.song.url = '';
       this.$refs.form.classList.remove('was-validated');
+    },
+    setActive(lang) {
+      console.log('set active')
+      // Save previously written content
+      const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
+      if (this.activeContent.length > 0) {
+        this.song.contents[idx] = {
+          lang: this.activeVersion,
+          content: this.activeContent,
+        }
+      } else {
+        this.song.contents.splice(idx, 1);
+      }
+      // Change language
+      this.activeVersion = lang
+      // Fill content if available
+      const songVersion = this.song.contents.find((c) => c.lang === this.activeVersion)
+      // If no content, add the language to song
+      if (!songVersion) {
+        this.song.contents.push({lang: lang, content: ''})
+        this.activeContent = ""
+      } else {
+        this.activeContent = songVersion.content
+      }
+      this.counter++;
+    },
+    hasContent(lang) {
+      const version = this.song.contents.find((c) => c.lang === lang);
+      if (version?.content?.length > 0) {
+        return 2;
+      } else if (version?.content?.length === 0) {
+        return 1;
+      }
+      return 0;
+    },
+    updateField() {
+      console.log('focus out')
+      const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
+      this.song.contents[idx] = {
+        lang: this.activeVersion,
+        content: this.activeContent,
+      }
+      this.counter++;
     }
   }
 }
