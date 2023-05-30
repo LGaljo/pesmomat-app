@@ -36,6 +36,12 @@
       <div class="invalid-feedback">
         Prosim vnesi avtorja.
       </div>
+      <small
+        id="urlHelp"
+        class="form-text text-muted"
+      >
+        Avtor ne obstaja? <nuxt-link to="/admin/authors">Dodaj ga</nuxt-link>.
+      </small>
     </div>
 
     <!-- Zvrst -->
@@ -45,6 +51,12 @@
       <div class="invalid-feedback">
         Prosim vnesi Zvrst.
       </div>
+      <small
+        id="urlHelp"
+        class="form-text text-muted"
+      >
+        Zvrst ne obstaja? <nuxt-link to="/admin/categories">Dodaj jo</nuxt-link>.
+      </small>
     </div>
 
     <div class="form-group">
