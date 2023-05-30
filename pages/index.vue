@@ -78,12 +78,12 @@ export default {
             this.songs = res.items;
           }
         })
-        .catch(res => {
+        .catch(() => {
           this.$toast.error('Napaka pri pridobivanju pesmi', {duration: 10000});
         })
     },
     async openSongRequest() {
-      this.songId = this.song._id
+      this.songId = this.song?._id
       if (this.coins > 0) {
         this.showModalUse = true
       } else {

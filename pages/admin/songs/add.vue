@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AddEditSong from "@/components/AddEditSong";
+import AddEditSong from "../../../components/AddEditSong";
 
 export default {
   name: "add.vue",

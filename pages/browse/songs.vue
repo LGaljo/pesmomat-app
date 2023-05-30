@@ -33,10 +33,12 @@
 
 <script>
 import {mapGetters} from "vuex";
+import alphabet from "../../mixins/alphabet";
 
 export default {
   name: "browse_songs",
   layout: 'timeout',
+  mixins: [alphabet],
   data() {
     return {
       author: null,
@@ -44,33 +46,6 @@ export default {
       songId: null,
       showModal: false,
       showModalUse: false,
-      alphabet: [
-        'a',
-        'b',
-        'c',
-        'č',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'r',
-        's',
-        'š',
-        't',
-        'u',
-        'v',
-        'z',
-        'ž'
-      ],
     }
   },
   async mounted() {

@@ -12,10 +12,13 @@ $ git clone https://github.com/LGaljo/pesmomat-api
 $ npm install
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+$ npm run dev:watch
 
-# build for production and launch server
-$ npm run build
+# build for production
+$ npm run build:prod
+# build for production for raspberry pi
+$ npm run build:rpi
+# launch server
 $ npm run start
 
 # generate static project
