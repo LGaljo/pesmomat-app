@@ -50,11 +50,13 @@ export default {
   },
   async mounted() {
     this.author = await this.$axios.$get(`/author/${this.$route?.query?.author}`)
-    this.songs = await this.$axios.$get(`/songs`, {
+    this.$axios.$get(`/songs`, {
       params: {
         author: this.$route?.query?.author,
         period: this.$route?.query?.period
       }
+    }).then((res) => {
+      this.songs = res.items || [];
     })
   },
   computed: {

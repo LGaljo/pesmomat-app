@@ -115,9 +115,9 @@ export default {
         }
       })
         .then(res => {
-          if (!!res.items) {
-            this.songs = res.items;
-            this.total = res.total;
+          if (!!res?.items) {
+            this.songs = res?.items;
+            this.total = res?.total;
           }
         })
         .catch(() => {

@@ -74,8 +74,8 @@ export default {
     async getSongs() {
       await this.$axios.$get('/songs?favourite=true', { params: { limit: 200 }})
         .then(res => {
-          if (!!res?.items) {
-            this.songs = res.items;
+          if (res?.items?.length) {
+            this.songs = res?.items;
           }
         })
         .catch(() => {
