@@ -1,10 +1,8 @@
-const auth = async ({ app, store, route, redirect }) => {
-  if (route.path.startsWith('/admin') && !process.env.ADMIN) {
-    console.log('NOT AN ADMIN');
-    redirect('/');
+import {checkAuth} from "../plugins/init";
+
+export default async function (context) {
+  // TODO: Prevent route to admin/auth on raspberry build
+  if (process.client) {
+    await checkAuth(context)
   }
-
-  // Check on route to /songs/_id to have enough coins to make that
 }
-
-export default auth
