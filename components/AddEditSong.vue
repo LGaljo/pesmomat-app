@@ -162,7 +162,7 @@ export default {
         language: null,
         url: null
       },
-      activeVersion: 'sl-SI',
+      activeVersion: 'sl',
       activeContent: '',
       playing: false,
       options: {
@@ -187,8 +187,8 @@ export default {
     const languages = await this.$axios.$get('/songs/languages');
     this.options.languages = Object.keys(languages).map(k => {
       return {
-        value: languages[k].code,
-        text: languages[k].code
+        value: languages[k].shortcode,
+        text: languages[k].shortcode
       }
     })
     if (this.id) {
@@ -202,7 +202,6 @@ export default {
       // TODO: Not always SL
       // this.activeVersion = this.song.language
       this.activeContent = this.song.contents.find((c) => c.lang === this.activeVersion)?.content
-      console.log(this.activeContent)
     }
     this.options.authors.push(...(await this.$axios.$get('/author')).map(a => {
       return {

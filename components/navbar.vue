@@ -16,13 +16,28 @@
           </b-nav-item-dropdown>
         </div>
 
-        <nuxt-link
-          class="mx-2 py-0 my-0"
-          v-for="locale in availableLocales"
-          :key="locale"
-          :to="switchLocalePath(locale)">
-          <img height="50" :src="flags[locale]" alt="flag">
-        </nuxt-link>
+        <div>
+          <b-dropdown size="lg" variant="button" toggle-class="btn-secondary pb-0 pt-1 px-1" no-caret>
+            <template #button-content>
+              <span class="material-icons icon-button px-2 text-center align-self-center" style="width: 40px">translate_variant</span>
+            </template>
+            <b-dropdown-item
+              class=""
+              v-for="locale in availableLocales"
+              :key="locale"
+              :to="switchLocalePath(locale)">
+              <img height="50" :src="flags[locale]" alt="flag">
+              {{ $t('languages.' + locale) }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+
+<!--        <nuxt-link-->
+<!--          class="mx-2 py-0 my-0"-->
+<!--          v-for="locale in availableLocales"-->
+<!--          :key="locale"-->
+<!--          :to="switchLocalePath(locale)">-->
+<!--        </nuxt-link>-->
 
         <div class="ml-4 coin-amount">
           {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>

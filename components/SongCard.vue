@@ -7,20 +7,18 @@
         </b-btn>
       </nuxt-link>
     </div>
-    <div v-if="!hideActions && song.contents.length > 1">
-      <div>{{ $t('songs.read_lang') }}</div>
-      <div class="d-flex flex-row">
-        <template v-for="content in song.contents">
-          <div class="fake-button mr-2">
-            <b-img v-bind="{ height: 48 }" @click="changeLang(content.language)" :src="flags[content.language]" >
-            </b-img>
-          </div>
-        </template>
-      </div>
-    </div>
     <div class="card">
       <div class="card-body text-center">
         <div v-if="!hideActions" class="mb-4">
+          <span
+            v-if="song.contents.length > 1"
+            class="material-icons icon-button px-2"
+            style="width: 64px;"
+            @click="showLangSwitch = true"
+          >
+            translate_variant
+          </span>
+
           <span
             class="material-icons icon-button px-2"
             @click.stop.prevent="printAction"
@@ -57,7 +55,9 @@
       v-if="showQR"
       @close="showQR = false"
       :url="song.url || 'http://vrabecanarhist.eu/'"
-    ></QRModal>
+    />
+
+    <LanguageSwitchModal v-if="showLangSwitch" @close="changeLang($event); showLangSwitch = false;"/>
   </div>
 </template>
 
@@ -66,11 +66,13 @@ import QrcodeVue from 'qrcode.vue'
 import QRModal from "./QRModal";
 import admin from "../mixins/admin";
 import flags from "../mixins/flags";
+import LanguageSwitchModal from "./LanguageSwitchModal.vue";
 
 export default {
   name: "SongCard",
   mixins: [admin, flags],
   components: {
+    LanguageSwitchModal,
     QrcodeVue,
     QRModal
   },
@@ -87,6 +89,7 @@ export default {
   data() {
     return {
       showQR: false,
+      showLangSwitch: false,
       playing: false,
       currentLang: null,
       currentContent: ''
@@ -96,6 +99,9 @@ export default {
     apiUrl() {
       return process.env.API_URL
     },
+    availableLocales () {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
   },
   mounted() {
     this.currentLang = this.$i18n.locale;
@@ -139,12 +145,15 @@ export default {
       this.playing = !this.playing;
     },
     createExcerpt() {
+      // Old place for content
       if (!this.song?.contents?.length) {
-        this.currentContent = this.song?.content
-        console.log(this.currentContent)
+        this.currentContent = this.song?.contents
         return
       }
-      let content = this.song?.contents?.find(c => c.language === this.currentLang)?.content
+      let content = this.song?.contents?.find(c => c.lang.startsWith(this.currentLang))?.content
+      if (!content) {
+        content = this.song?.contents[0]?.content
+      }
       if (!!this.limit && content?.split('<br>').length > this.limit) {
         content = content?.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
       }
