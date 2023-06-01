@@ -200,7 +200,7 @@ export default {
       this.song.authorId = this.song?.author?._id || null
       this.song.categoryId = this.song?.category?._id || null
       // TODO: Not always SL
-      // this.activeVersion = this.song.language
+      this.activeVersion = this.song.language
       this.activeContent = this.song.contents.find((c) => c.lang === this.activeVersion)?.content
     }
     this.options.authors.push(...(await this.$axios.$get('/author')).map(a => {
@@ -275,10 +275,9 @@ export default {
         return;
       }
 
-      delete this.song.content;
       this.song.contents = this.song.contents.map(c => ({
         content: c.content?.replaceAll('\n', '<br>'),
-        language: c.language,
+        lang: c.lang,
       }));
 
       await this.$axios.$put(`/songs/${this.id}`, this.song)
