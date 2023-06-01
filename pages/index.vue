@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import SongCard from "../components/SongCard";
 
 export default {
@@ -50,11 +50,11 @@ export default {
     }
   },
   async mounted() {
+    await this.$store.dispatch('user/fetchUser');
     await this.getSongs();
     this.song = this.songs[this.index]
     this.index++;
     this.show = true;
-    console.log(this.song)
 
     setInterval(async () => {
       this.song = this.songs[this.index]
@@ -67,8 +67,11 @@ export default {
   },
   computed: {
     ...mapGetters({
+      user: 'user/getUser',
+      isApproved: 'user/isApproved',
       coins: 'coins/get',
-    })
+    }),
+    ...mapActions(['user/fetchUser']),
   },
   methods: {
     async getSongs() {
@@ -83,6 +86,7 @@ export default {
         })
     },
     async openSongRequest() {
+      if (this.isAdmin && this.user && this.isApproved)
       this.songId = this.song?._id
       if (this.coins > 0) {
         this.showModalUse = true

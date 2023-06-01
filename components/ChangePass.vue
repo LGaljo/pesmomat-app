@@ -2,7 +2,7 @@
 <div>
   <div v-if="success">
     <span class="d-block mt-3"><b>Geslo uspešno spremenjeno</b></span>
-    <span class="d-block mt-3">Pojdi na <nuxt-link to="login">prijavo</nuxt-link>.</span>
+    <span class="d-block mt-3">Pojdi na <nuxt-link to="/auth/login">prijavo</nuxt-link>.</span>
   </div>
   <div v-else>
     <span class="d-block mt-3"><b>Spremeni geslo</b></span>

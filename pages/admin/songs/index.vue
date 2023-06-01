@@ -82,7 +82,7 @@ export default {
   },
   async mounted() {
     this.currentPage = Number(this.$route.query.page) || 1;
-    console.log(this.currentPage, Number(this.$route.query.page) || 1)
+    // console.log(this.currentPage, Number(this.$route.query.page) || 1)
     await this.getSongs();
     this.counter++;
     this.$nextTick(() => {

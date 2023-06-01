@@ -18,7 +18,6 @@
           >
             translate_variant
           </span>
-
           <span
             class="material-icons icon-button px-2"
             @click.stop.prevent="printAction"

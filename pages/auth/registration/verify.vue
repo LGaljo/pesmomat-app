@@ -26,7 +26,7 @@ export default {
     })
       .then(res => {
         setTimeout(() => {
-          this.$router.replace('/login');
+          this.$router.replace('/auth/login');
         }, this.time * 1000);
       })
       .catch(reason => {

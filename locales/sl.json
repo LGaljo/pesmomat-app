@@ -35,7 +35,8 @@
       "add": "Dodaj pesem",
       "songs": "Pesmi",
       "authors": "Avtorji",
-      "categories": "Zvrsti"
+      "categories": "Zvrsti",
+      "logout": "Odjava"
     }
   },
   "modals": {

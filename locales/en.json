@@ -35,7 +35,8 @@
       "add": "Add poem",
       "songs": "Poems",
       "authors": "Authors",
-      "categories": "Period"
+      "categories": "Period",
+      "logout": "Log out"
     }
   },
   "modals": {
