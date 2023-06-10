@@ -217,10 +217,6 @@ export default {
     }))
   },
   methods: {
-    addLang() {
-      this.counter++;
-      this.song.contents.push({language: null, content: null})
-    },
     async play() {
       if (this.playing) {
         await this.$refs.audioPlayer.pause();
@@ -243,14 +239,10 @@ export default {
         return;
       }
 
-      // this.song.title = this.$refs.form.title.value;
-      // this.song.author = this.$refs.form.author.value;
-      // this.song.category = this.$refs.form.category.value;
       this.song.contents = this.song.contents.map(c => ({
         content: c.content.replaceAll('\n', '<br>'),
         language: c.language,
       }));
-      // this.song.url = this.$refs.form.url.value;
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
@@ -276,8 +268,8 @@ export default {
       }
 
       this.song.contents = this.song.contents.map(c => ({
-        content: c.content?.replaceAll('\n', '<br>'),
-        lang: c.lang,
+        content: c?.content?.replaceAll('\n', '<br>'),
+        lang: c?.lang,
       }));
 
       await this.$axios.$put(`/songs/${this.id}`, this.song)
@@ -287,7 +279,7 @@ export default {
           // this.song.content = this.song.content.replaceAll('<br>', '\n')
           this.song.contents = this.song?.contents.map(c => ({
             content: c?.content?.replaceAll('<br>', '\n'),
-            language: c?.language,
+            lang: c?.lang,
           }));
 
           this.song.authorId = this.song?.author?._id
@@ -307,7 +299,6 @@ export default {
       this.$refs.form.classList.remove('was-validated');
     },
     setActive(lang) {
-      console.log('set active')
       // Save previously written content
       const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
       if (this.activeContent.length > 0) {
@@ -341,7 +332,6 @@ export default {
       return 0;
     },
     updateField() {
-      console.log('focus out')
       const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
       this.song.contents[idx] = {
         lang: this.activeVersion,
