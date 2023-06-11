@@ -2,7 +2,7 @@
   <div>
     <div
       @click="openSongRequest"
-      style="height: calc(100vh - 56px); max-height: calc(100vh - 56px);"
+      style="height: calc(100vh - 120px); max-height: calc(100vh - 120px);"
       class="d-flex flex-row align-items-center justify-content-center"
     >
       <transition name="fade">
@@ -86,7 +86,6 @@ export default {
         })
     },
     async openSongRequest() {
-      if (this.isAdmin && this.user && this.isApproved)
       this.songId = this.song?._id
       if (this.coins > 0) {
         this.showModalUse = true

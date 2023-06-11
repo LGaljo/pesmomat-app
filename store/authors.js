@@ -7,7 +7,7 @@ export const mutations = {
     state.authors = value
   },
   unset(state) {
-    state.user = null
+    state.authors = null
   },
 }
 

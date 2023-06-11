@@ -5,11 +5,27 @@
     "back": "Nazaj",
     "understand": "Razumem",
     "cancel": "Prekliči",
+    "generate": "Generiraj",
     "edit": "Uredi"
   },
   "authors": {
     "title": "Pesniki zvrsti {0}",
     "none": "Ni avtorjev za prikaz"
+  },
+  "generate": {
+    "buy": "Želite kupiti pesem?",
+    "create": "Generiraj",
+    "title": "Izberi dve pesmi in zgeneriral bom novo",
+    "songA": "Pesem A",
+    "songB": "Pesem B",
+    "select": {
+      "A": "Izberi prvo pesem",
+      "B": "Izberi drugo pesem",
+      "rhyme": "Izberi tip rime",
+      "length": "Izberi dolžino pesmi",
+      "stanza": "Izberi tip kitice",
+      "start": "Vpiši s katero vrstico naj se začne pesem"
+    }
   },
   "periods": {
     "title": "Zvrsti",

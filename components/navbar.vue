@@ -2,10 +2,13 @@
   <div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav">
-      <div class="container-fluid">
+      <b-container fluid v-if="pagetype === 'admin'">
 
-        <nuxt-link class="navbar-brand" href="/" :to="localePath(`/`)">{{ $t('title') }}</nuxt-link>
-        <nuxt-link class="nav-item nav-link link" :class="{ 'mr-auto': !isAdmin }" :to="localePath(`/browse/categories`)">{{ $t('actions.search') }}</nuxt-link>
+        <nuxt-link class="navbar-brand" href="/" :to="localePath(`/`)">
+          <div class="logo"></div>
+        </nuxt-link>
+        <nuxt-link class="nav-item nav-link link" :to="localePath(`/browse/categories`)">{{ $t('actions.search') }}</nuxt-link>
+        <nuxt-link class="nav-item nav-link link" :class="{ 'mr-auto': !isAdmin }" :to="localePath(`/generate`)">{{ $t('actions.generate') }}</nuxt-link>
 
         <div v-if="isAdmin && user && isApproved" class="no-link mr-auto">
           <b-nav-item-dropdown class="nav-item nav-link p-0" text="Admin">
@@ -34,17 +37,41 @@
           </b-dropdown>
         </div>
 
-<!--        <nuxt-link-->
-<!--          class="mx-2 py-0 my-0"-->
-<!--          v-for="locale in availableLocales"-->
-<!--          :key="locale"-->
-<!--          :to="switchLocalePath(locale)">-->
-<!--        </nuxt-link>-->
-
         <div class="ml-4 coin-amount">
           {{ coins.amount }} <i class="material-icons coin-amount-icon">article</i>
         </div>
-      </div>
+      </b-container>
+
+      <b-container fluid v-else>
+        <nuxt-link class="navbar-brand" href="/" :to="localePath(`/`)">
+          <div class="logo"></div>
+        </nuxt-link>
+
+        <div class="mx-5 coin-amount d-flex flex-row align-items-center">
+          <div :style="{'height' : `50px`, 'width' : `37px`, 'background-image': icon_url('coins'), 'background-size': 'contain'}" class="icon"></div>
+          <div class="mx-3">{{ coins.amount }}</div>
+        </div>
+
+        <nuxt-link :to="localePath(`/browse/categories`)">
+          <div :style="{'height' : `50px`, 'width' : `48px`, 'background-image': icon_url('search'), 'background-size': 'contain'}" class="icon"></div>
+        </nuxt-link>
+
+        <nuxt-link :to="localePath(`/generate`)">
+          <div :style="{'height' : `50px`, 'width' : `50px`, 'background-image': icon_url('generate'), 'background-size': 'contain'}" class="icon"></div>
+        </nuxt-link>
+
+        <nuxt-link :to="localePath(`/suggest`)">
+          <div :style="{'height' : `50px`, 'width' : `43px`, 'background-image': icon_url('hand'), 'background-size': 'contain'}" class="icon"></div>
+        </nuxt-link>
+
+        <nuxt-link :to="localePath(`/browse/categories`)">
+          <div :style="{'height' : `50px`, 'width' : `36px`, 'background-image': icon_url('questionmark'), 'background-size': 'contain'}" class="icon"></div>
+        </nuxt-link>
+
+        <nuxt-link :to="localePath(`/browse/categories`)" class="pr-5">
+          <div :style="{'height' : `50px`, 'width' : `50px`, 'background-image': icon_url('language'), 'background-size': 'contain'}" class="icon"></div>
+        </nuxt-link>
+      </b-container>
     </nav>
 
   </div>
@@ -62,6 +89,14 @@ export default {
       amount: 1,
       interval: null,
     }
+  },
+  components: {
+  },
+  props: {
+      pagetype: {
+        type: String,
+        default: 'default'
+      }
   },
   computed: {
     ...mapGetters({
@@ -87,6 +122,9 @@ export default {
     }
   },
   methods: {
+    icon_url(icon) {
+      return `url('/img/${this.pagetype}/${icon}.svg')`
+    },
     logout() {
       this.$store.dispatch('user/logoutUser');
       // this.$router.replace('/')
@@ -102,8 +140,8 @@ export default {
   color: goldenrod;
 }
 .coin-amount {
-  font-weight: 600;
-  font-size: 18px !important;
+  font-weight: 700;
+  font-size: 40px !important;
 }
 .link {
   color: #808080 !important;

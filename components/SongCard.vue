@@ -1,15 +1,15 @@
 <template>
   <div v-if="song">
-    <div v-if="isAdmin && !hideActions" class="mb-2">
-      <nuxt-link :to="`/admin/songs/${song._id}`">
-        <b-btn>
-          {{ $t('actions.edit') }}
-        </b-btn>
-      </nuxt-link>
-    </div>
-    <div class="card">
-      <div class="card-body text-center">
+    <b-card>
+      <b-card-body class="text-center">
         <div v-if="!hideActions" class="mb-4">
+          <span
+            class="material-icons icon-button px-2"
+            style="width: 64px;"
+            @click="$router.push(`/admin/songs/${song._id}`)"
+          >
+            edit
+          </span>
           <span
             v-if="song.contents.length > 1"
             class="material-icons icon-button px-2"
@@ -47,8 +47,8 @@
         <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
 
         <p class="card-text mt-3 pb-3" v-html="currentContent"></p>
-      </div>
-    </div>
+      </b-card-body>
+    </b-card>
 
     <QRModal
       v-if="showQR"

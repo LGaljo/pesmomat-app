@@ -35,13 +35,15 @@ export const getters = {
 export const actions = {
   async fetchUser({ commit }) {
     const userId = localStorage.getItem('userId')
-    await this.$axios.$get(`/users/${userId}`)
-      .then(res => {
-        commit('setUser', res)
-      })
-      .catch(res => {
-        commit('set', null)
-      })
+    if (userId) {
+      await this.$axios.$get(`/users/${userId}`)
+        .then(res => {
+          commit('setUser', res)
+        })
+        .catch(res => {
+          commit('set', null)
+        })
+    }
   },
   unsetUser({ commit }) {
     commit('unsetUser')

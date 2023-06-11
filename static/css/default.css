@@ -1,0 +1,22 @@
+body {
+  color: #006867 !important;
+  background-image: url("/img/default/background.svg") !important;
+  font-family: 'Playfair Display', serif !important;
+}
+
+.logo {
+  height: 50px;
+  width: 121px;
+  background: url("/img/default/logo.svg");
+  background-size: contain;
+}
+
+.custom-nav {
+  color: #AD1E23 !important;
+  background: #00000000 !important;
+  height: 115px;
+}
+
+.no-border > .card {
+  background: #FEECCC !important;
+}

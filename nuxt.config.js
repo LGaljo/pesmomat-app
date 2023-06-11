@@ -37,8 +37,18 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          '@/assets/Oblik Font.otf'
+          '@/assets/Oblik Bold.otf'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          '@/assets/fonts/ARVO-REGULAR.TTF'
       }
+      // {
+      //   rel: 'stylesheet',
+      //   href:
+      //     'https://fonts.googleapis.com/css2?family=Arvo&display=swap'
+      // }
     ]
   },
 
@@ -50,7 +60,7 @@ export default {
     {src: '~/plugins/init.js', ssr: false},
     '~/plugins/click-outside.js',
     '~/plugins/axios.js',
-    '~/plugins/veevalidate.js',
+    '~/plugins/veevalidate.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -58,6 +68,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/google-fonts'
   ],
 
   router: {
@@ -92,6 +103,10 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
+    extractCSS: false, // true causes duplicate css
+    splitChunks: {
+      layouts: true
+    },
     extend(config, ctx) {}
   },
 
@@ -103,6 +118,16 @@ export default {
 
   toast: {
     position: 'top-right',
-  }
+  },
 
+  googleFonts: {
+    download: true,
+    base64: true,
+    inject: true,
+    fontsDir: '~/assets/fonts',
+    families: {
+      // Arvo: true,
+      'Playfair Display': true
+    }
+  }
 }

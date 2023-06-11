@@ -16,7 +16,8 @@ const unprotectedPaths = [
   '/en/auth/forgotten-password',
   '/en/auth/change-password',
   '/en/browse',
-  '/en/song/'
+  '/en/song/',
+  '/'
 ]
 
 

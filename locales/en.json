@@ -11,6 +11,9 @@
     "title": "Poets of period {0}",
     "none": "No authors to show"
   },
+  "generate": {
+    "title": "Generate poem"
+  },
   "periods": {
     "title": "Periods",
     "none": "No periods to show"

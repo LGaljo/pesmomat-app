@@ -19,18 +19,12 @@
 }
 
 body {
-  background: lightgray;
-  font-family: 'oblik-bold', sans-serif;
-}
-
-.custom-nav {
-  background: lightgray !important;
-
+  min-height: 100vh;
+  //font-family: 'oblik-bold', sans-serif !important;
 }
 
 .no-border > .card {
   border: none;
-  background: lightgray !important;
 }
 
 /* fallback */
@@ -39,6 +33,14 @@ body {
   font-style: normal;
   font-weight: 400;
   src: url('assets/material-icons.woff2') format('woff2');
+}
+
+/* fallback */
+@font-face {
+  font-family: 'Arvo Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/ARVO-REGULAR.TTF') format('woff2');
 }
 
 .material-icons {
@@ -55,4 +57,55 @@ body {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+}
+
+.generate-modal {
+  .modal-content {
+    background: rgb(15,113,112) !important;
+    border: none;
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .modal-body {
+    background: rgb(15,113,112) !important;
+    border: none;
+    padding: 12px;
+  }
+  .modal-footer {
+    background: rgb(15,113,112) !important;
+    border: none;
+    justify-content: space-around !important;
+  }
+}
+
+.default-modal {
+  .modal-header {
+    background: rgb(15,113,112) !important;
+    border: none;
+  }
+  .modal-body {
+    background: rgb(15,113,112) !important;
+    border: none;
+  }
+  .modal-footer {
+    background: rgb(15,113,112) !important;
+    border: none;
+  }
+}
+
+
+.grey-select {
+  .custom-select {
+    border: none;
+    background: #7E7E7E url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat;
+    color: black;
+  }
+}
+
+.lightgrey-select {
+  .custom-select {
+    border: none;
+    background: #D9D9D9 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat;
+    color: black;
+  }
 }
