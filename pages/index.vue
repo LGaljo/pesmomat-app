@@ -1,9 +1,9 @@
 <template>
   <div>
     <div
-      @click="openSongRequest"
       style="height: calc(100vh - 120px); max-height: calc(100vh - 120px);"
       class="d-flex flex-row align-items-center justify-content-center"
+      @click="openSongRequest"
     >
       <transition name="fade">
         <song-card

@@ -28,7 +28,7 @@
             </template>
             <b-dropdown-item
               class=""
-              v-for="locale in availableLocales"
+              v-for="locale of availableLocales"
               :key="locale"
               :to="switchLocalePath(locale)">
               <img height="50" :src="flags[locale]" alt="flag">
@@ -47,31 +47,35 @@
           <div class="logo"></div>
         </nuxt-link>
 
-        <div class="mx-5 coin-amount d-flex flex-row align-items-center">
-          <div :style="{'height' : `50px`, 'width' : `37px`, 'background-image': icon_url('coins'), 'background-size': 'contain'}" class="icon"></div>
+        <div class="mx-5 coin-amount d-flex flex-row align-items-center mx-auto">
+          <div :style="item_style('coins', 37, 50)" class="icon"></div>
           <div class="mx-3">{{ coins.amount }}</div>
         </div>
 
-        <nuxt-link :to="localePath(`/browse/categories`)">
-          <div :style="{'height' : `50px`, 'width' : `48px`, 'background-image': icon_url('search'), 'background-size': 'contain'}" class="icon"></div>
-        </nuxt-link>
+        <div class="ml-auto d-flex flex-row justify-content-around">
+          <nuxt-link :to="localePath(`/browse/categories`)" class="mx-4 icon-button">
+            <div :style="item_style('search', 48, 50)"></div>
+          </nuxt-link>
 
-        <nuxt-link :to="localePath(`/generate`)">
-          <div :style="{'height' : `50px`, 'width' : `50px`, 'background-image': icon_url('generate'), 'background-size': 'contain'}" class="icon"></div>
-        </nuxt-link>
+          <nuxt-link :to="localePath(`/generate`)" class="mx-4 icon-button">
+            <div :style="item_style('generate', 50,50)"></div>
+          </nuxt-link>
 
-        <nuxt-link :to="localePath(`/suggest`)">
-          <div :style="{'height' : `50px`, 'width' : `43px`, 'background-image': icon_url('hand'), 'background-size': 'contain'}" class="icon"></div>
-        </nuxt-link>
+          <nuxt-link :to="localePath(`/suggest`)" class="mx-4 icon-button">
+            <div :style="item_style('hand', 43, 50)"></div>
+          </nuxt-link>
 
-        <nuxt-link :to="localePath(`/browse/categories`)">
-          <div :style="{'height' : `50px`, 'width' : `36px`, 'background-image': icon_url('questionmark'), 'background-size': 'contain'}" class="icon"></div>
-        </nuxt-link>
+          <nuxt-link :to="localePath(`/browse/categories`)" class="mx-4 icon-button">
+            <div :style="item_style('questionmark', 36, 50)"></div>
+          </nuxt-link>
 
-        <nuxt-link :to="localePath(`/browse/categories`)" class="pr-5">
-          <div :style="{'height' : `50px`, 'width' : `50px`, 'background-image': icon_url('language'), 'background-size': 'contain'}" class="icon"></div>
-        </nuxt-link>
+          <div class="mx-4 icon-button">
+            <div :style="item_style('language', 50, 50)" @click="showLanguageDropdown = !showLanguageDropdown"></div>
+          </div>
+        </div>
       </b-container>
+
+      <LanguageDropdown v-if="showLanguageDropdown" @close="showLanguageDropdown = false" />
     </nav>
 
   </div>
@@ -81,6 +85,7 @@
 import {mapActions, mapGetters, mapState} from 'vuex'
 import admin from "../mixins/admin";
 import flags from "../mixins/flags";
+import LanguageDropdown from "./LanguageDropdown.vue";
 
 export default {
   mixins: [ admin, flags ],
@@ -88,9 +93,11 @@ export default {
     return {
       amount: 1,
       interval: null,
+      showLanguageDropdown: false,
     }
   },
   components: {
+    LanguageDropdown
   },
   props: {
       pagetype: {
@@ -122,6 +129,9 @@ export default {
     }
   },
   methods: {
+    item_style(icon, w, h) {
+      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon), 'background-size': 'contain'}
+    },
     icon_url(icon) {
       return `url('/img/${this.pagetype}/${icon}.svg')`
     },

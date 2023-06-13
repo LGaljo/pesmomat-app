@@ -36,6 +36,10 @@
     "none": "Ni avtorjev za prikaz",
     "read_lang": "Beri v drugih jezikih:"
   },
+  "suggest": {
+    "title": "Prisloni roko in predlagal bom pesem zate.",
+    "buy": "Da ti predlagam pesem, te bo stalo en kovanec. Velja?"
+  },
   "languages": {
     "de": "Nemščina",
     "en": "Angleščina",

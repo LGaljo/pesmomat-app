@@ -6,36 +6,26 @@
     :size="size"
     :dialog-class="dialogClass"
     hide-header
+    :no-close-on-backdrop="persistent"
+    :no-close-on-esc="persistent"
+    @hidden="onHidden"
   >
     <div :slot="'default'">
       <slot name="body"></slot>
     </div>
     <div :slot="'modal-footer'" class="mt-4 w-100">
       <div class="d-flex justify-content-around">
-        <div class="mx-2">
-          <Button
-            v-if="action"
-            :action="action"
-            @click="onFirst"
-          >
-            {{ action }}
-          </Button>
+        <div v-if="action" class="mx-2">
+          <GenerateButton v-if="pagetype === 'generate'" :action="action" @click="onFirst" />
+          <DefaultButton v-else :action="action" @click="onFirst" />
         </div>
-        <div class="mx-2">
-          <Button
-            v-if="secAction"
-            :action="secAction"
-            @click="onSecond"
-          >
-            {{ secAction }}
-          </Button>
+        <div v-if="secAction" class="mx-2">
+          <GenerateButton v-if="pagetype === 'generate'" :action="secAction" @click="onSecond" />
+          <DefaultButton v-else :action="secAction" @click="onSecond" />
         </div>
-        <div class="mx-2">
-          <Button
-            :action="closeAction"
-            @click="close"
-          >
-          </Button>
+        <div v-if="closeAction" class="mx-2">
+          <GenerateButton v-if="pagetype === 'generate'" :action="closeAction" @click="onClose" />
+          <DefaultButton v-else :action="closeAction" @click="onClose" />
         </div>
       </div>
     </div>
@@ -43,15 +33,16 @@
 </template>
 
 <script>
-import Button from "../components/Button.vue";
+import GenerateButton from "./GenerateButton.vue";
+import DefaultButton from "./DefaultButton.vue";
 
 export default {
   name: "ModalDialog",
-  components: {Button},
+  components: {GenerateButton, DefaultButton},
   props: {
     title: {
       type: String,
-      required: true
+      default: "",
     },
     action: {
       type: String,
@@ -69,6 +60,14 @@ export default {
     dialogClass: {
       type: String,
       default: 'default-dialog'
+    },
+    persistent: {
+      type: Boolean,
+      default: false,
+    },
+    pagetype: {
+      type: String,
+      default: 'default'
     }
   },
   methods: {
@@ -77,6 +76,13 @@ export default {
     },
     close() {
       this.$refs.dialog.hide()
+    },
+    onClose() {
+      this.$emit('cancel')
+      this.close()
+    },
+    onHidden() {
+      this.$emit('hidden')
     },
     onFirst() {
       this.$emit('first')

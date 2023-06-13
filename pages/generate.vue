@@ -117,7 +117,7 @@
       ref="poemdialog"
       size="lg"
       dialog-class="generate-modal"
-      title=""
+      pagetype="generate"
     >
       <template #body>
         <div class="modal-title text-center">
@@ -132,9 +132,9 @@
       ref="buydialog"
       size="md"
       dialog-class="generate-modal"
-      title=""
       @first="generatePoem"
       action="JA"
+      pagetype="generate"
     >
       <template #body>
         <div class="modal-title text-center">
@@ -147,7 +147,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import ModalDialog from "../../components/ModalDialog.vue";
+import ModalDialog from "../components/ModalDialog.vue";
 
 export default {
   name: 'index',

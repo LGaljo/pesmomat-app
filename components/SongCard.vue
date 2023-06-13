@@ -2,59 +2,84 @@
   <div v-if="song">
     <b-card>
       <b-card-body class="text-center">
-        <div v-if="!hideActions" class="mb-4">
-          <span
-            class="material-icons icon-button px-2"
-            style="width: 64px;"
-            @click="$router.push(`/admin/songs/${song._id}`)"
-          >
-            edit
-          </span>
-          <span
-            v-if="song.contents.length > 1"
-            class="material-icons icon-button px-2"
-            style="width: 64px;"
-            @click="showLangSwitch = true"
-          >
-            translate_variant
-          </span>
-          <span
-            class="material-icons icon-button px-2"
-            @click.stop.prevent="printAction"
-          >
-            print
-          </span>
-          <span
-            v-if="song.url"
-            class="material-icons icon-button px-2"
-            @click="showQR = true"
-          >
-            qr_code_2
-          </span>
-          <span
-            class="material-icons icon-button px-2"
-            :class="{ active: playing }"
-            @click="play"
-          >
-            record_voice_over
-          </span>
+        <h5 class="title">{{ song.title }}</h5>
+        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
+
+        <p class="card-text mt-3 pb-3" v-html="currentContent"></p>
+
+        <div v-if="!hideActions" class="mt-4">
+<!--          <span-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            style="width: 64px;"-->
+<!--            @click="$router.push(`/admin/songs/${song._id}`)"-->
+<!--          >-->
+<!--            edit-->
+<!--          </span>-->
+
+<!--          <span-->
+<!--            v-if="song.contents.length > 1"-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            style="width: 64px;"-->
+<!--            @click="showLangSwitch = true"-->
+<!--          >-->
+<!--            translate_variant-->
+<!--          </span>-->
+
+<!--          <span-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            @click.stop.prevent="printAction"-->
+<!--          >-->
+<!--            print-->
+<!--          </span>-->
+<!--          <span-->
+<!--            v-if="song.url"-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            @click="openQRModal"-->
+<!--          >-->
+<!--            qr_code_2-->
+<!--          </span>-->
+<!--          <span-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            :class="{ active: playing }"-->
+<!--            @click="play"-->
+<!--          >-->
+<!--            record_voice_over-->
+<!--          </span>-->
+
+          <div class="d-flex flex-row justify-content-center">
+            <div :style="item_style('speaker', 56, 50)" class="icon-button mx-3" :class="{ active: playing }" @click="play"></div>
+            <div :style="item_style('qr_code', 51, 50)" class="icon-button mx-3" @click="openQRModal"></div>
+            <div :style="item_style('print', 51, 50)" class="icon-button mx-3" @click.stop.prevent="printAction"></div>
+          </div>
+
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
             <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
             Your browser does not support the audio tag.
           </audio>
         </div>
-        <h5 class="title">{{ song.title }}</h5>
-        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
-
-        <p class="card-text mt-3 pb-3" v-html="currentContent"></p>
       </b-card-body>
     </b-card>
 
-    <QRModal
-      v-if="showQR"
-      @close="showQR = false"
-      :url="song.url || 'http://vrabecanarhist.eu/'"
-    />
+    <ModalDialog
+      ref="qrcode"
+      size="md"
+      dialog-class="default-modal"
+      close-action="Hvala"
+    >
+      <template #body>
+        <div class="modal-title text-center">
+          <qrcode-vue
+            :value="song.url || 'http://vrabecanarhist.eu/'"
+            :size="400"
+            level="M"
+            :background="'#FEECCC'"
+            :foreground="'#006867'"
+          />
+
+          <!--          <b-img src="/img/default/gears_bottom.svg" class="w-100 mt-4"></b-img>-->
+        </div>
+      </template>
+    </ModalDialog>
 
     <LanguageSwitchModal v-if="showLangSwitch" @close="changeLang($event); showLangSwitch = false;"/>
   </div>
@@ -62,18 +87,18 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue'
-import QRModal from "./QRModal";
 import admin from "../mixins/admin";
 import flags from "../mixins/flags";
 import LanguageSwitchModal from "./LanguageSwitchModal.vue";
+import ModalDialog from "./ModalDialog.vue";
 
 export default {
   name: "SongCard",
   mixins: [admin, flags],
   components: {
+    ModalDialog,
     LanguageSwitchModal,
     QrcodeVue,
-    QRModal
   },
   props: {
     song: Object,
@@ -107,6 +132,15 @@ export default {
     this.createExcerpt()
   },
   methods: {
+    openQRModal() {
+      this.$refs.qrcode.open()
+    },
+    item_style(icon, w, h) {
+      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon)}
+    },
+    icon_url(icon) {
+      return `url('/img/default/${icon}.svg')`
+    },
     changeLang(locale) {
       this.currentLang = locale
       this.createExcerpt()
@@ -162,10 +196,9 @@ export default {
 }
 </script>
 
-<style scoped>
-.card {
-  width: 100%;
-}
+<style lang="scss" scoped>
+@import "scss/app";
+@import "scss/custom";
 
 .title {
   margin: 0;
@@ -175,16 +208,7 @@ export default {
   color: #646464 !important;
 }
 
-.icon-button:hover {
-  cursor: pointer;
-  color: grey;
-}
-
-.icon-button {
-  font-size: 48px;
-}
-
 .active {
-  color: goldenrod;
+  color: map-get($default-colours, 'accent');
 }
 </style>
