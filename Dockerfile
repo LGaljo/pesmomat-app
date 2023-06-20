@@ -22,9 +22,9 @@ USER node
 
 ARG NODE_ENV=production
 ARG HOST=0.0.0.0
-#ARG PORT=3100
+ARG PORT=4000
 #ARG API_URL=http://localhost:4500
 
-EXPOSE 4400
+EXPOSE 4000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:prod"]
