@@ -31,7 +31,7 @@ $ npm run generate
 $ npm run start
 ```
 Page is accessible at url:  
-http://localhost:3000
+http://localhost:4400
 
 ## Use PM2 to run at startup
 ```bash
