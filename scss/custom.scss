@@ -11,28 +11,28 @@ $theme-colors: (
   "success":    #4fa626,
   "warning":    #fdc14d,
   "danger":     #f0155d,
-  "generate-background":   #0F7170,
-  "generate-background-dark": #0e5e5e,
-  "generate-background-darker": #0c4d4d,
-  "generate-title":   #FFB400,
-  "generate-text":   #FFE5B8,
-  "generate-text-dark": #dac49e,
 );
 
 $generate-colours: (
   "background":   #0F7170,
-  "background-dark": #0e5e5e,
+  "background-dark": #006867,
   "background-darker": #0c4d4d,
   "accent":   #FFB400,
   "text":   #FFE5B8,
   "text-dark": #dac49e,
+  "kb_bg": #0F7170,
+  "kb_btn": #006867,
+  "kb_text": #FFB400
 );
 
 $default-colours: (
   "background":   #FEECCC,
-  "background-dark": #dac49e,
+  "background-dark": #FFE5B8,
   "background-darker": #bdaa89,
   "accent":   #AD1E23,
   "text":  #006867,
   "text-dark": #004948,
+  "kb_bg": #FEECCC,
+  "kb_btn": #FFE5B8,
+  "kb_text": #AD1E23
 );

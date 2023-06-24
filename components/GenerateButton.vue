@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "ModalDialog",
+  name: "GenerateButton",
   props: {
     action: {
       type: String,

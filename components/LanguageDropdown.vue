@@ -46,6 +46,7 @@ export default {
   top: 90px;
   width: 250px;
   height: auto;
+  font-family: MAGIONA_DISPLAY,serif;
 
   .language-item {
     background-color: map-get($default-colours, 'background');

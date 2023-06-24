@@ -60,7 +60,8 @@ export default {
     {src: '~/plugins/init.js', ssr: false},
     '~/plugins/click-outside.js',
     '~/plugins/axios.js',
-    '~/plugins/veevalidate.js'
+    '~/plugins/veevalidate.js',
+    '~/plugins/eventbus'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

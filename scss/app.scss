@@ -28,7 +28,6 @@ body {
   border: none;
 }
 
-/* fallback */
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -36,13 +35,91 @@ body {
   src: url('../assets/material-icons.woff2') format('woff2');
 }
 
-/* fallback */
 @font-face {
-  font-family: 'Arvo Regular';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'ARCHIA-REGULAR';
+  src: url('../assets/fonts/ARCHIA-REGULAR.OTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-700';
+  src: url('../assets/fonts/ARVO-700.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-700ITALIC';
+  src: url('../assets/fonts/ARVO-700ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-ITALIC';
+  src: url('../assets/fonts/ARVO-ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-REGULAR';
   src: url('../assets/fonts/ARVO-REGULAR.TTF') format('woff2');
 }
+
+@font-face {
+  font-family: 'CORMORANT-300';
+  src: url('../assets/fonts/CORMORANT-300.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-300ITALIC';
+  src: url('../assets/fonts/CORMORANT-300ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-500';
+  src: url('../assets/fonts/CORMORANT-500.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-500ITALIC';
+  src: url('../assets/fonts/CORMORANT-500ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-600';
+  src: url('../assets/fonts/CORMORANT-600.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-600ITALIC';
+  src: url('../assets/fonts/CORMORANT-600ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-700';
+  src: url('../assets/fonts/CORMORANT-700.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-700ITALIC';
+  src: url('../assets/fonts/CORMORANT-700ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-ITALIC';
+  src: url('../assets/fonts/CORMORANT-ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-REGULAR';
+  src: url('../assets/fonts/CORMORANT-REGULAR.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'MAGIONA_DISPLAY';
+  src: url('../assets/fonts/MAGIONA_DISPLAY.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'MAGIONA_DISPLAY_ITALIC';
+  src: url('../assets/fonts/MAGIONA_DISPLAY_ITALIC.TTF') format('woff2');
+}
+
 
 .material-icons {
   font-family: 'Material Icons';
@@ -98,6 +175,12 @@ body {
   }
 }
 
+.default-input {
+  background-color: map-get($default-colours, 'background-dark') !important;
+  font-family: "Playfair Display", serif !important;
+  color: map-get($default-colours, 'text') !important;
+  font-size: 24px !important;
+}
 
 .grey-select {
   .custom-select {

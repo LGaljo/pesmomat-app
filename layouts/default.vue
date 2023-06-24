@@ -8,15 +8,16 @@
       </b-row>
     </b-container>
 
-    <div class="bottom-padding">
-    </div>
+    <div class="bottom-padding" />
+    <Keyboard />
   </div>
 </template>
 <script>
 import navbar from "../components/navbar";
+import Keyboard from "../components/Keyboard.vue";
 
 export default {
-  components: {navbar},
+  components: {Keyboard, navbar},
   head () {
     return {
       link: [
@@ -28,11 +29,12 @@ export default {
     onRaspberry() {
       return process.env.NODE_ENV === 'raspberry'
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+
 .bottom-padding {
   padding-top: 120px;
 }

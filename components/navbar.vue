@@ -53,7 +53,7 @@
         </div>
 
         <div class="ml-auto d-flex flex-row justify-content-around">
-          <nuxt-link :to="localePath(`/browse/categories`)" class="mx-4 icon-button">
+          <nuxt-link :to="localePath(`/browse`)" class="mx-4 icon-button">
             <div :style="item_style('search', 48, 50)"></div>
           </nuxt-link>
 
@@ -152,6 +152,7 @@ export default {
 .coin-amount {
   font-weight: 700;
   font-size: 40px !important;
+  font-family: MAGIONA_DISPLAY,serif;
 }
 .link {
   color: #808080 !important;

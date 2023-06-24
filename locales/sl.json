@@ -10,7 +10,16 @@
   },
   "authors": {
     "title": "Pesniki zvrsti {0}",
-    "none": "Ni avtorjev za prikaz"
+    "none": "Ni avtorjev za prikaz",
+    "popular": "popularne pesmi"
+  },
+  "browse": {
+    "input_text": "Vpiši naslov ali avtorja pesmi",
+    "choose_cat": "izberi kategorijo",
+    "or": "ali",
+    "popular": "Popularne pesmi",
+    "periods": "Išči po zvrsteh",
+    "placeholder": "Vpiši naslov ali avtorja pesmi"
   },
   "generate": {
     "buy": "Želite kupiti pesem?",

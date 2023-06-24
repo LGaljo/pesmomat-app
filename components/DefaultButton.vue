@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "ModalDialog",
+  name: "DefaultButton",
   props: {
     action: {
       type: String,
@@ -41,24 +41,25 @@ export default {
 
 <style lang="scss" scoped>
 @import "scss/custom";
+
 .custom-button {
-  background: map-get($default-colours, 'background');
-  color: map-get($default-colours, 'text');
-  border: 2px solid map-get($default-colours, 'text');
-  border-radius: 15px;
-  font-weight: 800;
-  min-width: 160px;
-  text-transform: uppercase;
+  background: map-get($default-colours, 'background') !important;
+  color: map-get($default-colours, 'text') !important;
+  border: 2px solid map-get($default-colours, 'text') !important;
+  border-radius: 15px !important;
+  font-weight: 800 !important;
+  min-width: 160px !important;
+  text-transform: uppercase !important;
 }
 
 .custom-button:hover {
-  background: map-get($default-colours, 'background-dark');
-  color: map-get($default-colours, 'text');
+  background: map-get($default-colours, 'background-dark') !important;
+  color: map-get($default-colours, 'text') !important;
 }
 
 .custom-button:focus {
-  background: map-get($default-colours, 'background-darker');
-  color: map-get($default-colours, 'text-dark');
+  background: map-get($default-colours, 'background-darker') !important;
+  color: map-get($default-colours, 'text-dark') !important;
 }
 
 </style>

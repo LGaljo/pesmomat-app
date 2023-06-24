@@ -13,7 +13,7 @@
     <div :slot="'default'">
       <slot name="body"></slot>
     </div>
-    <div :slot="'modal-footer'" class="mt-4 w-100">
+    <div :slot="'modal-footer'" class="mt-2 p-0 w-100">
       <div class="d-flex justify-content-around">
         <div v-if="action" class="mx-2">
           <GenerateButton v-if="pagetype === 'generate'" :action="action" @click="onFirst" />
@@ -97,5 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.model-footer {
+  padding: 0 !important;
+}
 </style>
