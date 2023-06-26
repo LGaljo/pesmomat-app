@@ -20,3 +20,28 @@ body {
 .no-border > .card {
   background: #FEECCC !important;
 }
+
+.pop {
+  position: absolute;
+  right: 48px;
+  top: 90px;
+  width: 250px;
+  height: auto;
+  font-family: MAGIONA_DISPLAY, serif;
+}
+
+.language-item {
+  background-color: #FEECCC;
+  font-size: 32px;
+}
+
+.language-item:hover {
+  cursor: pointer;
+  background-color: #AD1E23;
+  color: #FEECCC !important;
+}
+
+.activebox {
+  background-color: #AD1E23 !important;
+  color: #FEECCC !important;
+}

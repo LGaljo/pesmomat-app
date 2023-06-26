@@ -1,63 +1,56 @@
 <template>
   <b-container>
     <b-row>
-      <b-col offset-md="2" md="8" cols="12" class="my-3">
+      <b-col cols="10">
         <div v-if="period && $route.query.period">
-          <h1 class="text-center">{{ $t('authors.title', [period.name]) }}</h1>
+          <div class="headline text-center">{{ $t('authors.title', [period.name]) }}</div>
 
-          <div style="height: 50px"></div>
-
-          <template v-if="authors.length">
-            <div v-for="letter of alphabet" v-if="getAuthorsForLetter(letter).length" class="mb-3 offset-2">
-              <div class="text-uppercase letter py-2">{{ letter }}</div>
-              <div v-for="author of getAuthorsForLetter(letter)" v-if="author" class="author">
-                <div @click="openAuthor(author)" class="py-2 hover-underline"><b>{{ author.lastName }}</b> {{ author.firstName }}</div>
-              </div>
+          <div
+            v-for="author of authors"
+            v-if="authors"
+            :key="author._id"
+            :id="author.lastName[0]"
+            class="author mb-3">
+            <div
+              @click="openAuthor(author)"
+              class="list-item hover-underline"
+              :id="author.lastName[0]"
+            >
+              {{ author.lastName }} {{ author.firstName }}
             </div>
-          </template>
+          </div>
           <div v-else>{{ $t('authors.none') }}</div>
         </div>
       </b-col>
     </b-row>
+    <div class="letter-box">
+      <div
+        v-if="authors.length > 8"
+        class="d-flex flex-column align-items-end"
+      >
+        <div
+          v-for="letter of alphabet"
+          class="letter d-flex justify-content-center align-items-center cursor-pointer"
+          @click="scrollDown(letter)"
+        >
+          {{ letter }}
+        </div>
+      </div>
+    </div>
   </b-container>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import alphabet from "../../mixins/alphabet";
 
 export default {
   name: "browse_authors",
   layout: 'timeout',
+  mixins: [alphabet],
   data() {
     return {
       period: null,
-      alphabet: [
-        'a',
-        'b',
-        'c',
-        'č',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'r',
-        's',
-        'š',
-        't',
-        'u',
-        'v',
-        'z',
-        'ž'
-      ],
     }
   },
   async mounted() {
@@ -72,11 +65,6 @@ export default {
     })
   },
   methods: {
-    getAuthorsForLetter(letter) {
-      if (this.authors) {
-        return this.authors?.filter(a => a.lastName.toLowerCase().startsWith(letter));
-      }
-    },
     async openAuthor(author) {
       await this.$router.push({
         path: this.localePath(`/browse/songs`),
@@ -85,21 +73,15 @@ export default {
           period: this.period._id
         }
       })
+    },
+    scrollDown(letter) {
+      this.$router.push({ path: this.$route.path , query: this.$route.query, hash: letter.toUpperCase()})
     }
   }
 }
 </script>
 
 <style scoped>
-.letter {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-
-.author {
-  font-size: 1rem;
-}
-
 .hover-underline:hover {
   text-decoration: underline;
   cursor: pointer;

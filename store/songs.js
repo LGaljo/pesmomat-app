@@ -28,6 +28,9 @@ export const actions = {
         page: filters?.currentPage || 1,
         limit: filters?.perPage || 500,
         noBody: !!filters?.noBody,
+        author: filters?.author,
+        period: filters?.period,
+        search: filters?.search
       }
     })
       .then(res => {

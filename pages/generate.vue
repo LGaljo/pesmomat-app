@@ -109,7 +109,7 @@
     <b-row class="mt-5">
       <b-col cols="12">
         <div class="text-center">
-          <b-button size="lg" squared class="button-gen" @click="buyPoem">{{ $t('generate.create') }}</b-button>
+          <b-button size="lg" squared class="button-gen" @click="generatePoem">{{ $t('generate.create') }}</b-button>
         </div>
       </b-col>
     </b-row>
@@ -128,12 +128,30 @@
         </div>
       </template>
     </ModalDialog>
+
+    <ModalDialog
+      ref="fundsdialog"
+      size="lg"
+      dialog-class="generate-modal"
+      @cancel="redirectBack"
+      :action="$t('actions.ok')"
+      persistent
+      pagetype="generate"
+    >
+      <template #body>
+        <div class="modal-title text-center">
+          {{ $t('modals.insufficient.title') }}
+        </div>
+      </template>
+    </ModalDialog>
+
     <ModalDialog
       ref="buydialog"
       size="md"
       dialog-class="generate-modal"
-      @first="generatePoem"
-      action="JA"
+      @first="subtractCoins"
+      @cancel="redirectBack"
+      :action="$t('actions.yes')"
       pagetype="generate"
     >
       <template #body>
@@ -142,6 +160,7 @@
         </div>
       </template>
     </ModalDialog>
+
   </b-container>
 </template>
 
@@ -192,8 +211,9 @@ export default {
       }
     }
   },
-  async created() {
-    await this.$store.dispatch('songs/fetch', {page: 0, limit: 50, noBody: true});
+  async mounted() {
+    await this.$store.dispatch('songs/fetch', {page: 0, limit: null, noBody: true});
+    this.buyPoem()
   },
   computed: {
     ...mapGetters({
@@ -211,6 +231,15 @@ export default {
     },
     buyPoem() {
       this.$refs.buydialog.open()
+    },
+    async subtractCoins() {
+      if (this.coins < 1) {
+        // Request a coin to be inserted
+        this.$refs.fundsdialog.open()
+      } else {
+        // Subtract a coin
+        await this.$store.dispatch('coins/reduce')
+      }
     },
     async generatePoem() {
       if (
@@ -234,6 +263,9 @@ export default {
             this.$refs.dialog.open()
           })
       }
+    },
+    redirectBack() {
+      this.$router.replace('/')
     }
   },
 }

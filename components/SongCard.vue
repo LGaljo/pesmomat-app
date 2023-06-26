@@ -2,48 +2,21 @@
   <div v-if="song">
     <b-card>
       <b-card-body class="text-center">
-        <h5 class="title">{{ song.title }}</h5>
-        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
+        <div :class="{'content-overflow': !limit}">
+          <div class="author">{{ song.author.lastName }} {{ song.author.firstName }}</div>
+          <div class="title">{{ song.title }}</div>
 
-        <p class="card-text mt-3 pb-3" v-html="currentContent"></p>
+          <b-card-text class="poem-body mt-3 pb-3" v-html="currentContent"></b-card-text>
+        </div>
 
         <div v-if="!hideActions" class="mt-4">
+
 <!--          <span-->
 <!--            class="material-icons icon-button px-2"-->
 <!--            style="width: 64px;"-->
 <!--            @click="$router.push(`/admin/songs/${song._id}`)"-->
 <!--          >-->
 <!--            edit-->
-<!--          </span>-->
-
-<!--          <span-->
-<!--            v-if="song.contents.length > 1"-->
-<!--            class="material-icons icon-button px-2"-->
-<!--            style="width: 64px;"-->
-<!--            @click="showLangSwitch = true"-->
-<!--          >-->
-<!--            translate_variant-->
-<!--          </span>-->
-
-<!--          <span-->
-<!--            class="material-icons icon-button px-2"-->
-<!--            @click.stop.prevent="printAction"-->
-<!--          >-->
-<!--            print-->
-<!--          </span>-->
-<!--          <span-->
-<!--            v-if="song.url"-->
-<!--            class="material-icons icon-button px-2"-->
-<!--            @click="openQRModal"-->
-<!--          >-->
-<!--            qr_code_2-->
-<!--          </span>-->
-<!--          <span-->
-<!--            class="material-icons icon-button px-2"-->
-<!--            :class="{ active: playing }"-->
-<!--            @click="play"-->
-<!--          >-->
-<!--            record_voice_over-->
 <!--          </span>-->
 
           <div class="d-flex flex-row justify-content-center">
@@ -200,12 +173,32 @@ export default {
 @import "scss/app";
 @import "scss/custom";
 
+.content-overflow {
+  max-height: 62vh;
+  overflow-y: auto;
+}
+
 .title {
+  font-size: 37px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
   margin: 0;
+  color: map-get($default-colours, 'text') !important;
+  text-transform: capitalize;
 }
 
 .author {
-  color: #646464 !important;
+  font-size: 32px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: map-get($default-colours, 'text') !important;
+}
+
+.poem-body {
+  font-size: 28px;
+  font-family: Cormorant, serif;
+  font-weight: 500;
+  color: map-get($default-colours, 'text') !important;
 }
 
 .active {

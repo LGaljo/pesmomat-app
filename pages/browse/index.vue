@@ -82,7 +82,7 @@ export default {
       }
     },
     search() {
-      console.log(this.term)
+      this.$router.push({ path: this.localePath('/browse/songs'), query: { search: this.term } })
     },
     openSearchDialog() {
       this.term = ''

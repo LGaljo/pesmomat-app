@@ -1,5 +1,5 @@
 body {
-  color: #FFB400 !important;
+  color: #FFE5B8 !important;
   background-image: url("/img/generate/background.svg") !important;
   font-family: 'Arvo Regular', serif !important;
 }
@@ -12,6 +12,7 @@ body {
 }
 
 .custom-nav {
+  color: #FFB400 !important;
   background: #00000000 !important;
   height: 115px;
 }
@@ -24,4 +25,29 @@ body {
   font-size: 40px;
   color: #FFE5B8;
   padding-bottom: 50px;
+}
+
+.pop {
+  position: absolute;
+  right: 48px;
+  top: 90px;
+  width: 250px;
+  height: auto;
+  font-family: MAGIONA_DISPLAY, serif;
+}
+
+.language-item {
+  background-color: #0F7170;
+  font-size: 32px;
+}
+
+.language-item:hover {
+  cursor: pointer;
+  background-color: #FFB400;
+  color: #0F7170 !important;
+}
+
+.activebox {
+  background-color: #FFB400 !important;
+  color: #0F7170 !important;
 }

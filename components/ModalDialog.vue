@@ -97,7 +97,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.model-footer {
-  padding: 0 !important;
-}
 </style>

@@ -24,10 +24,6 @@ body {
   //font-family: 'oblik-bold', sans-serif !important;
 }
 
-.no-border > .card {
-  border: none;
-}
-
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -175,6 +171,30 @@ body {
   }
 }
 
+.headline {
+  color: map-get($default-colours, 'text');
+  font-size: 55px;
+  font-family: Magiona Display, serif !important;
+  padding-bottom: 50px;
+  font-weight: 700;
+}
+
+.list-item {
+  border-radius: 20px;
+  background: #FEECCC;
+  color: #006867;
+  font-size: 40px;
+  font-family: Magiona Display, serif !important;
+  text-transform: uppercase;
+  padding: 20px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.no-border > .card {
+  border: none;
+}
+
 .default-input {
   background-color: map-get($default-colours, 'background-dark') !important;
   font-family: "Playfair Display", serif !important;
@@ -209,4 +229,27 @@ body {
 
 .icon-button {
   background-size: contain;
+}
+
+.letter {
+  font-size: 2rem;
+  font-weight: 500;
+  color: map-get($default-colours, 'text') !important;
+  background-color: map-get($default-colours, 'background') !important;
+  text-transform: uppercase;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 20px;
+}
+
+.letter-box {
+  position: fixed;
+  top: 100px;
+  right: 42px;
+}
+
+.modal-title {
+  font-size: 30px;
 }

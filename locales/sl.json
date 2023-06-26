@@ -6,7 +6,9 @@
     "understand": "Razumem",
     "cancel": "Prekliči",
     "generate": "Generiraj",
-    "edit": "Uredi"
+    "edit": "Uredi",
+    "yes": "Ja",
+    "ok": "Ok"
   },
   "authors": {
     "title": "Pesniki zvrsti {0}",
@@ -22,7 +24,7 @@
     "placeholder": "Vpiši naslov ali avtorja pesmi"
   },
   "generate": {
-    "buy": "Želite kupiti pesem?",
+    "buy": "Da ustvariva pesem te bo stalo en kovanec. Velja??",
     "create": "Generiraj",
     "title": "Izberi dve pesmi in zgeneriral bom novo",
     "songA": "Pesem A",
@@ -37,12 +39,14 @@
     }
   },
   "periods": {
-    "title": "Zvrsti",
+    "title": "Poezija po zvrsteh",
     "none": "Ni zvrsti za prikaz"
   },
   "songs": {
     "title": "Pesmi {0} {1}",
-    "none": "Ni avtorjev za prikaz",
+    "search_title": "Rezultati iskanja",
+    "none": "Ni pesmi za prikaz",
+    "search_none": "Iskanje ni vrnilo zadetkov",
     "read_lang": "Beri v drugih jezikih:"
   },
   "suggest": {

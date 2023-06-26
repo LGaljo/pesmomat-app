@@ -40,29 +40,4 @@ export default {
 @import "scss/app";
 @import "scss/custom";
 
-.pop {
-  position: absolute;
-  right: 48px;
-  top: 90px;
-  width: 250px;
-  height: auto;
-  font-family: MAGIONA_DISPLAY,serif;
-
-  .language-item {
-    background-color: map-get($default-colours, 'background');
-    font-size: 32px;
-  }
-
-  .language-item:hover {
-    cursor: pointer;
-    background-color: map-get($default-colours, 'accent');
-    color: map-get($default-colours, 'background') !important;
-  }
-}
-
-.activebox {
-  background-color: map-get($default-colours, 'accent') !important;
-  color: map-get($default-colours, 'background') !important;
-}
-
 </style>

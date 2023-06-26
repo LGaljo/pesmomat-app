@@ -65,7 +65,7 @@
             <div :style="item_style('hand', 43, 50)"></div>
           </nuxt-link>
 
-          <nuxt-link :to="localePath(`/browse/categories`)" class="mx-4 icon-button">
+          <nuxt-link :to="localePath(`/about`)" class="mx-4 icon-button">
             <div :style="item_style('questionmark', 36, 50)"></div>
           </nuxt-link>
 

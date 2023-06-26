@@ -1,59 +1,46 @@
 <template>
   <b-container>
     <b-row>
-      <b-col offset-md="3" md="6" cols="12" class="my-3">
-        <h1 class="text-center">{{ $t('periods.title') }}</h1>
+      <b-col cols="10">
+        <div class="headline text-center">{{ $t('periods.title') }}</div>
 
-        <div style="height: 50px"></div>
-
-        <div v-for="letter of alphabet" v-if="getPeriodsForLetter(letter).length" class="mb-3 offset-2">
-          <span class="text-uppercase letter">{{ letter }}</span>
-          <div v-for="period of getPeriodsForLetter(letter)" class="author">
-            <div @click="openPeriod(period)" class="py-2 hover-underline">{{ period.name }}</div>
+          <div
+            v-for="period of periods"
+            class="author mb-3"
+            :key="period"
+            :id="period[0]"
+          >
+            <div @click="openPeriod(period)" class="list-item hover-underline">{{ period.name }}</div>
           </div>
-        </div>
       </b-col>
     </b-row>
+    <div class="letter-box">
+      <div
+        v-if="periods.length > 8"
+        class="d-flex flex-column align-items-end"
+      >
+        <div
+          v-for="letter of alphabet"
+          class="letter d-flex justify-content-center align-items-center cursor-pointer"
+          @click="scrollDown(letter)"
+        >
+          {{ letter }}
+        </div>
+      </div>
+    </div>
   </b-container>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import alphabet from "../../mixins/alphabet";
 
 export default {
   name: "browse_categories",
   layout: 'timeout',
-  data() {
-    return {
-      alphabet: [
-        'a',
-        'b',
-        'c',
-        'č',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'r',
-        's',
-        'š',
-        't',
-        'u',
-        'v',
-        'z',
-        'ž'
-      ],
-    }
-  },
+  mixins: [alphabet],
+  data: () => ({
+  }),
   async mounted() {
     await this.$store.dispatch('categories/fetch', this.$route?.query?.lang)
   },
@@ -69,20 +56,16 @@ export default {
         query: { period: period._id }
       })
     },
-    getPeriodsForLetter(letter) {
-      if (this.periods) {
-        return this.periods?.filter(a => a.name.toLowerCase().startsWith(letter));
-      }
-    },
+    scrollDown(letter) {
+      console.log(letter)
+      this.$router.push({ path: this.$route.path , query: this.$route.query, hash: letter.toUpperCase()})
+    }
   }
 }
 </script>
 
-<style scoped>
-.letter {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
+<style scoped lang="scss">
+@import "scss/custom";
 
 .author {
   font-size: 1rem;

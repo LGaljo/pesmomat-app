@@ -11,7 +11,7 @@
           </div>
 
           <div class="d-flex flex-column justify-content-center align-items-center action-background">
-            <div class="text-center font-weight-bold">{{ $t('suggest.title') }}</div>
+            <div id="suggest-text" class="text-center font-weight-bold">{{ $t('suggest.title') }}</div>
             <b-img src="/img/generate/gears_bottom.svg" class="w-100 mt-4"></b-img>
           </div>
         </div>
@@ -22,8 +22,8 @@
       ref="fundsdialog"
       size="lg"
       dialog-class="generate-modal"
-      @cancel="suggestPoem"
-      closeAction="OK"
+      @cancel="redirectBack"
+      :action="$t('actions.ok')"
       persistent
       pagetype="generate"
     >
@@ -40,7 +40,7 @@
       dialog-class="generate-modal"
       @first="suggestPoem"
       @cancel="redirectBack"
-      action="JA"
+      :action="$t('actions.yes')"
       persistent
       pagetype="generate"
     >
@@ -137,5 +137,13 @@ export default {
 
 .mt-300 {
   margin-top: 300px;
+}
+
+#suggest-text {
+  color: #FFE5B8;
+  text-align: center;
+  font-size: 33px;
+  font-family: Arvo, serif;
+  font-weight: 700;
 }
 </style>
