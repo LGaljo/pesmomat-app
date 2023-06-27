@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     onRaspberry() {
-      return process.env.NODE_ENV === 'raspberry'
+      return this.$config.ENV === 'raspberry'
     }
   },
 }

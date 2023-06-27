@@ -1,20 +1,21 @@
 {
   "name": "pesmomat",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "dev:watch": "nodemon --watch config --exec \"npx cross-env ENV=development nuxt\"",
-    "dev:dev": "npx cross-env ENV=development nuxt",
-    "dev:rpi": "npx cross-env ENV=raspberry nuxt",
-    "dev:prod": "npx cross-env ENV=production nuxt",
-    "build:dev": "npx cross-env ENV=development nuxt build",
-    "build:rpi": "npx cross-env ENV=raspberry nuxt build",
-    "build:prod": "npx cross-env ENV=production nuxt build",
-    "start:dev": "npx cross-env ENV=development nuxt start",
-    "start:rpi": "npx cross-env ENV=raspberry nuxt start",
-    "start:prod": "npx cross-env ENV=production nuxt start",
-    "generate": "nuxt generate"
+    "dev:watch": "nodemon --watch config --exec \"nuxt --dotenv .env\"",
+    "dev:dev": "nuxt --dotenv .env",
+    "dev:rpi": "nuxt --dotenv .env.rpi",
+    "dev:prod": "nuxt --dotenv .env.prod",
+    "build:dev": "nuxt build --dotenv .env",
+    "build:rpi": "nuxt build --dotenv .env.rpi",
+    "build:prod": "nuxt build --dotenv .env.prod",
+    "start:dev": "nuxt start --dotenv .env",
+    "start:rpi": "nuxt start --dotenv .env.rpi",
+    "start:prod": "nuxt start --dotenv .env.prod",
+    "start:prod2": "npx cross-env ENV=production ENABLE_STATS=true ENABLE_GENERATE=true ADMIN=false nuxt start",
+    "generate": "nuxt generate --dotenv .env"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",

@@ -2,7 +2,7 @@ export default {
   data() {
     return {
       timeout: null,
-      length: process.env.BROWSE_TIMEOUT || 10000
+      length: this.$config.BROWSE_TIMEOUT || 10000
     }
   },
   created() {

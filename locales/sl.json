@@ -102,5 +102,10 @@
     "nonexistent": "Pesem ne obstaja",
     "sent": "Uspešno dodano v čakalno vrsto za tiskanje",
     "print": "Napaka pri tiskanju"
+  },
+  "promo": {
+    "search": "Poišči pesem",
+    "generate": "Generiraj novo pesem",
+    "hand": "Prepoznaj pesem zame"
   }
 }

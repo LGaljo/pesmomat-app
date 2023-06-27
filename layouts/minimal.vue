@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     onRaspberry() {
-      return process.env.ENV === 'raspberry'
+      return this.$config.ENV === 'raspberry'
     },
   },
 }

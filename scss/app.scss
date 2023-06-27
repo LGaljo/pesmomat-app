@@ -174,7 +174,7 @@ body {
 .headline {
   color: map-get($default-colours, 'text');
   font-size: 55px;
-  font-family: Magiona Display, serif !important;
+  font-family: MAGIONA_DISPLAY, serif !important;
   padding-bottom: 50px;
   font-weight: 700;
 }
@@ -184,7 +184,7 @@ body {
   background: #FEECCC;
   color: #006867;
   font-size: 40px;
-  font-family: Magiona Display, serif !important;
+  font-family: MAGIONA_DISPLAY, serif !important;
   text-transform: uppercase;
   padding: 20px;
   font-weight: 600;
@@ -193,6 +193,7 @@ body {
 
 .no-border > .card {
   border: none;
+  border-radius: 20px;
 }
 
 .default-input {
@@ -252,4 +253,31 @@ body {
 
 .modal-title {
   font-size: 30px;
+}
+
+.thin-scrollbar {
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.125);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
 }

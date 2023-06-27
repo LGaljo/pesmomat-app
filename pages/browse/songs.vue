@@ -167,7 +167,7 @@ export default {
   background: #FEECCC;
   color: #006867;
   font-size: 32px;
-  font-family: Magiona Display, serif !important;
+  font-family: MAGIONA_DISPLAY, serif !important;
   padding: 20px;
   font-weight: 600;
   line-height: 1;

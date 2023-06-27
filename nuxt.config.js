@@ -1,24 +1,26 @@
-const CONFIG = require(`./config/${process.env.ENV}.js`)
-const locale = require('./config/locale')
-
 export default {
   server: {
-    host: CONFIG.APP_URL,
-    port: CONFIG.APP_PORT
+    host: process.env.APP_URL,
+    port: process.env.APP_PORT
   },
 
   ssr: false,
 
   loading: false,
 
-  env: {
-    API_URL: CONFIG.API_URL,
-    API_TOKEN: CONFIG.API_TOKEN,
-    BROWSE_TIMEOUT: Number(CONFIG.BROWSE_TIMEOUT),
-    ADMIN: Boolean(CONFIG.ADMIN),
-    ENV: CONFIG.ENV,
-    SLIDESHOW_INTERVAL: Number(CONFIG.SLIDESHOW_INTERVAL) || 10000,
-    COIN_INTERVAL: Number(CONFIG.COIN_INTERVAL) || 10000,
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_URL,
+      baseURL: process.env.API_URL
+    },
+    API_URL: process.env.API_URL,
+    ENABLE_GENERATE: process.env.ENABLE_GENERATE,
+    ENABLE_STATS: process.env.ENABLE_STATS,
+    BROWSE_TIMEOUT: Number(process.env.BROWSE_TIMEOUT) || 180000,
+    ADMIN: Boolean(process.env.ADMIN),
+    ENV: process.env.ENV,
+    SLIDESHOW_INTERVAL: Number(process.env.SLIDESHOW_INTERVAL) || 10000,
+    COIN_INTERVAL: Number(process.env.COIN_INTERVAL) || 10000
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -44,11 +46,6 @@ export default {
         href:
           '@/assets/fonts/ARVO-REGULAR.TTF'
       }
-      // {
-      //   rel: 'stylesheet',
-      //   href:
-      //     'https://fonts.googleapis.com/css2?family=Arvo&display=swap'
-      // }
     ]
   },
 
@@ -114,11 +111,12 @@ export default {
   axios: {
     https: false,
     // baseURL: process.env.base_url || 'http://192.168.34.217:4400'
-    baseURL: CONFIG.API_URL || 'http://localhost:4400'
+    // baseURL: process.env.API_URL || 'http://localhost:4400'
+    // baseURL: process.env.API_URL
   },
 
   toast: {
-    position: 'top-right',
+    position: 'top-right'
   },
 
   googleFonts: {

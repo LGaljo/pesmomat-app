@@ -10,7 +10,7 @@
           v-if="show && songs && song"
           :song="song"
           :hide-actions="true"
-          :limit="25"
+          :limit="20"
           class="no-border"
         />
       </transition>
@@ -94,7 +94,7 @@ export default {
       setTimeout(() => {
         this.show = true;
       }, 1000)
-    }, Number(process.env.SLIDESHOW_INTERVAL))
+    }, Number(this.$config.SLIDESHOW_INTERVAL))
   },
   computed: {
     ...mapGetters({

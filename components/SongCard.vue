@@ -2,7 +2,7 @@
   <div v-if="song">
     <b-card>
       <b-card-body class="text-center">
-        <div :class="{'content-overflow': !limit}">
+        <div :class="{'content-overflow': !limit}" class="thin-scrollbar">
           <div class="author">{{ song.author.lastName }} {{ song.author.firstName }}</div>
           <div class="title">{{ song.title }}</div>
 
@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     apiUrl() {
-      return process.env.API_URL
+      return this.$config.API_URL
     },
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
@@ -174,7 +174,7 @@ export default {
 @import "scss/custom";
 
 .content-overflow {
-  max-height: 62vh;
+  max-height: 67vh;
   overflow-y: auto;
 }
 
@@ -184,7 +184,6 @@ export default {
   font-weight: 700;
   margin: 0;
   color: map-get($default-colours, 'text') !important;
-  text-transform: capitalize;
 }
 
 .author {
@@ -196,8 +195,8 @@ export default {
 
 .poem-body {
   font-size: 28px;
-  font-family: Cormorant, serif;
-  font-weight: 500;
+  font-family: CORMORANT-500, serif;
+  height: 100%;
   color: map-get($default-colours, 'text') !important;
 }
 

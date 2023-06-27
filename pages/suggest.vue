@@ -1,12 +1,15 @@
 <template>
   <b-container style="height: 100vh">
-    <b-row class="h-100">
-      <b-col cols="12" class="h-100">
+    <b-row>
+      <b-col cols="12">
         <div
           class="h-100 d-flex flex-column justify-content-center"
           @click="detectHand"
         >
           <div class="text-center">
+            <div class="line" v-if="scanning">
+              <b-img src="/img/generate/scan.svg"></b-img>
+            </div>
             <b-img src="/img/generate/hand_big.svg" class="hand"></b-img>
           </div>
 
@@ -63,6 +66,7 @@ export default {
   components: {ModalDialog},
   data() {
     return {
+      scanning: false,
     }
   },
   async mounted() {
@@ -81,9 +85,11 @@ export default {
         this.$refs.fundsdialog.open()
         return
       }
+      this.scanning = true;
       setTimeout(() => {
         const ranInt = Math.floor(Math.random() * this.songs.length)
         const song = this.songs[ranInt]
+        this.scanning = false
         this.$router.push(`/song/${song?._id}`)
       }, Math.random() * 5000 + 2000)
     },
@@ -125,6 +131,7 @@ export default {
 
 .hand {
   height: 60vh;
+  max-height: 60vh;
 }
 
 .action-background {
@@ -143,7 +150,26 @@ export default {
   color: #FFE5B8;
   text-align: center;
   font-size: 33px;
-  font-family: Arvo, serif;
-  font-weight: 700;
+  font-family: ARVO-700, serif;
+}
+
+@keyframes animateLines {
+  0%, 100%
+  {
+    top: 0;
+  }
+  50%
+  {
+    top: 65%;
+  }
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: drop-shadow(0 0 20px map-get($generate-colours, 'accent'))
+    drop-shadow(0 0 60px map-get($generate-colours, 'accent'));
+  animation: animateLines 2s ease-in-out infinite;
 }
 </style>

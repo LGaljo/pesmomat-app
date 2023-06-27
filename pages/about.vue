@@ -39,7 +39,7 @@
 <style scoped lang="scss">
 p {
   font-size: 26px;
-  font-family: "Magiona Display", serif;
+  font-family: MAGIONA_DISPLAY, serif;
   font-weight: 500;
 }
 </style>

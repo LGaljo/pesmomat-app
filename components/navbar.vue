@@ -57,7 +57,7 @@
             <div :style="item_style('search', 48, 50)"></div>
           </nuxt-link>
 
-          <nuxt-link :to="localePath(`/generate`)" class="mx-4 icon-button">
+          <nuxt-link v-if="$config.ENABLE_GENERATE" :to="localePath(`/generate`)" class="mx-4 icon-button">
             <div :style="item_style('generate', 50,50)"></div>
           </nuxt-link>
 
@@ -117,11 +117,12 @@ export default {
     }
   },
   async created() {
+    console.log(JSON.stringify(this.$config))
     await this.$store.dispatch('user/fetchUser');
     await this.$store.dispatch('coins/set')
     this.interval = setInterval(async () => {
       await this.$store.dispatch('coins/set')
-    }, Number(process.env.COIN_INTERVAL))
+    }, Number(this.$config.COIN_INTERVAL))
   },
   beforeDestroy() {
     if (this.interval) {

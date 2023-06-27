@@ -63,10 +63,12 @@ export default {
       name: this.$t('browse.popular'),
       value: "popular"
     })
-    this.categories.push({
-      name: this.$t('browse.periods'),
-      value: "periods"
-    })
+    if (this.$config.ENABLE_STATS) {
+      this.categories.push({
+        name: this.$t('browse.periods'),
+        value: "periods"
+      })
+    }
     this.$eventBus.$on('keyinput', this.keyInput)
     this.$eventBus.$on('keypress', this.keyInput)
   },
