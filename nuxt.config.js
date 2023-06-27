@@ -1,24 +1,26 @@
-const CONFIG = require(`./config/${process.env.ENV}.js`)
-const locale = require('./config/locale')
-
 export default {
   server: {
-    host: CONFIG.APP_URL,
-    port: CONFIG.APP_PORT
+    host: process.env.APP_URL,
+    port: process.env.APP_PORT
   },
 
   ssr: false,
 
   loading: false,
 
-  env: {
-    API_URL: CONFIG.API_URL,
-    API_TOKEN: CONFIG.API_TOKEN,
-    BROWSE_TIMEOUT: Number(CONFIG.BROWSE_TIMEOUT),
-    ADMIN: Boolean(CONFIG.ADMIN),
-    ENV: CONFIG.ENV,
-    SLIDESHOW_INTERVAL: Number(CONFIG.SLIDESHOW_INTERVAL) || 10000,
-    COIN_INTERVAL: Number(CONFIG.COIN_INTERVAL) || 10000,
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.API_URL,
+      baseURL: process.env.API_URL
+    },
+    API_URL: process.env.API_URL,
+    ENABLE_GENERATE: process.env.ENABLE_GENERATE,
+    ENABLE_STATS: process.env.ENABLE_STATS,
+    BROWSE_TIMEOUT: Number(process.env.BROWSE_TIMEOUT) || 180000,
+    ADMIN: Boolean(process.env.ADMIN),
+    ENV: process.env.ENV,
+    SLIDESHOW_INTERVAL: Number(process.env.SLIDESHOW_INTERVAL) || 10000,
+    COIN_INTERVAL: Number(process.env.COIN_INTERVAL) || 10000
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -37,17 +39,26 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          '@/assets/Oblik Font.otf'
+          '@/assets/Oblik Bold.otf'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          '@/assets/fonts/ARVO-REGULAR.TTF'
       }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/scss/app.scss'],
+  css: ['@/scss/app.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/click-outside.js'
+    {src: '~/plugins/init.js', ssr: false},
+    '~/plugins/click-outside.js',
+    '~/plugins/axios.js',
+    '~/plugins/veevalidate.js',
+    '~/plugins/eventbus'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -55,6 +66,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/google-fonts'
   ],
 
   router: {
@@ -71,10 +83,6 @@ export default {
     '@nuxtjs/i18n'
   ],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
-
   i18n: {
     defaultLocale: 'sl',
     parsePages: false,
@@ -90,14 +98,35 @@ export default {
     }
   },
 
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  build: {
+    transpile: ["vee-validate/dist/rules"],
+    extractCSS: false, // true causes duplicate css
+    splitChunks: {
+      layouts: true
+    },
+    extend(config, ctx) {}
+  },
+
   axios: {
     https: false,
     // baseURL: process.env.base_url || 'http://192.168.34.217:4400'
-    baseURL: CONFIG.API_URL || 'http://localhost:4400'
+    // baseURL: process.env.API_URL || 'http://localhost:4400'
+    // baseURL: process.env.API_URL
   },
 
   toast: {
-    position: 'top-right',
-  }
+    position: 'top-right'
+  },
 
+  googleFonts: {
+    download: true,
+    base64: true,
+    inject: true,
+    fontsDir: '~/assets/fonts',
+    families: {
+      // Arvo: true,
+      'Playfair Display': true
+    }
+  }
 }

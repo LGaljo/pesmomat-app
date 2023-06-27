@@ -1,86 +1,148 @@
 <template>
   <b-container>
     <b-row>
-      <b-col offset-md="3" md="6" cols="12" class="my-3">
-        <div v-if="author && $route.query.author">
-          <h1 class="text-center">{{ $t('songs.title', [author.lastName, author.firstName]) }}</h1>
+      <b-col cols="10">
+        <div v-if="songs && songs.length">
 
-          <div style="height: 50px"></div>
+          <div v-if="$route.query.author" class="headline text-center">
+            {{ $t('songs.title', [author.lastName, author.firstName]) }}
+          </div>
+          <div v-if="$route.query.search" class="headline text-center">
+            {{ $t('songs.search_title') }}
+          </div>
 
-          <div v-for="letter of alphabet" v-if="getSongsForLetter(letter).length" class="mb-3 offset-2">
-            <div class="text-uppercase letter py-2">{{ letter }}</div>
-            <div v-for="song of getSongsForLetter(letter)" v-if="author" class="author">
-              <div @click="openSongRequest(song)" class="py-2 hover-underline">{{ song.title }}</div>
+          <div
+            v-for="song of songs"
+            v-if="songs"
+            :key="song._id"
+            :id="song.title[0]"
+            class="author mb-3"
+          >
+            <div
+              @click="openSongRequest(song)"
+              class="list-item hover-underline"
+            >
+              {{ song.title }}
             </div>
           </div>
         </div>
-        <div v-else>{{ $t('songs.none') }}</div>
+        <div v-else class="text-center">
+          <div v-if="$route.query.search" class="no_results">
+            <div>{{ $t('songs.search_none') }}</div>
+            <DefaultButton class="mt-4" :action="'Pojdi nazaj'" @click="$router.back()" />
+          </div>
+          <div v-else class="list-item">
+            <div>{{ $t('songs.none') }}</div>
+            <DefaultButton class="mt-4" :action="'Pojdi nazaj'" @click="$router.back()" />
+          </div>
+        </div>
       </b-col>
     </b-row>
-    <b-modal v-model="showModal" hide-footer :title="$t('modals.insufficient.title')">
-      <p>{{ $t('modals.insufficient.body') }}</p>
-      <b-button class="mt-2" variant="warning" block @click="showModal = false">{{ $t('actions.understand') }}</b-button>
-    </b-modal>
-    <b-modal v-model="showModalUse" hide-footer :title="$t('modals.purchase.title')">
-      <p>{{ $t('modals.purchase.body') }}</p>
-      <div class="mt-2 d-flex justify-content-between">
-        <b-button class="mr-2" variant="warning" block @click="showModalUse = false">{{ $t('actions.cancel') }}</b-button>
-        <b-button class="ml-2 mt-0" variant="primary" block @click="openSong">{{ $t('actions.understand') }}</b-button>
+    <div class="letter-box">
+      <div
+        v-if="songs.length > 8"
+        class="d-flex flex-column align-items-end"
+      >
+        <div
+          v-for="letter of alphabet"
+          class="letter d-flex justify-content-center align-items-center cursor-pointer"
+          @click="scrollDown(letter)"
+        >
+          {{ letter }}
+        </div>
       </div>
-    </b-modal>
+    </div>
+
+    <ModalDialog
+      ref="fundsdialog"
+      size="lg"
+      dialog-class="default-modal"
+      :action="$t('actions.ok')"
+      persistent
+      pagetype="default"
+    >
+      <template #body>
+        <div class="modal-title text-center">
+          {{ $t('modals.insufficient.title') }}
+        </div>
+      </template>
+    </ModalDialog>
+
+    <ModalDialog
+      ref="buydialog"
+      size="lg"
+      dialog-class="default-modal"
+      @first="subtractAndOpen"
+      :action="$t('actions.understand')"
+      pagetype="default"
+    >
+      <template #body>
+        <div class="modal-title text-center">
+          {{ $t('modals.purchase.body') }}
+        </div>
+      </template>
+    </ModalDialog>
   </b-container>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
 import alphabet from "../../mixins/alphabet";
+import ModalDialog from "../../components/ModalDialog.vue";
+import DefaultButton from "../../components/DefaultButton.vue";
 
 export default {
   name: "browse_songs",
+  components: {DefaultButton, ModalDialog},
   layout: 'timeout',
   mixins: [alphabet],
   data() {
     return {
       author: null,
-      songs: [],
       songId: null,
-      showModal: false,
-      showModalUse: false,
     }
   },
   async mounted() {
-    this.author = await this.$axios.$get(`/author/${this.$route?.query?.author}`)
-    this.songs = await this.$axios.$get(`/songs`, {
-      params: {
-        author: this.$route?.query?.author,
-        period: this.$route?.query?.period
-      }
+    if (this.$route.query.author) {
+      this.author = await this.$axios.$get(`/author/${this.$route?.query?.author}`)
+    }
+
+    await this.$store.dispatch('songs/fetch', {
+      author: this.$route?.query?.author,
+      period: this.$route?.query?.period,
+      search: this.$route?.query?.search
     })
   },
   computed: {
     ...mapGetters({
       coins: 'coins/get',
+      songs: 'songs/get',
     })
   },
   methods: {
-    getSongsForLetter(letter) {
-      if (this.songs) {
-        return this.songs?.filter(a => a.title.toLowerCase().startsWith(letter))
+    async subtractAndOpen() {
+      if (this.coins < 1) {
+        // Request a coin to be inserted
+        this.$refs.fundsdialog.open()
+      } else {
+        await this.openSong()
       }
     },
     async openSongRequest(song) {
-      this.songId = song._id
+      this.songId = song?._id
       if (this.coins > 0) {
-        this.showModalUse = true
+        this.$refs.buydialog.open()
       } else {
-        this.showModal = true;
+        this.$refs.fundsdialog.open()
       }
     },
     async openSong() {
-      this.showModalUse = false
       await this.$store.dispatch('coins/reduce')
       await this.$router.push(this.localePath(`/song/${this.songId}`))
-    }
+    },
+    scrollDown(letter) {
+      this.$router.push({ path: this.$route.path , query: this.$route.query, hash: letter.toUpperCase()})
+    },
   }
 }
 </script>
@@ -98,5 +160,16 @@ export default {
 .hover-underline:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.no_results {
+  border-radius: 20px;
+  background: #FEECCC;
+  color: #006867;
+  font-size: 32px;
+  font-family: MAGIONA_DISPLAY, serif !important;
+  padding: 20px;
+  font-weight: 600;
+  line-height: 1;
 }
 </style>

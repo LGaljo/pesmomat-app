@@ -13,3 +13,31 @@ $theme-colors: (
   "danger":     #f0155d,
 );
 
+$generate-colours: (
+  "background":   #0F7170,
+  "background-dark": #006867,
+  "background-darker": #0c4d4d,
+  "accent":   #FFB400,
+  "text":   #FFE5B8,
+  "text-dark": #dac49e,
+  "kb_bg": #0F7170,
+  "kb_btn": #006867,
+  "kb_text": #FFB400
+);
+
+$default-colours: (
+  "background":   #FEECCC,
+  "background-dark": #FFE5B8,
+  "background-darker": #bdaa89,
+  "accent":   #AD1E23,
+  "text":  #006867,
+  "text-dark": #004948,
+  "kb_bg": #FEECCC,
+  "kb_btn": #FFE5B8,
+  "kb_text": #AD1E23
+);
+
+$animation: (
+  "1": #FFB400,
+  "2": #FFE5B8
+)

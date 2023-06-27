@@ -1,0 +1,291 @@
+@import "../node_modules/bootstrap";
+@import "custom";
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fake-button:hover {
+  background: #dcdee1;
+  cursor: pointer;
+}
+
+.fake-button-card:hover {
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.nav-link {
+  color: #808080 !important;
+}
+
+body {
+  min-height: 100vh;
+  //font-family: 'oblik-bold', sans-serif !important;
+}
+
+a {
+  color: map-get($default-colours, 'text') !important;
+}
+
+table {
+ font-size: 18px;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/material-icons.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARCHIA-REGULAR';
+  src: url('../assets/fonts/ARCHIA-REGULAR.OTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-700';
+  src: url('../assets/fonts/ARVO-700.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-700ITALIC';
+  src: url('../assets/fonts/ARVO-700ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-ITALIC';
+  src: url('../assets/fonts/ARVO-ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'ARVO-REGULAR';
+  src: url('../assets/fonts/ARVO-REGULAR.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-300';
+  src: url('../assets/fonts/CORMORANT-300.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-300ITALIC';
+  src: url('../assets/fonts/CORMORANT-300ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-500';
+  src: url('../assets/fonts/CORMORANT-500.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-500ITALIC';
+  src: url('../assets/fonts/CORMORANT-500ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-600';
+  src: url('../assets/fonts/CORMORANT-600.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-600ITALIC';
+  src: url('../assets/fonts/CORMORANT-600ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-700';
+  src: url('../assets/fonts/CORMORANT-700.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-700ITALIC';
+  src: url('../assets/fonts/CORMORANT-700ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-ITALIC';
+  src: url('../assets/fonts/CORMORANT-ITALIC.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'CORMORANT-REGULAR';
+  src: url('../assets/fonts/CORMORANT-REGULAR.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'MAGIONA_DISPLAY';
+  src: url('../assets/fonts/MAGIONA_DISPLAY.TTF') format('woff2');
+}
+
+@font-face {
+  font-family: 'MAGIONA_DISPLAY_ITALIC';
+  src: url('../assets/fonts/MAGIONA_DISPLAY_ITALIC.TTF') format('woff2');
+}
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.generate-modal {
+  .modal-content {
+    background: map-get($generate-colours, 'background') !important;
+    border: none;
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .modal-body {
+    background: map-get($generate-colours, 'background') !important;
+    border: none;
+    padding: 12px;
+  }
+  .modal-footer {
+    background: map-get($generate-colours, 'background') !important;
+    border: none;
+    justify-content: space-around !important;
+  }
+}
+
+.default-modal {
+  .modal-content {
+    background: map-get($default-colours, 'background') !important;
+    border: none;
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .modal-body {
+    background: map-get($default-colours, 'background') !important;
+    border: none;
+    padding: 12px;
+  }
+  .modal-footer {
+    background: map-get($default-colours, 'background') !important;
+    border: none;
+    justify-content: space-around !important;
+  }
+}
+
+.headline {
+  color: map-get($default-colours, 'text');
+  font-size: 55px;
+  font-family: MAGIONA_DISPLAY, serif !important;
+  padding-bottom: 50px;
+  font-weight: 700;
+}
+
+.list-item {
+  border-radius: 20px;
+  background: #FEECCC;
+  color: #006867;
+  font-size: 40px;
+  font-family: MAGIONA_DISPLAY, serif !important;
+  text-transform: uppercase;
+  padding: 20px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.no-border > .card {
+  border: none;
+  border-radius: 20px;
+}
+
+.default-input {
+  background-color: map-get($default-colours, 'background-dark') !important;
+  font-family: "Playfair Display", serif !important;
+  color: map-get($default-colours, 'text') !important;
+  font-size: 24px !important;
+}
+
+.grey-select {
+  .custom-select {
+    border: none;
+    background: #7E7E7E url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat;
+    color: black;
+  }
+}
+
+.lightgrey-select {
+  .custom-select {
+    border: none;
+    background: #D9D9D9 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat;
+    color: black;
+  }
+}
+
+.icon-button:hover {
+  cursor: pointer;
+}
+
+.icon-button:active {
+  cursor: pointer;
+  background-color: #00000020;
+}
+
+.icon-button {
+  background-size: contain;
+}
+
+.letter {
+  font-size: 2rem;
+  font-weight: 500;
+  color: map-get($default-colours, 'text') !important;
+  background-color: map-get($default-colours, 'background') !important;
+  text-transform: uppercase;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 20px;
+}
+
+.letter-box {
+  position: fixed;
+  top: 100px;
+  right: 42px;
+}
+
+.modal-title {
+  font-size: 30px;
+}
+
+.thin-scrollbar {
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.125);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}

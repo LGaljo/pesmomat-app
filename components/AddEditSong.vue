@@ -1,5 +1,5 @@
 <template>
-  <form class="w-100" ref="form" novalidate @submit.prevent="">
+  <b-form class="w-100" ref="form" novalidate @submit.prevent="">
     <div class="form-group">
       <label for="title">Naslov pesmi</label>
       <input
@@ -32,7 +32,8 @@
     <!-- Avtor -->
     <div class="form-group">
       <label for="author">Avtor</label>
-      <b-form-select v-model="song.authorId" class="form-control" id="author" :options="options.authors"></b-form-select>
+      <b-form-select v-model="song.authorId" class="form-control" id="author"
+                     :options="options.authors"></b-form-select>
       <div class="invalid-feedback">
         Prosim vnesi avtorja.
       </div>
@@ -40,14 +41,17 @@
         id="urlHelp"
         class="form-text text-muted"
       >
-        Avtor ne obstaja? <nuxt-link to="/admin/authors">Dodaj ga</nuxt-link>.
+        Avtor ne obstaja?
+        <nuxt-link to="/admin/authors">Dodaj ga</nuxt-link>
+        .
       </small>
     </div>
 
     <!-- Zvrst -->
     <div class="form-group">
       <label for="category">Zvrst</label>
-      <b-form-select v-model="song.categoryId" class="form-control" id="category" :options="options.categories"></b-form-select>
+      <b-form-select v-model="song.categoryId" class="form-control" id="category"
+                     :options="options.categories"></b-form-select>
       <div class="invalid-feedback">
         Prosim vnesi Zvrst.
       </div>
@@ -55,36 +59,81 @@
         id="urlHelp"
         class="form-text text-muted"
       >
-        Zvrst ne obstaja? <nuxt-link to="/admin/categories">Dodaj jo</nuxt-link>.
+        Zvrst ne obstaja?
+        <nuxt-link to="/admin/categories">Dodaj jo</nuxt-link>
+        .
       </small>
     </div>
 
-    <div class="form-group">
-      <label for="content">Pesem</label>
-      <textarea v-model="song.content" class="form-control" id="content" rows="15" required></textarea>
-      <div class="invalid-feedback">
-        Prosim vnesi besedilo pesmi.
+    <b-card
+      v-if="song.contents.length"
+      class="mt-3 mb-2"
+    >
+      <ul class="nav nav-tabs">
+        <template v-for="lang in options.languages">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{'active': activeVersion === lang.value }"
+              aria-current="page"
+              @click="setActive(lang.value)"
+            >
+              {{ lang.text }}
+              <template v-if="hasContent(lang.value) === 2">🟢</template>
+              <template v-if="hasContent(lang.value) === 1">🟡</template>
+            </a>
+          </li>
+        </template>
+      </ul>
+
+      <!-- Vsebina -->
+      <div :key="counter" class="form-group mt-1">
+        <textarea v-model="activeContent" class="form-control" id="content" rows="15" required @blur="updateField"/>
+        <div class="invalid-feedback">
+          Prosim vnesi besedilo pesmi.
+        </div>
       </div>
-    </div>
+    </b-card>
 
     <b-button
       v-if="id"
       type="submit"
       @click.prevet.stop="play"
-      class="btn-primary"
+      class="mt-2"
       :class="{ active: playing }"
     >
       Predvajaj pesem
     </b-button>
 
-    <audio :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
+    <audio v-if="id" :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
       <source :src="`${apiUrl}/songs/play/${id}`" type="audio/mpeg">
       Your browser does not support the audio tag.
     </audio>
 
-    <b-button v-if="!id" type="submit" @click.prevet.stop="onCreate" class="btn-primary">Dodaj</b-button>
-    <b-button v-else type="submit" @click.prevet.stop="onUpdate" class="btn-primary">Posodobi</b-button>
-  </form>
+    <div class="mt-2">
+      <b-button
+        v-if="!id"
+        type="submit"
+        @click.prevet.stop="onCreate"
+      >
+        <div class="d-flex align-items-center">
+          <div>Dodaj pesem</div>
+          <i class="ml-1 material-icons">save</i>
+        </div>
+      </b-button>
+      <b-button
+        v-else
+        type="submit"
+        @click.prevet.stop="onUpdate"
+        class="btn-primary"
+      >
+        <div class="d-flex align-items-center">
+          <div>Posodobi pesem</div>
+          <i class="ml-1 material-icons">save</i>
+        </div>
+      </b-button>
+    </div>
+  </b-form>
 </template>
 
 <script>
@@ -101,6 +150,7 @@ export default {
   },
   data() {
     return {
+      counter: 0,
       song: {
         _id: null,
         title: null,
@@ -108,8 +158,12 @@ export default {
         authorId: null,
         categoryId: null,
         content: null,
+        contents: [],
+        language: null,
         url: null
       },
+      activeVersion: 'sl',
+      activeContent: '',
       playing: false,
       options: {
         authors: [
@@ -117,21 +171,37 @@ export default {
         ],
         categories: [
           {value: null, text: 'Prosim izberi zvrst'},
-        ]
+        ],
+        languages: [
+          {value: null, text: 'Prosim izberi jezik'},
+        ],
       }
     }
   },
   computed: {
     apiUrl() {
-      return process.env.API_URL
+      return this.$config.API_URL
     },
   },
   async created() {
+    const languages = await this.$axios.$get('/songs/languages');
+    this.options.languages = Object.keys(languages).map(k => {
+      return {
+        value: languages[k].shortcode,
+        text: languages[k].shortcode
+      }
+    })
     if (this.id) {
       this.song = await this.$axios.$get(`/songs/${this.id}`)
-      this.song.content = this.song?.content?.replaceAll('<br>', '\n')
+      this.song.contents = this.song?.contents.map(c => ({
+        content: c?.content?.replaceAll('<br>', '\n'),
+        lang: c?.lang,
+      }));
       this.song.authorId = this.song?.author?._id || null
       this.song.categoryId = this.song?.category?._id || null
+      // TODO: Not always SL
+      this.activeVersion = this.song.language
+      this.activeContent = this.song.contents.find((c) => c.lang === this.activeVersion)?.content
     }
     this.options.authors.push(...(await this.$axios.$get('/author')).map(a => {
       return {
@@ -160,65 +230,114 @@ export default {
       this.$refs.form.classList.add('was-validated');
 
       if (
-        !this.$refs.form.title.checkValidity() ||
+        !this.song.title ||
         !this.song.authorId ||
         !this.song.categoryId ||
-        !this.$refs.form.content.checkValidity() ||
-        !this.$refs.form.url.checkValidity()
+        !this.song.contents
       ) {
-        this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
+        this.$toast.error('Napaka v vnosnih poljih', {duration: 2000});
         return;
       }
 
-      this.song.title = this.$refs.form.title.value;
-      this.song.author = this.$refs.form.author.value;
-      this.song.category = this.$refs.form.category.value;
-      this.song.content = this.$refs.form.content.value.replaceAll('\n', '<br>');
-      this.song.url = this.$refs.form.url.value;
+      this.song.contents = this.song.contents.map(c => ({
+        content: c.content.replaceAll('\n', '<br>'),
+        language: c.language,
+      }));
 
       await this.$axios.$post('/songs', this.song)
         .then(res => {
-          this.$toast.success('Pesem uspešno dodana', { duration: 2000 });
-          this.song.title = '';
-          this.song.authorId = null;
-          this.song.categoryId = null;
-          this.song.content = '';
-          this.song.url = '';
-          this.$refs.form.classList.remove('was-validated');
+          this.$toast.success('Pesem uspešno dodana', {duration: 2000});
+          this.resetForm();
         })
         .catch(rej => {
           console.error(rej);
-          this.$toast.error('Napaka pri dodajanju pesmi', { duration: 2000 });
+          this.$toast.error('Napaka pri dodajanju pesmi', {duration: 2000});
         });
     },
     async onUpdate() {
       this.$refs.form.classList.add('was-validated');
 
       if (
-        !this.$refs.form.title.checkValidity() ||
+        !this.song.title ||
         !this.song.authorId ||
         !this.song.categoryId ||
-        !this.$refs.form.content.checkValidity() ||
-        !this.$refs.form.url.checkValidity()
+        !this.song.contents
       ) {
-        this.$toast.error('Napaka v vnosnih poljih', { duration: 2000 });
+        this.$toast.error('Napaka v vnosnih poljih', {duration: 2000});
         return;
       }
 
-      this.song.content = this.song.content.replaceAll('\n', '<br>');
+      this.song.contents = this.song.contents.map(c => ({
+        content: c?.content?.replaceAll('\n', '<br>'),
+        lang: c?.lang,
+      }));
 
       await this.$axios.$put(`/songs/${this.id}`, this.song)
         .then(res => {
-          this.$toast.success('Pesem uspešno posodobljena', { duration: 2000 });
+          this.$toast.success('Pesem uspešno posodobljena', {duration: 2000});
           this.song = res
-          this.song.content = this.song.content.replaceAll('<br>', '\n')
+          // this.song.content = this.song.content.replaceAll('<br>', '\n')
+          this.song.contents = this.song?.contents.map(c => ({
+            content: c?.content?.replaceAll('<br>', '\n'),
+            lang: c?.lang,
+          }));
+
           this.song.authorId = this.song?.author?._id
           this.song.categoryId = this.song?.category?._id
         })
         .catch(rej => {
           console.error(rej);
-          this.$toast.error('Napaka pri posodabljanju pesmi', { duration: 2000 });
+          this.$toast.error('Napaka pri posodabljanju pesmi', {duration: 2000});
         });
+    },
+    resetForm() {
+      this.song.title = '';
+      this.song.authorId = null;
+      this.song.categoryId = null;
+      this.song.content = '';
+      this.song.url = '';
+      this.$refs.form.classList.remove('was-validated');
+    },
+    setActive(lang) {
+      // Save previously written content
+      const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
+      if (this.activeContent.length > 0) {
+        this.song.contents[idx] = {
+          lang: this.activeVersion,
+          content: this.activeContent,
+        }
+      } else {
+        this.song.contents.splice(idx, 1);
+      }
+      // Change language
+      this.activeVersion = lang
+      // Fill content if available
+      const songVersion = this.song.contents.find((c) => c.lang === this.activeVersion)
+      // If no content, add the language to song
+      if (!songVersion) {
+        this.song.contents.push({lang: lang, content: ''})
+        this.activeContent = ""
+      } else {
+        this.activeContent = songVersion.content
+      }
+      this.counter++;
+    },
+    hasContent(lang) {
+      const version = this.song.contents.find((c) => c.lang === lang);
+      if (version?.content?.length > 0) {
+        return 2;
+      } else if (version?.content?.length === 0) {
+        return 1;
+      }
+      return 0;
+    },
+    updateField() {
+      const idx = this.song.contents.findIndex((c) => c.lang === this.activeVersion);
+      this.song.contents[idx] = {
+        lang: this.activeVersion,
+        content: this.activeContent,
+      }
+      this.counter++;
     }
   }
 }

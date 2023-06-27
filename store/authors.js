@@ -7,7 +7,7 @@ export const mutations = {
     state.authors = value
   },
   unset(state) {
-    state.user = null
+    state.authors = null
   },
 }
 
@@ -19,6 +19,7 @@ export const getters = {
 
 export const actions = {
   async fetch({ commit }, filters) {
+    commit('set', [])
     this.$axios.$get(`/author`, { params: filters })
       .then(res => {
         commit('set', res)

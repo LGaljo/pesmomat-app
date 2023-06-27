@@ -4,26 +4,72 @@
     "search": "Išči",
     "back": "Nazaj",
     "understand": "Razumem",
-    "cancel": "Prekliči"
+    "cancel": "Prekliči",
+    "generate": "Generiraj",
+    "edit": "Uredi",
+    "yes": "Ja",
+    "ok": "Ok"
   },
   "authors": {
     "title": "Pesniki zvrsti {0}",
-    "none": "Ni avtorjev za prikaz"
+    "none": "Ni avtorjev za prikaz",
+    "popular": "popularne pesmi"
+  },
+  "browse": {
+    "input_text": "Vpiši naslov ali avtorja pesmi",
+    "choose_cat": "izberi kategorijo",
+    "or": "ali",
+    "popular": "Popularne pesmi",
+    "periods": "Išči po zvrsteh",
+    "placeholder": "Vpiši naslov ali avtorja pesmi"
+  },
+  "generate": {
+    "buy": "Da ustvariva pesem te bo stalo en kovanec. Velja??",
+    "create": "Generiraj",
+    "title": "Izberi dve pesmi in zgeneriral bom novo",
+    "songA": "Pesem A",
+    "songB": "Pesem B",
+    "select": {
+      "A": "Izberi prvo pesem",
+      "B": "Izberi drugo pesem",
+      "rhyme": "Izberi tip rime",
+      "length": "Izberi dolžino pesmi",
+      "stanza": "Izberi tip kitice",
+      "start": "Vpiši s katero vrstico naj se začne pesem"
+    }
   },
   "periods": {
-    "title": "Zvrsti",
+    "title": "Poezija po zvrsteh",
     "none": "Ni zvrsti za prikaz"
   },
   "songs": {
     "title": "Pesmi {0} {1}",
-    "none": "Ni avtorjev za prikaz"
+    "search_title": "Rezultati iskanja",
+    "none": "Ni pesmi za prikaz",
+    "search_none": "Iskanje ni vrnilo zadetkov",
+    "read_lang": "Beri v drugih jezikih:"
+  },
+  "suggest": {
+    "title": "Prisloni roko in predlagal bom pesem zate.",
+    "buy": "Da ti predlagam pesem, te bo stalo en kovanec. Velja?"
+  },
+  "languages": {
+    "de": "Nemščina",
+    "en": "Angleščina",
+    "es": "Španščina",
+    "fr": "Francoščina",
+    "hr": "Hrvaščina",
+    "hu": "Madžarščina",
+    "it": "Italijanščina",
+    "sl": "Slovenščina"
   },
   "navbar": {
     "admin": {
       "add": "Dodaj pesem",
       "songs": "Pesmi",
       "authors": "Avtorji",
-      "categories": "Zvrsti"
+      "categories": "Zvrsti",
+      "logout": "Odjava"
     }
   },
   "modals": {
@@ -56,5 +102,10 @@
     "nonexistent": "Pesem ne obstaja",
     "sent": "Uspešno dodano v čakalno vrsto za tiskanje",
     "print": "Napaka pri tiskanju"
+  },
+  "promo": {
+    "search": "Poišči pesem",
+    "generate": "Generiraj novo pesem",
+    "hand": "Prepoznaj pesem zame"
   }
 }

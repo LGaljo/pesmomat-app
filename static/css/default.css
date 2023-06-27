@@ -1,0 +1,47 @@
+body {
+  color: #006867 !important;
+  background-image: url("/img/default/background.svg") !important;
+  font-family: 'Playfair Display', serif !important;
+}
+
+.logo {
+  height: 50px;
+  width: 120px;
+  background: url("/img/default/logo.svg");
+  background-size: contain;
+}
+
+.custom-nav {
+  color: #AD1E23 !important;
+  background: #00000000 !important;
+  height: 115px;
+}
+
+.no-border > .card {
+  background: #FEECCC !important;
+}
+
+.pop {
+  position: absolute;
+  right: 48px;
+  top: 90px;
+  width: 250px;
+  height: auto;
+  font-family: MAGIONA_DISPLAY, serif;
+}
+
+.language-item {
+  background-color: #FEECCC;
+  font-size: 32px;
+}
+
+.language-item:hover {
+  cursor: pointer;
+  background-color: #AD1E23;
+  color: #FEECCC !important;
+}
+
+.activebox {
+  background-color: #AD1E23 !important;
+  color: #FEECCC !important;
+}

@@ -1,10 +1,10 @@
 export default {
   computed: {
     isAdmin() {
-      return process.env.ADMIN;
+      return this.$config.ADMIN;
     },
     env() {
-      return process.env.ENV;
+      return this.$config.ENV;
     },
   }
 }

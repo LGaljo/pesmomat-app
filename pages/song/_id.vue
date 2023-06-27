@@ -13,7 +13,6 @@ import songCard from "../../components/SongCard";
 
 export default {
   name: "song_page",
-  layout: 'timeout',
   components: { songCard },
   data() {
     return {
@@ -26,6 +25,5 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

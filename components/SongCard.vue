@@ -1,56 +1,77 @@
 <template>
   <div v-if="song">
-    <div class="card">
-      <div class="card-body text-center">
-        <div v-if="!hideActions" class="mb-4">
-          <span
-            class="material-icons icon-button px-2"
-            @click.stop.prevent="printAction"
-          >
-            print
-          </span>
-          <span
-            v-if="song.url"
-            class="material-icons icon-button px-2"
-            @click="showQR = true"
-          >
-            qr_code_2
-          </span>
-          <span
-            class="material-icons icon-button px-2"
-            :class="{ active: playing }"
-            @click="play"
-          >
-            record_voice_over
-          </span>
+    <b-card>
+      <b-card-body class="text-center">
+        <div :class="{'content-overflow': !limit}" class="thin-scrollbar">
+          <div class="author">{{ song.author.lastName }} {{ song.author.firstName }}</div>
+          <div class="title">{{ song.title }}</div>
+
+          <b-card-text class="poem-body mt-3 pb-3" v-html="currentContent"></b-card-text>
+        </div>
+
+        <div v-if="!hideActions" class="mt-4">
+
+<!--          <span-->
+<!--            class="material-icons icon-button px-2"-->
+<!--            style="width: 64px;"-->
+<!--            @click="$router.push(`/admin/songs/${song._id}`)"-->
+<!--          >-->
+<!--            edit-->
+<!--          </span>-->
+
+          <div class="d-flex flex-row justify-content-center">
+            <div :style="item_style('speaker', 56, 50)" class="icon-button mx-3" :class="{ active: playing }" @click="play"></div>
+            <div :style="item_style('qr_code', 51, 50)" class="icon-button mx-3" @click="openQRModal"></div>
+            <div :style="item_style('print', 51, 50)" class="icon-button mx-3" @click.stop.prevent="printAction"></div>
+          </div>
+
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
             <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
             Your browser does not support the audio tag.
           </audio>
         </div>
-        <h5 class="title">{{ song.title }}</h5>
-        <small class="author">{{ song.author.lastName }} {{ song.author.firstName }}</small>
+      </b-card-body>
+    </b-card>
 
-        <p class="card-text mt-3 pb-3" v-html="createExcerpt()"></p>
-      </div>
-    </div>
-    <QRModal
-      v-if="showQR"
-      @close="showQR = false"
-      :url="song.url || 'http://vrabecanarhist.eu/'"
-    ></QRModal>
+    <ModalDialog
+      ref="qrcode"
+      size="md"
+      dialog-class="default-modal"
+      close-action="Hvala"
+    >
+      <template #body>
+        <div class="modal-title text-center">
+          <qrcode-vue
+            :value="song.url || 'http://vrabecanarhist.eu/'"
+            :size="400"
+            level="M"
+            :background="'#FEECCC'"
+            :foreground="'#006867'"
+          />
+
+          <!--          <b-img src="/img/default/gears_bottom.svg" class="w-100 mt-4"></b-img>-->
+        </div>
+      </template>
+    </ModalDialog>
+
+    <LanguageSwitchModal v-if="showLangSwitch" @close="changeLang($event); showLangSwitch = false;"/>
   </div>
 </template>
 
 <script>
 import QrcodeVue from 'qrcode.vue'
-import QRModal from "./QRModal";
+import admin from "../mixins/admin";
+import flags from "../mixins/flags";
+import LanguageSwitchModal from "./LanguageSwitchModal.vue";
+import ModalDialog from "./ModalDialog.vue";
 
 export default {
   name: "SongCard",
+  mixins: [admin, flags],
   components: {
+    ModalDialog,
+    LanguageSwitchModal,
     QrcodeVue,
-    QRModal
   },
   props: {
     song: Object,
@@ -65,15 +86,38 @@ export default {
   data() {
     return {
       showQR: false,
+      showLangSwitch: false,
       playing: false,
+      currentLang: null,
+      currentContent: ''
     }
   },
   computed: {
     apiUrl() {
-      return process.env.API_URL
+      return this.$config.API_URL
     },
+    availableLocales () {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
+  },
+  mounted() {
+    this.currentLang = this.$i18n.locale;
+    this.createExcerpt()
   },
   methods: {
+    openQRModal() {
+      this.$refs.qrcode.open()
+    },
+    item_style(icon, w, h) {
+      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon)}
+    },
+    icon_url(icon) {
+      return `url('/img/default/${icon}.svg')`
+    },
+    changeLang(locale) {
+      this.currentLang = locale
+      this.createExcerpt()
+    },
     async printAction() {
       await this.$axios.post(`/raspberrypi/print?songId=${this.song._id}`)
         .then(async (res) => {
@@ -107,38 +151,56 @@ export default {
       this.playing = !this.playing;
     },
     createExcerpt() {
-      if (!!this.limit && this.song?.content.split('<br>').length > this.limit) {
-        return this.song?.content.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      // Old place for content
+      if (!this.song?.contents?.length) {
+        this.currentContent = this.song?.contents
+        return
       }
-      return this.song?.content
+      let content = this.song?.contents?.find(c => c.lang.startsWith(this.currentLang))?.content
+      if (!content) {
+        content = this.song?.contents[0]?.content
+      }
+      if (!!this.limit && content?.split('<br>').length > this.limit) {
+        content = content?.split('<br>').slice(0, this.limit).join('<br>') + '<br><br>...';
+      }
+      this.currentContent = content
     }
   }
 }
 </script>
 
-<style scoped>
-.card {
-  width: 100%;
+<style lang="scss" scoped>
+@import "scss/app";
+@import "scss/custom";
+
+.content-overflow {
+  max-height: 67vh;
+  overflow-y: auto;
 }
 
 .title {
+  font-size: 37px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
   margin: 0;
+  color: map-get($default-colours, 'text') !important;
 }
 
 .author {
-  color: #646464 !important;
+  font-size: 32px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: map-get($default-colours, 'text') !important;
 }
 
-.icon-button:hover {
-  cursor: pointer;
-  color: grey;
-}
-
-.icon-button {
-  font-size: 48px;
+.poem-body {
+  font-size: 28px;
+  font-family: CORMORANT-500, serif;
+  height: 100%;
+  color: map-get($default-colours, 'text') !important;
 }
 
 .active {
-  color: goldenrod;
+  color: map-get($default-colours, 'accent');
 }
 </style>

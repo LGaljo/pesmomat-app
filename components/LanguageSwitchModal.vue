@@ -4,17 +4,16 @@
       <div class="modal-wrapper">
         <div
           class="modal-container"
-          v-click-outside="onClickOutside"
+          v-click-outside="closeModal"
         >
 
           <div class="modal-body text-center">
-            <qrcode-vue :value="url" :size="size" level="Q" />
-          </div>
-
-          <div class="text-center">
-            <b-button class="btn-primary modal-default-button" @click="$emit('close')">
-              Hvala
-            </b-button>
+              <template v-for="lang in availableLocales">
+                <div class="fake-button mr-2" @click="closeModal(lang)">
+                  <b-img v-bind="{ height: 48 }" :src="flags[lang]" />
+                  {{ lang }}
+                </div>
+              </template>
           </div>
         </div>
       </div>
@@ -24,6 +23,7 @@
 
 <script>
 import QrcodeVue from "qrcode.vue";
+import flags from "../mixins/flags";
 
 export default {
   props: {
@@ -33,12 +33,18 @@ export default {
     },
     url: String
   },
+  mixins: [flags],
   components: {
     QrcodeVue,
   },
+  computed: {
+    availableLocales () {
+      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    }
+  },
   methods: {
-    onClickOutside() {
-      this.$emit('close')
+    closeModal(lang) {
+      this.$emit('close', lang)
     }
   }
 }
