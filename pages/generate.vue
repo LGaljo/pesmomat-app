@@ -152,6 +152,7 @@
       @first="subtractCoins"
       @cancel="redirectBack"
       :action="$t('actions.yes')"
+      persistent
       pagetype="generate"
     >
       <template #body>

@@ -3,8 +3,8 @@
     <b-row class="h-100">
       <b-col offset-md="3" md="6" cols="12">
         <div class="d-flex flex-column flex-nowrap justify-content-center align-content-center h-100">
-          <div class="text-center">
-            <h1>PESMOMAT</h1>
+          <div class="text-center ml-auto mr-auto mb-3">
+            <div class="logo"></div>
           </div>
 
           <b-form @submit.stop.prevent="onSubmit">
@@ -84,7 +84,7 @@ export default {
           localStorage.setItem('userId', res?.data?.userId)
           await this.$store.commit('user/setToken', res?.data?.access_token)
           await this.$store.dispatch('user/fetchUser', res?.data?.userId)
-          await this.$router.push("/")
+          await this.$router.push(this.localePath("/admin"))
         } else if (!res?.success && res?.reason === 'UNAPPROVED') {
           this.resend_act = res?.userId
           this.error = "Uporabnik še ni aktiviran. Najdi email s povezavo."
@@ -112,6 +112,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.logo {
+  height: calc(50px * 2);
+  width: calc(120px * 2);
+  background: url("/img/default/logo.svg");
+  background-size: contain;
+}
 
 </style>

@@ -1,25 +1,19 @@
 import * as jwt from 'jsonwebtoken';
 
 const unprotectedPaths = [
-  '/auth/login',
-  '/auth/registration',
-  '/auth/registration/complete',
-  '/auth/registration/verify',
-  '/auth/forgotten-password',
-  '/auth/change-password',
+  '/auth',
   '/browse',
-  '/en/song/',
-  '/en/auth/login',
-  '/en/auth/registration',
-  '/en/auth/registration/complete',
-  '/en/auth/registration/verify',
-  '/en/auth/forgotten-password',
-  '/en/auth/change-password',
+  '/song',
+  '/generate',
+  '/suggest',
+  '/about',
+  '/en/auth',
   '/en/browse',
-  '/en/song/',
-  '/'
+  '/en/song',
+  '/en/generate',
+  '/en/suggest',
+  '/en/about',
 ]
-
 
 export default function (context) {
   window.onNuxtReady(async () => {
@@ -31,7 +25,7 @@ export async function checkAuth(context) {
   console.log(decodeURI(context.route.path))
   if (
     !unprotectedPaths.find(path => decodeURI(context.route.path).startsWith(path)) &&
-    decodeURI(context.route.path) !== '/'
+    !['/', '/en'].includes(decodeURI(context.route.path))
   ) {
     console.log('protected')
     if (localStorage.getItem('jwt')) {

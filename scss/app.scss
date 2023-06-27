@@ -24,6 +24,14 @@ body {
   //font-family: 'oblik-bold', sans-serif !important;
 }
 
+a {
+  color: map-get($default-colours, 'text') !important;
+}
+
+table {
+ font-size: 18px;
+}
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
