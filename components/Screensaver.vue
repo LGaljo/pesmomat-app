@@ -1,26 +1,26 @@
 <template>
   <div class="fullscreen d-flex flex-column justify-content-center align-items-center">
-    <div class="logoset">
-      <b-img src="/img/default/logo/p.svg" class="position-absolute p"></b-img>
-      <b-img src="/img/default/logo/e.svg" class="position-absolute e"></b-img>
-      <b-img src="/img/default/logo/s.svg" class="position-absolute s"></b-img>
-      <b-img src="/img/default/logo/m.svg" class="position-absolute m1"></b-img>
-      <b-img src="/img/default/logo/o.svg" class="position-absolute o"></b-img>
-      <b-img src="/img/default/logo/m.svg" class="position-absolute m2"></b-img>
-      <b-img src="/img/default/logo/a.svg" class="position-absolute a"></b-img>
-      <b-img src="/img/default/logo/t.svg" class="position-absolute t"></b-img>
-    </div>
-<!--    <div class="logoset notransition">-->
-<!--      <b-img src="/img/generate/logo/p.svg" class="position-absolute pgen"></b-img>-->
-<!--      <b-img src="/img/generate/logo/pgear.svg" class="position-absolute pgear"></b-img>-->
-<!--      <b-img src="/img/generate/logo/e.svg" class="position-absolute e"></b-img>-->
-<!--      <b-img src="/img/generate/logo/s.svg" class="position-absolute s"></b-img>-->
-<!--      <b-img src="/img/generate/logo/m.svg" class="position-absolute m1"></b-img>-->
-<!--      <b-img src="/img/generate/logo/o.svg" class="position-absolute o"></b-img>-->
-<!--      <b-img src="/img/generate/logo/m.svg" class="position-absolute m2"></b-img>-->
-<!--      <b-img src="/img/generate/logo/a.svg" class="position-absolute a"></b-img>-->
-<!--      <b-img src="/img/generate/logo/t.svg" class="position-absolute t"></b-img>-->
+<!--    <div class="logoset">-->
+<!--      <b-img src="/img/default/logo/p.svg" class="position-absolute p"></b-img>-->
+<!--      <b-img src="/img/default/logo/e.svg" class="position-absolute e"></b-img>-->
+<!--      <b-img src="/img/default/logo/s.svg" class="position-absolute s"></b-img>-->
+<!--      <b-img src="/img/default/logo/m.svg" class="position-absolute m1"></b-img>-->
+<!--      <b-img src="/img/default/logo/o.svg" class="position-absolute o"></b-img>-->
+<!--      <b-img src="/img/default/logo/m.svg" class="position-absolute m2"></b-img>-->
+<!--      <b-img src="/img/default/logo/a.svg" class="position-absolute a"></b-img>-->
+<!--      <b-img src="/img/default/logo/t.svg" class="position-absolute t"></b-img>-->
 <!--    </div>-->
+    <div class="logoset notransition">
+      <b-img src="/img/generate/logo/p.svg" class="position-absolute pgen"></b-img>
+      <b-img src="/img/generate/logo/pgear.svg" class="position-absolute pgear"></b-img>
+      <b-img src="/img/generate/logo/e.svg" class="position-absolute e"></b-img>
+      <b-img src="/img/generate/logo/s.svg" class="position-absolute s"></b-img>
+      <b-img src="/img/generate/logo/m.svg" class="position-absolute m1"></b-img>
+      <b-img src="/img/generate/logo/o.svg" class="position-absolute o"></b-img>
+      <b-img src="/img/generate/logo/m.svg" class="position-absolute m2"></b-img>
+      <b-img src="/img/generate/logo/a.svg" class="position-absolute a"></b-img>
+      <b-img src="/img/generate/logo/t.svg" class="position-absolute t"></b-img>
+    </div>
     <div class="d-flex flex-row justify-content-around promo-text" id="actions">
       <div class="promo-item align-self-end">
         <b-img id="search" src="/img/default/search.svg"/>

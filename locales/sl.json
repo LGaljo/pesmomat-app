@@ -33,8 +33,8 @@
       "A": "Izberi prvo pesem",
       "B": "Izberi drugo pesem",
       "rhyme": "Izberi tip rime",
-      "length": "Izberi dolžino pesmi",
-      "stanza": "Izberi tip kitice",
+      "length": "Izberi število kitic",
+      "stanza": "Izberi število verzov",
       "start": "Vpiši s katero vrstico naj se začne pesem"
     }
   },

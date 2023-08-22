@@ -12,6 +12,9 @@
       <div class="link-item my-2">
         <nuxt-link :to="localePath('/admin/categories')">Urejaj zvrsti</nuxt-link>
       </div>
+      <div class="link-item my-2">
+        <nuxt-link :to="localePath('/admin/stats')">Statistika</nuxt-link>
+      </div>
 
       <div class="link-item mt-5">
         <b-btn @click="logout">Odjava</b-btn>
@@ -23,7 +26,7 @@
 
 <script>
 export default {
-  name: 'minimal',
+  name: 'admin_index',
   components: {},
   computed: {},
   methods: {

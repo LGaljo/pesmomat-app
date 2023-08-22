@@ -115,7 +115,7 @@ export default {
 <style scoped lang="scss">
 .logo {
   height: calc(50px * 2);
-  width: calc(120px * 2);
+  width: calc(121px * 2);
   background: url("/img/default/logo.svg");
   background-size: contain;
 }

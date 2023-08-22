@@ -81,7 +81,6 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('user/fetchUser');
     await this.getSongs();
     this.song = this.songs[this.index]
     this.index++;

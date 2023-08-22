@@ -2,7 +2,7 @@
   <b-container>
     <b-row>
       <b-col cols="10">
-        <div v-if="songs && songs.length">
+        <div v-if="songs && songs.length && author">
 
           <div v-if="$route.query.author" class="headline text-center">
             {{ $t('songs.title', [author.lastName, author.firstName]) }}
@@ -138,6 +138,7 @@ export default {
     },
     async openSong() {
       await this.$store.dispatch('coins/reduce')
+      await this.$store.dispatch('stats/saveAction', { action: 'poem_view', id: this.songId })
       await this.$router.push(this.localePath(`/song/${this.songId}`))
     },
     scrollDown(letter) {

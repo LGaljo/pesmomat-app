@@ -146,6 +146,7 @@ export default {
         await this.$refs.audioPlayer.pause();
         this.$refs.audioPlayer.currentTime = 0;
       } else {
+        await this.$store.dispatch('stats/saveAction', { action: 'listened', id: this.song._id })
         await this.$refs.audioPlayer.play();
       }
       this.playing = !this.playing;

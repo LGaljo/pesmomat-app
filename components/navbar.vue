@@ -76,7 +76,6 @@ export default {
     }
   },
   async created() {
-    console.log(JSON.stringify(this.$config))
     await this.$store.dispatch('user/fetchUser');
     await this.$store.dispatch('coins/set')
     this.interval = setInterval(async () => {

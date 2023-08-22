@@ -1,14 +1,18 @@
 <template>
   <b-container>
+    <!-- Title -->
     <b-row>
       <b-col offset-md="2" md="8" cols="12" class="mt-5 my-3">
         <h3 class="text-center font-weight-bold page-title">{{ $t('generate.title') }}</h3>
 
-        <div style="height: 50px"></div>
+        <div style="height: 30px"></div>
       </b-col>
     </b-row>
+
+    <!-- Dropdowns -->
     <b-row>
       <b-col cols="6" class="grey-select">
+        <label for="a">{{ $t('generate.select.A') }}</label>
         <b-form-select
           v-model="selected.A"
           class="form-control"
@@ -31,6 +35,7 @@
         </b-card>
       </b-col>
       <b-col cols="6" class="grey-select">
+        <label for="b">{{ $t('generate.select.B') }}</label>
         <b-form-select
           v-model="selected.B"
           class="form-control"
@@ -51,36 +56,22 @@
           <div v-html="selected.text.B"></div>
         </b-card>
       </b-col>
-
     </b-row>
-    <b-row class="mt-4">
-      <b-col cols="6" class="mt-2 lightgrey-select">
+
+    <!-- Options -->
+    <b-row class="mt-2">
+      <b-col cols="6" class="mt-3 lightgrey-select">
+        <label for="verse">{{ $t('generate.select.length') }}</label>
         <b-form-select
-          v-model="selected.rhyme"
+          v-model="selected.verse"
           class="form-control"
           size="lg"
-          id="rhyme"
-        >
-          <b-form-select-option :value="null">{{ $t('generate.select.rhyme') }}</b-form-select-option>
-          <b-form-select-option
-            v-for="option of options.rhyme"
-            :key="'b-' + option.value"
-            :value="option.text"
-          >
-            {{ option.text }}
-          </b-form-select-option>
-        </b-form-select>
-      </b-col>
-      <b-col cols="6" class="mt-2 lightgrey-select">
-        <b-form-select
-          v-model="selected.length"
-          class="form-control"
-          size="lg"
-          id="length"
+          id="verse"
+          @change="selectRyhme"
         >
           <b-form-select-option :value="null">{{ $t('generate.select.length') }}</b-form-select-option>
           <b-form-select-option
-            v-for="option of options.length"
+            v-for="option of options.verse"
             :key="'b-' + option.value"
             :value="option.text"
           >
@@ -88,12 +79,14 @@
           </b-form-select-option>
         </b-form-select>
       </b-col>
-      <b-col cols="6" class="mt-2 lightgrey-select">
+      <b-col cols="6" class="mt-3 lightgrey-select">
+        <label for="verse">{{ $t('generate.select.stanza') }}</label>
         <b-form-select
           v-model="selected.stanza"
           class="form-control"
           size="lg"
           id="stanza"
+          @change="selectRyhme"
         >
           <b-form-select-option :value="null">{{ $t('generate.select.stanza') }}</b-form-select-option>
           <b-form-select-option
@@ -105,14 +98,45 @@
           </b-form-select-option>
         </b-form-select>
       </b-col>
+      <b-col cols="6" class="mt-3 lightgrey-select">
+        <label for="rhyme">{{ $t('generate.select.stanza') }}</label>
+        <b-form-select
+          v-model="selected.rhyme"
+          :key="counter"
+          class="form-control"
+          size="lg"
+          id="rhyme"
+          :disabled="!selected.stanza || !selected.verse"
+        >
+          <b-form-select-option :value="null">{{ $t('generate.select.rhyme') }}</b-form-select-option>
+          <b-form-select-option
+            v-for="option of options.ryhme"
+            :key="'b-' + option.value"
+            :value="option.text"
+          >
+            {{ option.text }}
+          </b-form-select-option>
+        </b-form-select>
+      </b-col>
     </b-row>
+
+    <!-- Submit button -->
     <b-row class="mt-5">
       <b-col cols="12">
         <div class="text-center">
-          <b-button size="lg" squared class="button-gen" @click="generatePoem">{{ $t('generate.create') }}</b-button>
+          <b-button
+            size="lg"
+            squared
+            class="button-gen"
+            @click="generatePoem"
+            :disabled="!selected.A || !selected.B || !selected.stanza || !selected.rhyme || !selected.verse"
+          >
+            {{ $t('generate.create') }}
+          </b-button>
         </div>
       </b-col>
     </b-row>
+
     <ModalDialog
       ref="poemdialog"
       size="lg"
@@ -161,7 +185,6 @@
         </div>
       </template>
     </ModalDialog>
-
   </b-container>
 </template>
 
@@ -170,29 +193,54 @@ import {mapGetters} from "vuex";
 import ModalDialog from "../components/ModalDialog.vue";
 
 export default {
-  name: 'index',
+  name: 'generate',
   layout: 'generate',
   components: {ModalDialog},
   data() {
     return {
+      counter: 0,
       options: {
-        stanza: [
-          {text: 'a', value: 'a'},
-          {text: 'b', value: 'b'},
-          {text: 'c', value: 'c'},
-          {text: 'd', value: 'd'},
-        ],
-        length: [
+        ryhme: [],
+        rhymes: {
+          1: [
+            { text: 'a', value: 'a' },
+          ],
+          2:
+            [
+              { text: 'a-a', value: 'a-a' },
+              { text: 'a-b', value: 'a-b' },
+            ],
+          3:
+            [
+              { text: 'a-b-a', value: 'a-b-a' },
+              { text: 'a-a-b', value: 'a-a-b' },
+              { text: 'a-b-b', value: 'a-b-b' },
+            ],
+          4:
+            [
+              { text: 'a-b-a-b', value: 'a-b-a-b' },
+              { text: 'a-b-b-a', value: 'a-b-b-a' },
+              { text: 'a-a-b-b', value: 'a-a-b-b' },
+            ],
+          5:
+            [
+              { text: 'a-b-a-b-a', value: 'a-b-a-b-a' },
+              { text: 'a-b-b-a-c', value: 'a-b-b-a-c' },
+              { text: 'a-a-b-b-c', value: 'a-a-b-b-c' },
+            ],
+        },
+        verse: [
+          {text: 1, value: 1},
+          {text: 2, value: 2},
+          {text: 3, value: 3},
           {text: 4, value: 4},
-          {text: 8, value: 8},
-          {text: 10, value: 10},
-          {text: 12, value: 12},
+          {text: 5, value: 5},
         ],
-        rhyme: [
-          {text: 'a', value: 'a'},
-          {text: 'b', value: 'b'},
-          {text: 'c', value: 'c'},
-          {text: 'd', value: 'd'},
+        stanza: [
+          {text: 1, value: 1},
+          {text: 2, value: 2},
+          {text: 3, value: 3},
+          {text: 4, value: 4},
         ],
       },
       selected: {
@@ -203,7 +251,7 @@ export default {
           B: null,
         },
         rhyme: null,
-        length: null,
+        verse: null,
         stanza: null,
       },
       generated: {
@@ -214,7 +262,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('songs/fetch', {page: 0, limit: null, noBody: true});
-    this.buyPoem()
+    // this.buyPoem()
   },
   computed: {
     ...mapGetters({
@@ -223,6 +271,14 @@ export default {
     }),
   },
   methods: {
+    selectRyhme() {
+      console.log('select ryhme')
+      if (!!this.selected.stanza && !!this.selected.verse) {
+        console.log(this.options.rhymes, this.selected.stanza, this.options.rhymes[this.selected.stanza])
+        this.options.ryhme = this.options.rhymes[this.selected.stanza]
+        this.counter++
+      }
+    },
     itemSelected(side) {
       const id = this.selected[side]?._id;
       this.$axios.$get(`/songs/${id}`)
@@ -248,20 +304,19 @@ export default {
         !!this.selected.B &&
         !!this.selected.rhyme &&
         !!this.selected.stanza &&
-        !!this.selected.length
+        !!this.selected.verse
       ) {
-        this.$refs.dialog.open()
         await this.$axios.$post('/generate', {
           A: this.selected.A._id,
           B: this.selected.B._id,
           rhyme: this.selected.rhyme,
           stanza: this.selected.stanza,
-          length: this.selected.length,
+          length: this.selected.verse,
         })
           .then((res) => {
             this.generated.title = res?.tile
             this.generated.content = res?.content
-            this.$refs.dialog.open()
+            this.$refs.poemdialog.open()
           })
       }
     },

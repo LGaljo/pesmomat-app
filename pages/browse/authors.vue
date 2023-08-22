@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     async openAuthor(author) {
+      await this.$store.dispatch('stats/saveAction', { action: 'author_view', id: author._id })
       await this.$router.push({
         path: this.localePath(`/browse/songs`),
         query: {

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import alphabet from "../../mixins/alphabet";
 
 export default {
@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     async openPeriod(period) {
+      await this.$store.dispatch('stats/saveAction', { action: 'category_view', id: period._id })
       await this.$router.push({
         path: this.localePath(`/browse/authors`),
         query: { period: period._id }

@@ -41,7 +41,7 @@ export const actions = {
           commit('setUser', res)
         })
         .catch(res => {
-          commit('set', null)
+          commit('setUser', null)
         })
     }
   },
