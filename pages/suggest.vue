@@ -4,11 +4,11 @@
       <b-col cols="12">
         <div
           class="h-100 d-flex flex-column justify-content-center"
-          @click="detectHand"
+          @mousedown="detectHand"
         >
           <div class="text-center">
             <div class="line" v-if="scanning">
-              <b-img src="/img/generate/scan.svg"></b-img>
+              <b-img src="/img/generate/scan.svg" class="w-100"></b-img>
             </div>
             <b-img src="/img/generate/hand_big.svg" class="hand"></b-img>
           </div>
@@ -94,7 +94,9 @@ export default {
       }, Math.random() * 5000 + 2000)
     },
     buyPoem() {
-      this.$refs.buydialog.open()
+      if (this.$refs.buydialog) {
+        this.$refs.buydialog.open()
+      }
     },
     async suggestPoem() {
       if (this.coins < 1) {
@@ -168,6 +170,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   filter: drop-shadow(0 0 20px map-get($generate-colours, 'accent'))
     drop-shadow(0 0 60px map-get($generate-colours, 'accent'));
   animation: animateLines 2s ease-in-out infinite;

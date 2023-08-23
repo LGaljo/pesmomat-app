@@ -39,7 +39,9 @@
 <style scoped lang="scss">
 p {
   font-size: 26px;
-  font-family: MAGIONA_DISPLAY, serif;
+  font-family: CORMORANT-500, serif;
   font-weight: 500;
+  text-align: justify;
+
 }
 </style>

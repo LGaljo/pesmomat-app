@@ -107,5 +107,9 @@
     "search": "Poišči pesem",
     "generate": "Generiraj novo pesem",
     "hand": "Prepoznaj pesem zame"
+  },
+  "popular": {
+    "title": "Pogosto iskane pesmi",
+    "views": "Ogledov"
   }
 }

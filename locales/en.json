@@ -72,5 +72,9 @@
     "nonexistent": "Poem does not exist",
     "sent": "Successfully added the poem to print queue",
     "print": "Error printing poem"
+  },
+  "popular": {
+    "title": "Frequently searched poems",
+    "views": "Views"
   }
 }
