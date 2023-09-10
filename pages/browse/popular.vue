@@ -5,12 +5,12 @@
         <div class="headline text-center">
           {{ $t('popular.title') }}
         </div>
-        <div>
-          <div v-for="item of data.stats" :key="item.poem._id" class="poem-body">
+        <div class="poem-body p-4">
+          <div v-for="item of data.stats" :key="item.poem._id" class="mb-3">
             <nuxt-link :to="localePath(`/song/${item.poem._id}`)">
-              <b>{{ item.poem.title }} ({{item.author.firstName}} {{item.author.lastName}})</b>
+              <div class="author">{{item.author.firstName}} {{item.author.lastName}}</div>
+              <b>{{ item.poem.title }}</b>
             </nuxt-link>
-            <div>{{ $t('popular.views') }}: {{ item.views }}</div>
           </div>
         </div>
       </b-col>
@@ -49,4 +49,8 @@ export default {
   border-radius: 10px;
 }
 
+.author {
+  font-size: 22px;
+  line-height: 20px;
+}
 </style>

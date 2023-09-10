@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     item_style(icon, w, h) {
-      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon), 'background-size': 'contain'}
+      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon), 'background-size': '100% 100%'}
     },
     icon_url(icon) {
       return `url('/img/${this.pagetype}/${icon}.svg')`

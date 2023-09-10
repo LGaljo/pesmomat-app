@@ -25,8 +25,8 @@ export const actions = {
   async fetch({ commit }, filters) {
     this.$axios.$get('/songs', {
       params: {
-        page: filters?.currentPage || 1,
-        limit: filters?.perPage || 500,
+        page: filters?.currentPage ?? 1,
+        limit: filters?.perPage ?? 500,
         noBody: !!filters?.noBody,
         author: filters?.author,
         period: filters?.period,

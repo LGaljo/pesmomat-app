@@ -99,7 +99,7 @@
         </b-form-select>
       </b-col>
       <b-col cols="6" class="mt-3 lightgrey-select">
-        <label for="rhyme">{{ $t('generate.select.stanza') }}</label>
+        <label for="rhyme">{{ $t('generate.select.rhyme') }}</label>
         <b-form-select
           v-model="selected.rhyme"
           :key="counter"
@@ -117,6 +117,17 @@
             {{ option.text }}
           </b-form-select-option>
         </b-form-select>
+      </b-col>
+      <b-col cols="6" class="mt-3 lightgrey-select">
+        <label for="rhyme">{{ $t('generate.select.first_line') }}</label>
+        <b-form-input
+          v-model="selected.first_line"
+          :key="counter"
+          :placeholder="$t('generate.first_line.placeholder')"
+          size="lg"
+          class="form-control text-input"
+          id="first_line"
+        />
       </b-col>
     </b-row>
 
@@ -139,16 +150,19 @@
 
     <ModalDialog
       ref="poemdialog"
-      size="lg"
+      size="xl"
       dialog-class="generate-modal"
       pagetype="generate"
     >
       <template #body>
-        <div class="modal-title text-center">
-          {{ generated.title }}
-        </div>
         <div>
-          {{ generated.content }}
+          <div v-for="stanza in generated.content">
+            <div v-for="verse in stanza" v-if="stanza.length !== 0">
+              <span class="verse">{{ verse.verse }}</span>
+              <span class="origin" v-if="verse.original_poem !== '-'">({{ verse.original_poem }})</span>
+            </div>
+            <br>
+          </div>
         </div>
       </template>
     </ModalDialog>
@@ -176,7 +190,7 @@
       @first="subtractCoins"
       @cancel="redirectBack"
       :action="$t('actions.yes')"
-      persistent
+      :persistent="true"
       pagetype="generate"
     >
       <template #body>
@@ -250,6 +264,7 @@ export default {
           A: null,
           B: null,
         },
+        first_line: null,
         rhyme: null,
         verse: null,
         stanza: null,
@@ -307,16 +322,20 @@ export default {
         !!this.selected.verse
       ) {
         await this.$axios.$post('/generate', {
-          A: this.selected.A._id,
-          B: this.selected.B._id,
-          rhyme: this.selected.rhyme,
-          stanza: this.selected.stanza,
-          length: this.selected.verse,
+          poem1_title: this.selected.A.title,
+          poem2_title: this.selected.B.title,
+          number_of_stanzas: this.selected.stanza,
+          rhyme_scheme: this.selected.rhyme,
+          number_of_verses_per_stanza: this.selected.verse,
+          first_line: this.selected.first_line,
         })
           .then((res) => {
-            this.generated.title = res?.tile
-            this.generated.content = res?.content
-            this.$refs.poemdialog.open()
+            if (res === 'Error while generating poem') {
+              this.$toast.error('Napaka pri generiranju pesmi', {duration: 2500})
+            } else {
+              this.generated.content = res
+              this.$refs.poemdialog.open()
+            }
           })
       }
     },
@@ -351,4 +370,12 @@ export default {
   color: #FFE5B8;
 }
 
+.verse {
+  font-family: ARVO-700, serif;
+}
+
+.origin {
+  font-family: ARVO-ITALIC, serif;
+  font-size: 16px;
+}
 </style>

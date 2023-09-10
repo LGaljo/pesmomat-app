@@ -35,7 +35,10 @@
       "rhyme": "Izberi tip rime",
       "length": "Izberi število kitic",
       "stanza": "Izberi število verzov",
-      "start": "Vpiši s katero vrstico naj se začne pesem"
+      "first_line": "Vpiši prvo vrstico pesmi"
+    },
+    "first_line": {
+      "placeholder": "Vpiši besedilo"
     }
   },
   "periods": {

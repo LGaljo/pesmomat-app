@@ -1,8 +1,8 @@
 <template>
   <b-container>
     <b-row>
-      <b-col cols="10">
-        <div v-if="songs && songs.length && author">
+      <b-col cols="10" offset="1">
+        <div v-if="songs && songs.length">
 
           <div v-if="$route.query.author" class="headline text-center">
             {{ $t('songs.title', [author.lastName, author.firstName]) }}
@@ -20,12 +20,14 @@
           >
             <div
               @click="openSongRequest(song)"
-              class="list-item hover-underline"
+              class="list-item hover-underline p-3"
             >
-              {{ song.title }}
+              <div class="author">{{song.author.firstName}} {{song.author.lastName}}</div>
+              <div>{{ song.title }}</div>
             </div>
           </div>
         </div>
+
         <div v-else class="text-center">
           <div v-if="$route.query.search" class="no_results">
             <div>{{ $t('songs.search_none') }}</div>
@@ -38,6 +40,7 @@
         </div>
       </b-col>
     </b-row>
+
     <div class="letter-box">
       <div
         v-if="songs.length > 8"
@@ -172,5 +175,13 @@ export default {
   padding: 20px;
   font-weight: 600;
   line-height: 1;
+}
+
+.author {
+  text-transform: none;
+  font-size: 22px;
+  line-height: 36px;
+  font-weight: 500;
+  font-family: Playfair Display, serif !important;
 }
 </style>

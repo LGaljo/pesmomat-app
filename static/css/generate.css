@@ -5,9 +5,9 @@ body {
 }
 
 .logo {
-  height: 50px;
-  width: 121px;
-  background: url("/img/generate/logo.svg");
+  height: 40px;
+  width: 235px;
+  background: url("/img/generate/PESMOMAT-ime.svg");
   background-size: contain;
 }
 

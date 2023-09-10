@@ -12,7 +12,22 @@
     "none": "No authors to show"
   },
   "generate": {
-    "title": "Generate poem"
+    "buy": "To create a new poem it will cost one coin. Deal??",
+    "create": "Generate",
+    "title": "Choose two poems and new one will be generated for you",
+    "songA": "Poem A",
+    "songB": "Poem B",
+    "select": {
+      "A": "Select first poem",
+      "B": "Select second poem",
+      "rhyme": "Choose rhyme type",
+      "length": "Choose number of verses",
+      "stanza": "Izberi število verzov",
+      "first_line": "Write down first line of poem"
+    },
+    "first_line": {
+      "placeholder": "Write text"
+    }
   },
   "periods": {
     "title": "Periods",
