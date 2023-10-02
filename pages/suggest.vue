@@ -8,14 +8,14 @@
         >
           <div class="text-center">
             <div class="line" v-if="scanning">
-              <b-img src="/img/generate/scan.svg" class="w-100"></b-img>
+              <b-img src="/img/generate/scan.png" class="w-100"></b-img>
             </div>
-            <b-img src="/img/generate/hand_big.svg" class="hand"></b-img>
+            <b-img src="/img/generate/hand_big.png" class="hand"></b-img>
           </div>
 
           <div class="d-flex flex-column justify-content-center align-items-center action-background">
             <div id="suggest-text" class="text-center font-weight-bold">{{ $t('suggest.title') }}</div>
-            <b-img src="/img/generate/gears_bottom.svg" class="w-100 mt-4"></b-img>
+            <b-img src="/img/generate/gears_bottom.png" class="w-100 mt-4"></b-img>
           </div>
         </div>
       </b-col>

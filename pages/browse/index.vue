@@ -2,15 +2,15 @@
   <b-container>
     <b-row>
       <b-col cols="12" class="my-3 browse-bg px-0">
-        <b-img src="/img/default/gears_top_14.svg" class="w-100 mb-4" />
+        <b-img src="/img/default/gears_top_14.png" class="w-100 mb-4" />
         <div class="p-2 text-center">
           <div class="cursor-pointer" @click="openSearchDialog">
             <div class="search_title pt-3">{{ $t('browse.input_text') }}</div>
-            <b-img src="/img/default/search_green.svg" class="my-4"/>
+            <b-img src="/img/default/search_green.png" class="my-4"/>
           </div>
 
           <div class="position-relative pb-4">
-            <b-img src="/img/default/gears_title.svg" class="my-4 w-100 position-absolute" style="top: 0; left: 0;"/>
+            <b-img src="/img/default/gears_title.png" class="my-4 w-100 position-absolute" style="top: 0; left: 0;"/>
             <div class="search_title pt-3 text-uppercase" style="padding-top: 2rem !important;">{{ $t('browse.or') }}</div>
           </div>
 
@@ -26,7 +26,7 @@
           </div>
 
         </div>
-        <b-img src="/img/default/gears_bottom_14.svg" class="w-100 mt-4 position-absolute" style="bottom: 0;"/>
+        <b-img src="/img/default/gears_bottom_14.png" class="w-100 mt-4 position-absolute" style="bottom: 0;"/>
       </b-col>
     </b-row>
     <ModalDialog

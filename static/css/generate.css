@@ -1,13 +1,15 @@
 body {
   color: #FFE5B8 !important;
-  background-image: url("/img/generate/background.svg") !important;
+  background-image: url("/img/generate/background.png") !important;
+  background-repeat: repeat;
+  background-size: contain;
   font-family: 'ARVO-700', serif !important;
 }
 
 .logo {
   height: 40px;
   width: 235px;
-  background: url("/img/generate/PESMOMAT-ime.svg");
+  background: url("/img/generate/PESMOMAT-ime.png");
   background-size: contain;
 }
 

@@ -114,9 +114,9 @@ export default {
 
 <style scoped lang="scss">
 .logo {
-  height: calc(50px * 2);
+  height: calc(21px * 2);
   width: calc(121px * 2);
-  background: url("/img/default/logo.svg");
+  background: url("/img/default/PESMOMAT-ime.png") no-repeat;
   background-size: contain;
 }
 

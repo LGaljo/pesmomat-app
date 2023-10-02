@@ -1,13 +1,15 @@
 body {
   color: #006867 !important;
-  background-image: url("/img/default/background.svg") !important;
+  background-image: url("/img/default/background.png") !important;
+  background-repeat: repeat;
+  background-size: contain;
   font-family: 'Playfair Display', serif !important;
 }
 
 .logo {
   height: 40px;
   width: 235px;
-  background: url("/img/default/PESMOMAT-ime.svg");
+  background: url("/img/default/PESMOMAT-ime.png");
   background-size: contain;
 }
 

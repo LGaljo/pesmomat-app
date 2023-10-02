@@ -3,7 +3,7 @@
     <b-row>
       <b-col cols="10">
         <div v-if="period && $route.query.period">
-          <div class="headline text-center">{{ $t('authors.title', [period.name]) }}</div>
+          <div class="headline text-center">{{ period.name }}</div>
 
           <div
             v-for="author of authors"

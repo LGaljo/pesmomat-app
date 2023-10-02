@@ -112,7 +112,7 @@ export default {
       return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon)}
     },
     icon_url(icon) {
-      return `url('/img/default/${icon}.svg')`
+      return `url('/img/default/${icon}.png')`
     },
     changeLang(locale) {
       this.currentLang = locale
