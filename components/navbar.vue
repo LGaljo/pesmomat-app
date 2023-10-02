@@ -92,7 +92,7 @@ export default {
       return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon), 'background-size': '100% 100%'}
     },
     icon_url(icon) {
-      return `url('/img/${this.pagetype}/${icon}.svg')`
+      return `url('/img/${this.pagetype}/${icon}.png')`
     },
     logout() {
       this.$store.dispatch('user/logoutUser');
