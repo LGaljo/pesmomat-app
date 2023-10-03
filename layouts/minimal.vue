@@ -38,16 +38,16 @@ export default {
 //}
 
 body {
-  background: lightgray;
+  //background: lightgray;
   font-family: 'oblik-bold', sans-serif;
 }
 
 .custom-nav {
-  background: lightgray !important;
+  //background: lightgray !important;
 }
 
 .no-border > .card {
   border: none;
-  background: lightgray !important;
+  //background: lightgray !important;
 }
 </style>
