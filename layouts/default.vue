@@ -17,6 +17,7 @@ import navbar from "../components/navbar";
 import Keyboard from "../components/Keyboard.vue";
 
 export default {
+  name: 'default_layout',
   components: {Keyboard, navbar},
   head () {
     return {
