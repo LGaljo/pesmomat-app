@@ -2,7 +2,7 @@ body {
   color: #FFE5B8 !important;
   background-image: url("/img/generate/background.png") !important;
   background-repeat: repeat;
-  background-size: contain;
+  background-size: 10%;
   font-family: 'ARVO-700', serif !important;
 }
 
