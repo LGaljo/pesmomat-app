@@ -1,12 +1,19 @@
 <template>
   <div v-if="song">
-    <b-card>
-      <b-card-body class="text-center">
+    <b-card class="w-100 h-100">
+      <b-card-body>
         <div :class="{'content-overflow': !limit}" class="thin-scrollbar">
-          <div class="author">{{ song.author.lastName }} {{ song.author.firstName }}</div>
-          <div class="title">{{ song.title }}</div>
+          <div class="text-center">
+            <div class="author">{{ song.author.lastName }} {{ song.author.firstName }}</div>
+            <div class="title">{{ song.title }}</div>
+          </div>
 
-          <b-card-text class="poem-body mt-3 pb-3" v-html="currentContent"></b-card-text>
+
+          <b-card-text class="poem-body mt-3 pb-3">
+            <div class="d-flex justify-content-center">
+              <div v-html="currentContent"></div>
+            </div>
+          </b-card-text>
         </div>
 
         <div v-if="!hideActions" class="mt-4">
@@ -20,9 +27,9 @@
 <!--          </span>-->
 
           <div class="d-flex flex-row justify-content-center">
-            <div :style="item_style('speaker', 56, 50)" class="icon-button mx-3" :class="{ active: playing }" @click="play"></div>
-            <div :style="item_style('qr_code', 51, 50)" class="icon-button mx-3" @click="openQRModal"></div>
-            <div :style="item_style('print', 51, 50)" class="icon-button mx-3" @click.stop.prevent="printAction"></div>
+            <div :style="item_style('speaker', 56, 50)" class="icon-button mx-5" :class="{ active: playing }" @click="play"></div>
+            <div :style="item_style('qr_code', 51, 50)" class="icon-button mx-5" @click="openQRModal"></div>
+            <div :style="item_style('print', 51, 50)" class="icon-button mx-5" @click.stop.prevent="printAction"></div>
           </div>
 
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
@@ -175,12 +182,13 @@ export default {
 @import "scss/custom";
 
 .content-overflow {
-  max-height: 67vh;
+  max-height: calc(100vh - 330px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .title {
-  font-size: 37px;
+  font-size: 42px;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   margin: 0;
@@ -188,14 +196,14 @@ export default {
 }
 
 .author {
-  font-size: 32px;
+  font-size: 36px;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   color: map-get($default-colours, 'text') !important;
 }
 
 .poem-body {
-  font-size: 28px;
+  font-size: 34px;
   font-family: CORMORANT-500, serif;
   height: 100%;
   color: map-get($default-colours, 'text') !important;

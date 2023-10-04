@@ -4,7 +4,7 @@
       <b-col cols="10" offset="1">
         <div v-if="songs && songs.length">
 
-          <div v-if="$route.query.author" class="headline text-center">
+          <div v-if="$route.query.search" class="headline text-center">
             {{ $t('songs.title', [author.lastName, author.firstName]) }}
           </div>
           <div v-if="$route.query.search" class="headline text-center">
@@ -22,7 +22,7 @@
               @click="openSongRequest(song)"
               class="list-item hover-underline p-3"
             >
-              <div class="author">{{song.author.firstName}} {{song.author.lastName}}</div>
+              <div v-if="$route.query.search" class="author">{{song.author.firstName}} {{song.author.lastName}}</div>
               <div>{{ song.title }}</div>
             </div>
           </div>

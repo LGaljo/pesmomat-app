@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <b-col offset="1" cols="10">
+      <b-col cols="12">
         <div class="headline">O projektu</div>
         <p>
           Ideja za projekt Pesmomat - avtomat za poezijo je nastal v okviru portala za književnost in mišljenje -
@@ -38,7 +38,7 @@
 
 <style scoped lang="scss">
 p {
-  font-size: 26px;
+  font-size: 32px;
   font-family: CORMORANT-500, serif;
   font-weight: 500;
   text-align: justify;

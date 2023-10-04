@@ -12,6 +12,7 @@
           :hide-actions="true"
           :limit="20"
           class="no-border"
+          style="min-width: 75vw; min-height: 80vh"
         />
       </transition>
     </div>

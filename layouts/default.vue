@@ -8,7 +8,6 @@
       </b-row>
     </b-container>
 
-    <div class="bottom-padding" />
     <Keyboard />
   </div>
 </template>
