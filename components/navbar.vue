@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav">
+    <nav class="navbar navbar-expand-lg custom-nav">
       <b-container fluid>
         <nuxt-link class="navbar-brand" href="/" :to="localePath(`/`)">
           <div class="logo"></div>

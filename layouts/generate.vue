@@ -11,7 +11,7 @@
 import navbar from "../components/navbar";
 
 export default {
-  name: 'minimal',
+  name: 'generate_layout',
   components: {navbar},
   head () {
     return {
