@@ -6,7 +6,7 @@
         <div class="p-2 text-center">
           <div class="cursor-pointer" @click="openSearchDialog">
             <div class="search_title pt-3">{{ $t('browse.input_text') }}</div>
-            <b-img src="/img/default/search_green.png" class="my-4"/>
+            <b-img src="/img/default/search_green.png" class="my-4" id="magnifier"/>
           </div>
 
           <div class="position-relative pb-4">
@@ -120,4 +120,10 @@ export default {
 .cat_btn {
   width: 65%;
 }
+
+#magnifier {
+  width: 300px;
+  height: auto;
+}
+
 </style>

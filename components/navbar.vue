@@ -89,10 +89,10 @@ export default {
   },
   methods: {
     item_style(icon, w, h) {
-      return {'height' : `${h}px`, 'width' : `${w}px`, 'background-image': this.icon_url(icon), 'background-size': '100% 100%'}
+      return {'height' : `${h}px`, 'width' : `${w}px`, 'background': this.icon_url(icon) }
     },
     icon_url(icon) {
-      return `url('/img/${this.pagetype}/${icon}.png')`
+      return `url('/img/${this.pagetype}/${icon}.png') 0% 0% / 100% 100% no-repeat`
     },
     logout() {
       this.$store.dispatch('user/logoutUser');
