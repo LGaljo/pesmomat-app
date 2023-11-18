@@ -91,9 +91,14 @@ export default {
         this.pos.y = event?.clientY
       }
       // If the change is greater than 100 in either dir then start scanning
-      if (Math.abs(this.pos.x - event?.clientX) < 100 ||
-        Math.abs(this.pos.y - event?.clientY) < 100 ||
-        this.scanning) {
+      console.log('og: ', this.pos.x, this.pos.y)
+      console.log('sc: ', event?.clientX, event?.clientY)
+      console.log('abs: ', Math.abs(this.pos.x - event?.clientX), Math.abs(this.pos.y - event?.clientY))
+      if (Math.abs(this.pos.x - event?.clientX) < 30 &&
+        Math.abs(this.pos.y - event?.clientY) < 30) {
+        return
+      }
+      if (this.scanning) {
         return
       }
       if (this.coins < 1) {
