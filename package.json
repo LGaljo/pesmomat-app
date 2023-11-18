@@ -13,7 +13,7 @@
     "build:prod": "nuxt build --dotenv .env.prod",
     "start:dev": "nuxt start --dotenv .env",
     "start:rpi": "nuxt start --dotenv .env.rpi",
-    "start:prod": "nuxt start --dotenv .env.prod",
+    "start:prod": "npx cross-env ENV=production ENABLE_STATS=true ENABLE_GENERATE=false ADMIN=false nuxt start --dotenv .env.prod",
     "start:prod2": "npx cross-env ENV=production ENABLE_STATS=true ENABLE_GENERATE=true ADMIN=false nuxt start",
     "generate": "nuxt generate --dotenv .env"
   },

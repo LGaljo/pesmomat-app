@@ -33,7 +33,7 @@
           </div>
 
           <audio :id="`audioPlayer-${song._id}`" ref="audioPlayer" preload @ended="playing = false">
-            <source :src="`${apiUrl}/songs/play/${song._id}`" type="audio/mpeg">
+            <source :src="`${apiUrl}/songs/play/${song.language}/${song._id}`" type="audio/mpeg">
             Your browser does not support the audio tag.
           </audio>
         </div>

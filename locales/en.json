@@ -1,71 +1,26 @@
 {
-  "title": "Songmatic",
   "actions": {
-    "search": "Search",
     "back": "Back",
-    "understand": "I understand",
     "cancel": "Cancel",
-    "edit": "Edit"
+    "edit": "Edit",
+    "generate": "Generate",
+    "ok": "OK",
+    "search": "Search",
+    "understand": "I understand",
+    "yes": "Yes"
   },
   "authors": {
-    "title": "Poets of period {0}",
-    "none": "No authors to show"
+    "none": "No authors to show",
+    "popular": "Popular",
+    "title": "Poets of period {0}"
   },
-  "generate": {
-    "buy": "To create a new poem it will cost one coin. Deal??",
-    "create": "Generate",
-    "title": "Choose two poems and new one will be generated for you",
-    "songA": "Poem A",
-    "songB": "Poem B",
-    "select": {
-      "A": "Select first poem",
-      "B": "Select second poem",
-      "rhyme": "Choose rhyme type",
-      "length": "Choose number of verses",
-      "stanza": "Izberi število verzov",
-      "first_line": "Write down first line of poem"
-    },
-    "first_line": {
-      "placeholder": "Write text"
-    }
-  },
-  "periods": {
-    "title": "Periods",
-    "none": "No periods to show"
-  },
-  "songs": {
-    "title": "Poems by {0} {1}",
-    "none": "No poems to show",
-    "read_lang": "Read in other languages:"
-  },
-  "languages": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "hr": "Croatian",
-    "hu": "Hungarian",
-    "it": "Italian",
-    "sl": "Slovene"
-  },
-  "navbar": {
-    "admin": {
-      "add": "Add poem",
-      "songs": "Poems",
-      "authors": "Authors",
-      "categories": "Period",
-      "logout": "Log out"
-    }
-  },
-  "modals": {
-    "insufficient": {
-      "title": "Insufficient amount of tokens available",
-      "body": "To view, play and print poem please insert a coin."
-    },
-    "purchase": {
-      "title": "Purchase",
-      "body": "A view of this poem will use a coin inserted."
-    }
+  "browse": {
+    "choose_cat": "Choose category",
+    "input_text": "Write the title or author of the poem",
+    "or": "or",
+    "periods": "Search categories",
+    "placeholder": "Write the title or author of the poem",
+    "popular": "Popular poems"
   },
   "dateTimeFormats": {
     "dayMonth": {
@@ -85,11 +40,79 @@
   "errors": {
     "insufficient": "Insufficient funds",
     "nonexistent": "Poem does not exist",
-    "sent": "Successfully added the poem to print queue",
-    "print": "Error printing poem"
+    "print": "Error printing poem",
+    "sent": "Successfully added the poem to print queue"
+  },
+  "generate": {
+    "buy": "To create a new poem it will cost one coin. Deal??",
+    "create": "Generate",
+    "first_line": {
+      "placeholder": "Write text"
+    },
+    "select": {
+      "A": "Select first poem",
+      "B": "Select second poem",
+      "first_line": "Write down first line of poem",
+      "length": "Choose number of verses",
+      "rhyme": "Choose rhyme type",
+      "stanza": "Izberi število verzov"
+    },
+    "songA": "Poem A",
+    "songB": "Poem B",
+    "title": "Choose two poems and new one will be generated for you"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "hr": "Croatian",
+    "hu": "Hungarian",
+    "it": "Italian",
+    "sl": "Slovene"
+  },
+  "modals": {
+    "insufficient": {
+      "body": "To view, play and print poem please insert a coin.",
+      "title": "Insufficient amount of tokens available"
+    },
+    "purchase": {
+      "body": "A view of this poem will use a coin inserted.",
+      "title": "Purchase"
+    }
+  },
+  "navbar": {
+    "admin": {
+      "add": "Add poem",
+      "authors": "Authors",
+      "categories": "Period",
+      "logout": "Log out",
+      "songs": "Poems"
+    }
+  },
+  "periods": {
+    "none": "No periods to show",
+    "title": "Periods"
   },
   "popular": {
     "title": "Frequently searched poems",
     "views": "Views"
-  }
+  },
+  "promo": {
+    "generate": "Generate new poem",
+    "hand": "Suggest a poem for you",
+    "search": "Search a poem"
+  },
+  "songs": {
+    "none": "No poems to show",
+    "read_lang": "Read in other languages:",
+    "search_none": "Search did not return results",
+    "search_title": "Search results",
+    "title": "Poems by {0} {1}"
+  },
+  "suggest": {
+    "buy": "It will cost you one coin to suggest a song. Deal?",
+    "title": "Poems {0} {1}"
+  },
+  "title": "Songmatic"
 }

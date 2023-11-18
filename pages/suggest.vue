@@ -4,7 +4,7 @@
       <b-col cols="12">
         <div
           class="h-100 d-flex flex-column justify-content-center"
-          @mousedown="detectHand"
+          @mousemove="detectHand"
         >
           <div class="text-center">
             <div class="line" v-if="scanning">
@@ -67,6 +67,10 @@ export default {
   data() {
     return {
       scanning: false,
+      pos: {
+        x: 0,
+        y: 0
+      }
     }
   },
   async mounted() {
@@ -80,7 +84,18 @@ export default {
     }),
   },
   methods: {
-    detectHand() {
+    detectHand(event) {
+      // Set first position (button)
+      if (this.pos.x === 0) {
+        this.pos.x = event?.clientX
+        this.pos.y = event?.clientY
+      }
+      // If the change is greater than 100 in either dir then start scanning
+      if (Math.abs(this.pos.x - event?.clientX) < 100 ||
+        Math.abs(this.pos.y - event?.clientY) < 100 ||
+        this.scanning) {
+        return
+      }
       if (this.coins < 1) {
         this.$refs.fundsdialog.open()
         return

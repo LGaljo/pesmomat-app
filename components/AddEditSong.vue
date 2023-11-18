@@ -106,7 +106,7 @@
     </b-button>
 
     <audio v-if="id" :id="`audioPlayer-${id}`" ref="audioPlayer" @ended="playing = false">
-      <source :src="`${apiUrl}/songs/play/${id}`" type="audio/mpeg">
+      <source :src="`${apiUrl}/songs/play/${song.language}/${id}`" type="audio/mpeg">
       Your browser does not support the audio tag.
     </audio>
 
