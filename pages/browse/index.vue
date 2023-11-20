@@ -36,9 +36,10 @@
       pagetype="default"
       dialog-class="default-modal"
       @hidden="$eventBus.$emit('keyboard', false)"
+      @shown="$refs.searchinput.$el.focus()"
     >
       <template #body>
-        <b-form-input class="default-input" v-model="term" :placeholder="$t('browse.placeholder')"></b-form-input>
+        <b-form-input ref="searchinput" class="default-input" v-model="term" :placeholder="$t('browse.placeholder')"></b-form-input>
       </template>
     </ModalDialog>
   </b-container>
@@ -47,6 +48,7 @@
 <script>
 import DefaultButton from "../../components/DefaultButton.vue";
 import ModalDialog from "../../components/ModalDialog.vue";
+import Vue from "vue";
 
 export default {
   name: "browse",

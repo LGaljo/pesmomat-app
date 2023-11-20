@@ -9,6 +9,7 @@
     :no-close-on-backdrop="persistent"
     :no-close-on-esc="persistent"
     @hidden="onHidden"
+    @shown="onShown"
   >
     <div :slot="'default'">
       <slot name="body"></slot>
@@ -83,6 +84,9 @@ export default {
     },
     onHidden() {
       this.$emit('hidden')
+    },
+    onShown() {
+      this.$emit('shown')
     },
     onFirst() {
       this.$emit('first')
