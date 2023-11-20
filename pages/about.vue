@@ -29,6 +29,13 @@
         </p>
       </b-col>
     </b-row>
+    <b-row class="bg-white">
+      <div class="d-flex flex-row justify-content-around w-100 my-3">
+        <b-img src="/img/FRI_02c.png" height="74"></b-img>
+        <b-img src="/img/MVZI.png" height="54" class="mt-2"></b-img>
+        <b-img src="/img/ESS.jpg" height="74"></b-img>
+      </div>
+    </b-row>
   </b-container>
 </template>
 

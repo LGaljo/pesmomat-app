@@ -98,12 +98,20 @@ export default {
   border-radius: 0;
 }
 
+.hg-row:not(:last-child){
+  margin-bottom: 12px !important;
+}
+
 .simple-keyboard.hg-layout-default,
 .hg-button.hg-default {
   background: map-get($default-colours, 'kb_btn');
   color: map-get($default-colours, 'kb_text');
   font-family: MAGIONA_DISPLAY, serif;
   font-size: 1.5rem;
+}
+
+.hg-button {
+  height: 56px !important;
 }
 
 .simple-keyboard.hg-layout-default,
