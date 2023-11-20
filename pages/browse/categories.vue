@@ -7,7 +7,7 @@
           <div
             v-for="period of periods"
             class="author mb-3"
-            :key="period"
+            :key="period._id"
             :id="period[0]"
           >
             <div @click="openPeriod(period)" class="list-item hover-underline">{{ period.name }}</div>

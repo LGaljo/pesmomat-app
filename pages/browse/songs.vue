@@ -4,10 +4,10 @@
       <b-col cols="10" offset="1">
         <div v-if="songs && songs.length">
 
-          <div v-if="$route.query.search" class="headline text-center">
+          <div v-if="$route.query.author && author" class="headline text-center">
             {{ $t('songs.title', [author.lastName, author.firstName]) }}
           </div>
-          <div v-if="$route.query.search" class="headline text-center">
+          <div v-else-if="$route.query.search" class="headline text-center">
             {{ $t('songs.search_title') }}
           </div>
 

@@ -8,7 +8,7 @@
         <div class="poem-body p-4">
           <div v-for="item of data.stats" :key="item.poem._id" class="mb-3">
             <nuxt-link v-if="item" :to="localePath(`/song/${item.poem._id}`)">
-              <div class="author">{{item.author.firstName}} {{item.author.lastName}}</div>
+              <div class="author" v-if="item.author">{{item.author.firstName}} {{item.author.lastName}}</div>
               <b>{{ item.poem.title }}</b>
             </nuxt-link>
           </div>
@@ -40,9 +40,7 @@ export default {
 @import "scss/custom";
 
 .poem-body {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-size: 30px;
+  font-size: 36px;
   font-family: CORMORANT-500, serif;
   color: map-get($default-colours, 'text') !important;
   background-color: map-get($default-colours, 'background') !important;

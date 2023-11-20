@@ -8,7 +8,6 @@
             <div class="title">{{ song.title }}</div>
           </div>
 
-
           <b-card-text class="poem-body mt-3 pb-3">
             <div class="d-flex justify-content-center">
               <div v-html="currentContent"></div>
