@@ -7,7 +7,7 @@
         </div>
         <div class="poem-body p-4">
           <div v-for="item of data.stats" :key="item.poem._id" class="mb-3">
-            <nuxt-link :to="localePath(`/song/${item.poem._id}`)">
+            <nuxt-link v-if="item" :to="localePath(`/song/${item.poem._id}`)">
               <div class="author">{{item.author.firstName}} {{item.author.lastName}}</div>
               <b>{{ item.poem.title }}</b>
             </nuxt-link>
@@ -42,7 +42,7 @@ export default {
 .poem-body {
   padding-top: 4px;
   padding-bottom: 4px;
-  font-size: 24px;
+  font-size: 30px;
   font-family: CORMORANT-500, serif;
   color: map-get($default-colours, 'text') !important;
   background-color: map-get($default-colours, 'background') !important;
@@ -50,7 +50,7 @@ export default {
 }
 
 .author {
-  font-size: 22px;
+  font-size: 26px;
   line-height: 20px;
 }
 </style>
