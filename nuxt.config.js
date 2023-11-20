@@ -58,7 +58,8 @@ export default {
     '~/plugins/click-outside.js',
     '~/plugins/axios.js',
     '~/plugins/veevalidate.js',
-    '~/plugins/eventbus'
+    '~/plugins/eventbus.js',
+    '~/plugins/touch-event.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -5,6 +5,7 @@
         <div
           class="h-100 d-flex flex-column justify-content-center"
           @mousemove="detectHand"
+          v-touch:swipe="detectHand"
         >
           <div class="text-center">
             <div class="line" v-if="scanning">
@@ -91,11 +92,11 @@ export default {
         this.pos.y = event?.clientY
       }
       // If the change is greater than 100 in either dir then start scanning
-      console.log('og: ', this.pos.x, this.pos.y)
-      console.log('sc: ', event?.clientX, event?.clientY)
-      console.log('abs: ', Math.abs(this.pos.x - event?.clientX), Math.abs(this.pos.y - event?.clientY))
-      if (Math.abs(this.pos.x - event?.clientX) < 30 &&
-        Math.abs(this.pos.y - event?.clientY) < 30) {
+      // console.log('og: ', this.pos.x, this.pos.y)
+      // console.log('sc: ', event?.clientX, event?.clientY)
+      // console.log('abs: ', Math.abs(this.pos.x - event?.clientX), Math.abs(this.pos.y - event?.clientY))
+      if (Math.abs(this.pos.x - event?.clientX) < 10 &&
+        Math.abs(this.pos.y - event?.clientY) < 10) {
         return
       }
       if (this.scanning) {
